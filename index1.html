@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aiceberg Mind - Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+<canvas id="particles-background"></canvas>
+
+  <style>
+    :root {
+      --glacier-blue: #5EE4C3;
+      --ice-cyan: #3AC8F5;
+      --twilight: #a6c1ee;
+      --deep-night: #0F2B3A;
+      --frost-white: #F5F9FF;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      font-family: 'Inter', sans-serif;
+	  font-family: "IBM Plex Sans", sans-serif;
+    }
+
+
+  .ibm-plex-sans {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+}
+
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #0f0f0f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-controls {
+  margin-top: 2rem;
+  background: rgba(30,40,60,0.85);
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.preloader-controls label {
+  color: #fff;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.preloader-controls input[type="range"] {
+  width: 200px;
+  accent-color: #5EE4C3;
+  margin-top: 0.5rem;
+}
+
+.preloader-controls span {
+  margin-left: 0.5rem;
+  font-weight: bold;
+  color: #5EE4C3;
+  font-size: 1.1rem;
+}
+
+#startBtn {
+  margin-top: 1rem;
+  padding: 0.7rem 2.2rem;
+  background: linear-gradient(90deg, #5EE4C3 0%, #3AC8F5 100%);
+  color: #0F2B3A;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(90,220,255,0.15);
+  transition: background 0.2s, color 0.2s;
+}
+
+#startBtn:hover {
+  background: linear-gradient(90deg, #3AC8F5 0%, #5EE4C3 100%);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .preloader-controls {
+    padding: 1.2rem 1rem;
+    width: 90vw;
+  }
+  .preloader-controls input[type="range"] {
+    width: 120px;
+  }
+}
+
+
+
+
+#preloader .preloader-logo {
+  width: 160px;
+  max-width: 30vw;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 8px #fff); /* effetto neon */
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#preloader .preloader-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index:10;
+}
+
+#iceberg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform-origin: center center;
+  background-color: #2b2d42; /* fallback se il canvas non disegna subito */
+}
+
+.hero-text {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  transition: opacity 1s ease, transform 1s ease, color 0.8s ease;
+}
+
+.hero-text-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.horizon-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4.5px;
+  background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(90,220,255,0.5), rgba(255,255,255,0.2));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scroll-indicator {
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translateY(-50%);
+  height: 250px;
+  width: 4px;
+  background-color: #222; /* linea verticale */
+  z-index: 20;
+  opacity: 0.6;
+}
+
+.scroll-text {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform-origin: right center;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  color: #222;
+  opacity: 0.8;
+  pointer-events: none;
+  user-select: none;
+}
+
+.scroll-box {
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  background-color: #5EE4C3; /* rettangolino animato */
+  border-radius: 3px;
+  animation: scrollDown 2.5s infinite ease-in-out;
+}
+
+@keyframes scrollDown {
+  0%   { top: 0; opacity: 1; }
+  50%  { top: 250px; opacity: 0.4; }
+  100% { top: 0; opacity: 1; }
+}
+
+.main-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 1rem 2rem;
+  z-index: 100;
+  transform: translateY(-100%);
+  transition: transform 0.6s ease;
+}
+
+.main-menu.visible {
+  transform: translateY(0);
+}
+
+#wordCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+    #particles-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+  width: 100vw;
+  height: 100vh;
+        z-index: 15;
+		  pointer-events: none;      
+  background: transparent;
+    }
+
+    section {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align:left;
+      z-index: 1;
+
+    }
+
+    .parallax-section {
+      text-align: center;
+      padding: 4rem;
+      z-index: 2;
+    }
+
+    .parallax-image {
+      position: absolute;
+      width: 60vw;
+      max-width: 800px;
+      z-index: 2;
+      opacity: 0.2;
+    }
+
+    .parallax-text {
+      z-index: 2;
+      font-size: 2rem;
+      max-width: 60vw;
+    }
+
+#penguin-canvas {
+  width: 400px;     /* come viene disegnato a schermo */
+  height: auto;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 300;
+   cursor: grab;
+}
+
+#penguin-canvas.dragging {
+  cursor: grabbing;
+}
+
+
+
+.wordcanvas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: transparent;
+}
+
+.word {
+  font-size: clamp(1rem, 2vw, 3rem);
+  cursor: pointer;
+  color: var(--ice-cyan);
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.word:hover {
+  transform: scale(1.2);
+  color: var(--glacier-blue);
+}
+
+
+
+  </style>
+
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+	<canvas id="penguin-canvas" width="1000" height="1000"></canvas>
+<div id="preloader">
+<div class="logo logotype preloader-logo">
+  <img src="images/logo/logotext.svg" alt="Logo">
+</div>
+
+<div class="spinner"></div>
+<p style="color: white; font-size: 1.1rem; margin-bottom: 1rem; text-align: center;">
+  Craft your iceberg before diving in
+</p>
+  <div class="preloader-controls">
+    <label>
+      Nodes
+      <input type="range" id="nodesRange" min="15" max="300" value="15">
+      <span id="nodesValue">15</span>
+    </label>
+    <label>
+      Line Distance
+      <input type="range" id="distanceRange" min="250" max="550" value="200">
+      <span id="distanceValue">200</span>
+    </label>
+    <button id="startBtn">DIVE IN</button>
+
+  </div>
+  
+</div>
+  <canvas id="particles-background"></canvas>
+<header class="main-menu">
+  <nav>
+    <div class="wordcanvas">
+      <span class="word" data-target="#mission">Mission</span>
+      <span class="word" data-target="#values">Values</span>
+      <span class="word" data-target="#digital">Digital</span>
+      <span class="word" data-target="#story">Storytelling</span>
+      <span class="word" data-target="#future">Future</span>
+    </div>
+  </nav>
+</header>
+<script>
+// Scroll on click
+document.querySelectorAll(".word").forEach(word => {
+  word.addEventListener("click", () => {
+    const target = document.querySelector(word.dataset.target);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});
+gsap.from(".word", {
+  opacity: 0,
+  scale: 0.5,
+  stagger: 0.1,
+  ease: "back.out(1.7)",
+  scrollTrigger: {
+    trigger: ".wordcanvas",
+    start: "top 80%"
+  }
+});
+
+</script>
+
+
+  <section class="hero" id="hero">
+    <canvas id="iceberg" class="hero-canvas"></canvas>
+	<div class="hero-text-wrapper">
+  	<div class="hero-text">where AI <br>meets<br>HUMAN DEPTH</div>
+    <div class="hero-text">AICEBERG<br>MIND</div>
+	<p class="tagline">Depth is not a feature. It’s our nature</p>
+<p class="subtitle">Empowering people through playful education, creative content 
+Inspired by science, crafted by AI.</p>
+    </div>  
+
+    <div class="horizon-line"></div>
+    <div class="scroll-indicator">
+      <div class="scroll-box"></div>
+      <div class="scroll-text">DIVE IN</div>
+    </div>
+
+	
+	
+  </section>
+
+
+
+  <!-- Sezione 1 -->
+ <section class="parallax-section section1">
+    <img src="https://via.placeholder.com/800x600" alt="Img 1" class="parallax-image image1" />
+    <div class="parallax-text text1">
+      <h2>Welcome to the Depths</h2>
+      <p>Explore the unseen side of intelligence.</p>
+    </div>
+  </section>
+
+
+  <!-- Sezione 2 -->
+  <section class="parallax-section section2">
+    <img src="https://via.placeholder.com/800x600" alt="Img 2" class="parallax-image image2" />
+    <div class="parallax-text text2">
+      <h2>Knowledge Below the Surface</h2>
+      <p>Dive deeper into complexity and connections.</p>
+    </div>
+  </section>
+
+  <!-- Sezione 3 -->
+  <section class="parallax-section section3">
+    <img src="https://via.placeholder.com/800x600" alt="Img 3" class="parallax-image image3" />
+    <div class="parallax-text text3">
+      <h2>The Mind Unfolded</h2>
+      <p>Reveal what lies beneath the visible.</p>
+    </div>
+  </section>
+
+  <!-- Sezione 4 -->
+  <section class="parallax-section section4">
+    <img src="https://via.placeholder.com/800x600" alt="Img 4" class="parallax-image image3" />
+    <div class="parallax-text text4">
+      <h2>The Mind Unfolded</h2>
+      <p>Reveal what lies beneath the visible.</p>
+    </div>
+  </section>
+
+
+
+<script>
+  let scrollScale = 1;
+  let bgTransitionProgress = 1;
+  let numPoints = 15;
+  let lineDistance = 500;
+  let points = [];
+
+  const canvas = document.getElementById("iceberg");
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function generatePoints() {
+    points = [];
+    const radius = Math.min(canvas.width, canvas.height) / 4;
+    for (let i = 0; i < numPoints; i++) {
+      const angle = (Math.PI * 2 * i) / numPoints;
+      const x = Math.cos(angle) * radius * (0.5 + Math.random());
+      const y = Math.sin(angle) * radius * (0.5 + Math.random());
+      points.push({ x, y });
+    }
+  }
+
+  function initPage() {
+    resizeCanvas();
+    generatePoints();
+
+    document.getElementById("nodesRange").addEventListener("input", (e) => {
+      numPoints = parseInt(e.target.value);
+      document.getElementById("nodesValue").textContent = numPoints;
+      generatePoints();
+    });
+
+    document.getElementById("distanceRange").addEventListener("input", (e) => {
+      lineDistance = parseInt(e.target.value);
+      document.getElementById("distanceValue").textContent = lineDistance;
+    });
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      
+      const preloader = document.getElementById("preloader");
+      preloader.classList.add("fade-out");
+      setTimeout(() => preloader.remove(), 600);
+      document.getElementById("penguin-canvas").style.display = "block";
+      requestAnimationFrame(draw);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPage);
+  } else {
+    initPage();
+  }
+</script>
+
+<script>
+function updateSectionsColor(currentBg, currentTextColor) {
+  document.querySelectorAll('.section1, .section2, .section3').forEach(section => {
+    section.style.background = currentBg;
+    section.style.color = currentTextColor;
+  });
+}
+</script>
+
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script>
+// === Canvas Setup
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  generatePoints();
+});
+
+// === Mouse Tracking
+let angleOffset = 0, mouseX = 0, mouseY = 0;
+document.addEventListener("mousemove", e => {
+  const rect = canvas.getBoundingClientRect();
+  mouseX = ((e.clientX - rect.left) / canvas.width - 0.5) * 2;
+  mouseY = ((e.clientY - rect.top) / canvas.height - 0.5) * 2;
+});
+
+// === Dynamic Color Palette
+const dynamicPalette = [
+  "#00f5d4", "#3a0ca3", "#4361ee", "#4cc9f0", "#5ee4c3",
+  "#f72585", "#7209b7", "#2b2d42", "#edf2f4", "#b5179e"
+];
+let bgColor = dynamicPalette[0], contrastColor = dynamicPalette[1];
+let bgColorOld = bgColor, bgColorNew = contrastColor;
+
+function lerpColor(a, b, t) {
+  const ah = [1, 3, 5].map(i => parseInt(a.slice(i, i + 2), 16));
+  const bh = [1, 3, 5].map(i => parseInt(b.slice(i, i + 2), 16));
+  const rh = ah.map((v, i) => Math.round(v + (bh[i] - v) * t).toString(16).padStart(2, '0'));
+  return `#${rh.join('')}`;
+}
+
+setInterval(() => {
+  const bgIndex = Math.floor(Math.random() * dynamicPalette.length);
+  let contrastIndex;
+  do { contrastIndex = Math.floor(Math.random() * dynamicPalette.length); }
+  while (contrastIndex === bgIndex);
+
+  bgColorOld = bgColor;
+  bgColorNew = dynamicPalette[bgIndex];
+  bgTransitionProgress = 0;
+  bgColor = bgColorNew;
+  contrastColor = dynamicPalette[contrastIndex];
+
+  const heroText = document.querySelector(".hero-text");
+  if (heroText) heroText.style.color = contrastColor;
+}, 2000);
+
+// === Iceberg Drawing
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  bgTransitionProgress = Math.min(bgTransitionProgress + 0.01, 1);
+  const interpolatedColor = lerpColor(bgColorOld, bgColorNew, bgTransitionProgress);
+  ctx.fillStyle = interpolatedColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const offsetX = Math.sin(angleOffset) * 20 + mouseX * 30;
+  const offsetY = Math.cos(angleOffset) * 20 + mouseY * 30;
+  const rotate = Math.sin(angleOffset) * 0.01;
+  angleOffset += 0.005;
+  updateSectionsColor(`linear-gradient(to bottom, ${interpolatedColor}, ${interpolatedColor})`, contrastColor);
+
+  // Iceberg top
+  ctx.save();
+  ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+  ctx.rotate(rotate);
+  ctx.scale(scrollScale, scrollScale);
+  ctx.strokeStyle = contrastColor;
+  ctx.lineWidth = 1;
+  for (let i = 0; i < points.length; i++) {
+    for (let j = i + 1; j < points.length; j++) {
+      const p1 = points[i], p2 = points[j];
+      if (Math.hypot(p1.x - p2.x, p1.y - p2.y) < lineDistance) {
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+      }
+    }
+  }
+  ctx.restore();
+
+  // Iceberg reflection
+  ctx.save();
+  ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+  ctx.rotate(-rotate);
+  ctx.scale(scrollScale, -scrollScale);
+  ctx.globalAlpha = 0.15;
+  ctx.strokeStyle = contrastColor;
+  for (let i = 0; i < points.length; i++) {
+    for (let j = i + 1; j < points.length; j++) {
+      const p1 = points[i], p2 = points[j];
+      if (Math.hypot(p1.x - p2.x, p1.y - p2.y) < lineDistance) {
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+      }
+    }
+  }
+  ctx.restore();
+
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+</script>
+
+<script>
+// === Hero background gradient (cambio ogni ora)
+const hero = document.querySelector(".hero");
+const gradients = [
+  { from: "#2b2d42", to: "#3a0ca3" },
+  { from: "#3a0ca3", to: "#4361ee" },
+  { from: "#7209b7", to: "#f72585" },
+  { from: "#00f5d4", to: "#4cc9f0" },
+  { from: "#fbc2eb", to: "#b5179e" },
+  { from: "#edf2f4", to: "#9AA9B8" }
+];
+
+function updateHeroBackground() {
+  const hour = new Date().getHours();
+  const g = gradients[Math.floor(hour / 2) % gradients.length];
+  if (hero) hero.style.background = `linear-gradient(to bottom, ${g.from}, ${g.to})`;
+}
+updateHeroBackground();
+setInterval(updateHeroBackground, 60 * 60 * 1000);
+</script>
+
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ScrollTrigger con pin + animazioni cinematiche
+ScrollTrigger.create({
+  trigger: ".hero",
+  start: "top top",
+  end: "+=100%",
+  scrub: true,
+  pin: true,
+  anticipatePin: 1,
+  onUpdate: self => {
+    // Zoom iceberg canvas
+    scrollScale = 1 + self.progress * 0.7;
+
+    // Testo hero: fade + movimento
+    const heroText = document.querySelector(".hero-text");
+    if (heroText) {
+      heroText.style.opacity = 1 - self.progress;
+      heroText.style.transform = `translate(-50%, calc(-50% - ${self.progress * 80}px))`;
+    }
+  }
+});
+
+
+// === Menu animato con GSAP
+const menu = document.querySelector(".main-menu");
+gsap.set(menu, { autoAlpha: 0, y: -20 }); // stato iniziale: invisibile, leggermente sopra
+
+ScrollTrigger.create({
+  trigger: ".hero",
+  start: "bottom top+=100", // ritarda apparizione
+  onEnter: () => {
+    gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+  },
+  onLeaveBack: () => {
+    gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
+  }
+});
+</script>
+
+<script>
+    class NeuralNetwork {
+        constructor() {
+            this.canvas = document.getElementById('particles-background');
+            this.ctx = this.canvas.getContext('2d');
+            this.particles = [];
+            this.connections = [];
+            this.codes = [];
+            this.mouse = { x: 0, y: 0 };
+            this.animationId = null;
+
+            this.config = {
+                particleCount: 80,
+                maxDistance: 120,
+                particleSize: 3,
+                particleSpeed: 0.5,
+                connectionOpacity: 0.6,
+                pulseSpeed: 0.02,
+                codeCount: 15,
+                codeSpeed: 0.3,
+                colors: {
+                    particles: ['#888888', '#999999', '#777777', '#666666', '#aaaaaa','#fff'],
+                    connections: '#888888',
+                    codes: '#666666'
+                }
+            };
+
+            this.time = 0;
+            this.init();
+        }
+
+        init() {
+            this.resizeCanvas();
+            this.createParticles();
+            this.createCodes();
+            this.bindEvents();
+            this.animate();
+        }
+
+        resizeCanvas() {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+        }
+
+        generateRandomCode() {
+            const types = ['binary', 'hex', 'alpha'];
+            const type = types[Math.floor(Math.random() * types.length)];
+
+            switch(type) {
+                case 'binary':
+                    return Array.from({length: 6 + Math.floor(Math.random() * 6)}, () => Math.random() < 0.5 ? '0' : '1').join('');
+                case 'hex':
+                    const hexChars = '0123456789ABCDEF';
+                    return Array.from({length: 4 + Math.floor(Math.random() * 4)}, () => hexChars[Math.floor(Math.random() * hexChars.length)]).join('');
+                case 'alpha':
+                    const alphaChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                    return Array.from({length: 3 + Math.floor(Math.random() * 4)}, () => alphaChars[Math.floor(Math.random() * alphaChars.length)]).join('');
+                default:
+                    return '101010';
+            }
+        }
+
+        createCodes() {
+            this.codes = [];
+            for (let i = 0; i < this.config.codeCount; i++) {
+                this.codes.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * this.config.codeSpeed,
+                    vy: (Math.random() - 0.5) * this.config.codeSpeed,
+                    text: this.generateRandomCode(),
+                    opacity: 0.3 + Math.random() * 0.4,
+                    life: 300 + Math.random() * 200,
+                    maxLife: 300 + Math.random() * 200,
+                    size: 10 + Math.random() * 4
+                });
+            }
+        }
+
+        createParticles() {
+            this.particles = [];
+            for (let i = 0; i < this.config.particleCount; i++) {
+                this.particles.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * this.config.particleSpeed,
+                    vy: (Math.random() - 0.5) * this.config.particleSpeed,
+                    size: Math.random() * this.config.particleSize + 1,
+                    color: this.config.colors.particles[Math.floor(Math.random() * this.config.colors.particles.length)],
+                    pulse: Math.random() * Math.PI * 2,
+                    activity: Math.random()
+                });
+            }
+        }
+
+        bindEvents() {
+            window.addEventListener('resize', () => {
+                this.resizeCanvas();
+                this.createParticles();
+                this.createCodes();
+            });
+
+            this.canvas.addEventListener('mousemove', (e) => {
+                this.mouse.x = e.clientX;
+                this.mouse.y = e.clientY;
+            });
+
+            this.canvas.addEventListener('mouseleave', () => {
+                this.mouse.x = -1000;
+                this.mouse.y = -1000;
+            });
+        }
+
+        updateParticles() {
+            this.particles.forEach(particle => {
+                // Movimento base
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+
+                // Effetto mouse
+                const dx = this.mouse.x - particle.x;
+                const dy = this.mouse.y - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    const force = (100 - distance) / 100;
+                    particle.vx += dx * force * 0.001;
+                    particle.vy += dy * force * 0.001;
+                    particle.activity = Math.min(1, particle.activity + 0.02);
+                } else {
+                    particle.activity = Math.max(0, particle.activity - 0.005);
+                }
+
+                // Limitazione velocità
+                const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
+                if (speed > 2) {
+                    particle.vx = (particle.vx / speed) * 2;
+                    particle.vy = (particle.vy / speed) * 2;
+                }
+
+                // Bordi del canvas
+                if (particle.x < 0 || particle.x > this.canvas.width) {
+                    particle.vx *= -1;
+                    particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
+                }
+                if (particle.y < 0 || particle.y > this.canvas.height) {
+                    particle.vy *= -1;
+                    particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
+                }
+
+                // Aggiornamento pulsazione
+                particle.pulse += this.config.pulseSpeed;
+            });
+        }
+
+        updateCodes() {
+            this.codes.forEach((code, index) => {
+                // Movimento
+                code.x += code.vx;
+                code.y += code.vy;
+
+                // Vita del codice
+                code.life--;
+                code.opacity = (code.life / code.maxLife) * 0.7;
+
+                // Bordi del canvas
+                if (code.x < -50 || code.x > this.canvas.width + 50) {
+                    code.vx *= -1;
+                }
+                if (code.y < -20 || code.y > this.canvas.height + 20) {
+                    code.vy *= -1;
+                }
+
+                // Rigenera codice se morto
+                if (code.life <= 0) {
+                    code.x = Math.random() * this.canvas.width;
+                    code.y = Math.random() * this.canvas.height;
+                    code.text = this.generateRandomCode();
+                    code.life = code.maxLife;
+                    code.opacity = 0.3 + Math.random() * 0.4;
+                }
+
+                // Cambia codice occasionalmente
+                if (Math.random() < 0.001) {
+                    code.text = this.generateRandomCode();
+                }
+            });
+        }
+
+        drawConnections() {
+            this.ctx.strokeStyle = this.config.colors.connections;
+            this.ctx.lineWidth = 1;
+
+            for (let i = 0; i < this.particles.length; i++) {
+                for (let j = i + 1; j < this.particles.length; j++) {
+                    const p1 = this.particles[i];
+                    const p2 = this.particles[j];
+
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < this.config.maxDistance) {
+                        const opacity = (1 - distance / this.config.maxDistance) * this.config.connectionOpacity;
+                        const activity = (p1.activity + p2.activity) / 2;
+
+                        // Effetto pulsazione nelle connessioni
+                        const pulse = Math.sin(this.time * 0.01 + distance * 0.01) * 0.3 + 0.7;
+
+                        this.ctx.globalAlpha = opacity * pulse * (0.3 + activity * 0.7);
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(p1.x, p1.y);
+                        this.ctx.lineTo(p2.x, p2.y);
+                        this.ctx.stroke();
+
+                        // Segnali neurali che viaggiano lungo le connessioni
+                        if (Math.random() < 0.001 + activity * 0.01) {
+                          this.drawNeuralSignal(p1, p2, distance);
+                        }
+                    }
+                }
+            }
+        }
+
+        drawNeuralSignal(p1, p2, distance) {
+            const progress = (this.time * 0.02) % 1;
+            const x = p1.x + (p2.x - p1.x) * progress;
+            const y = p1.y + (p2.y - p1.y) * progress;
+
+            this.ctx.globalAlpha = Math.sin(progress * Math.PI) * 0.8;
+            this.ctx.fillStyle = '#cccccc';
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, 2, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
+
+        drawParticles() {
+            this.particles.forEach(particle => {
+                const pulseScale = 1 + Math.sin(particle.pulse) * 0.3 * particle.activity;
+                const size = particle.size * pulseScale;
+
+                // Glow effect grigio
+                this.ctx.shadowColor = particle.color;
+                this.ctx.shadowBlur = 10 + particle.activity * 15;
+
+                // Corpo principale
+                this.ctx.globalAlpha = 0.7 + particle.activity * 0.3;
+                this.ctx.fillStyle = particle.color;
+                this.ctx.beginPath();
+                this.ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+                this.ctx.fill();
+
+                // Nucleo leggermente più chiaro
+                this.ctx.globalAlpha = 0.9;
+                this.ctx.fillStyle = '#bbbbbb';
+                this.ctx.beginPath();
+                this.ctx.arc(particle.x, particle.y, size * 0.3, 0, Math.PI * 2);
+                this.ctx.fill();
+
+                this.ctx.shadowBlur = 0;
+            });
+        }
+
+        drawCodes() {
+            this.ctx.font = '12px "Courier New", monospace';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+
+            this.codes.forEach(code => {
+                this.ctx.globalAlpha = code.opacity;
+                this.ctx.fillStyle = this.config.colors.codes;
+
+                // Effetto leggero glow per i codici
+                this.ctx.shadowColor = this.config.colors.codes;
+                this.ctx.shadowBlur = 5;
+
+                this.ctx.fillText(code.text, code.x, code.y);
+
+                this.ctx.shadowBlur = 0;
+            });
+        }
+
+        animate() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.updateParticles();
+            this.updateCodes();
+            this.drawConnections();
+            this.drawParticles();
+            this.drawCodes();
+
+            this.time++;
+            this.animationId = requestAnimationFrame(() => this.animate());
+        }
+
+        destroy() {
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+            }
+            window.removeEventListener('resize', this.resizeCanvas);
+            this.canvas.removeEventListener('mousemove', this.mouseMoveHandler);
+            this.canvas.removeEventListener('mouseleave', this.mouseLeaveHandler);
+        }
+    }
+
+    // Inizializzazione
+    const neuralNetwork = new NeuralNetwork();
+
+    // Cleanup quando la pagina viene chiusa
+    window.addEventListener('beforeunload', () => {
+        neuralNetwork.destroy();
+    });
+</script>
+
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+
+ // Parallax animazioni per immagini
+    gsap.utils.toArray(".parallax-image").forEach((image, i) => {
+      gsap.to(image, {
+        y: -100,
+        scale: 1.2,
+        scrollTrigger: {
+          trigger: image.closest("section"),
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
+// Immagine parallax: movimento più lento
+gsap.utils.toArray(".parallax-img").forEach(img => {
+  gsap.fromTo(img, 
+    { y: 100 }, 
+    { 
+      y: -100, 
+      ease: "none",
+      scrollTrigger: {
+        trigger: img.closest(".parallax-section"),
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    }
+  );
+});
+
+// Testo: fade in + su
+gsap.utils.toArray(".parallax-text").forEach(text => {
+  gsap.from(text, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: text.closest(".parallax-section"),
+      start: "top 70%",
+      toggleActions: "play none none reverse"
+    }
+  });
+});
+
+// Sfondo: cambio gradiente (esempio avanzato, opzionale)
+gsap.utils.toArray(".bg-layer").forEach(bg => {
+  gsap.fromTo(bg, 
+    { backgroundPosition: "0% 0%" }, 
+    {
+      backgroundPosition: "0% 100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: bg.closest(".parallax-section"),
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    }
+  );
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ✅ QUESTI SONO GLI UNICI SCRIPT CHE SERVONO -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.136.0/examples/js/controls/OrbitControls.js"></script>
+
+<!-- ✅ TUTTO RACCHIUSO IN UNA FUNZIONE PER EVITARE CONFLITTI CON L'ICEBERG -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    initPenguinCanvas();
+  });
+
+  function rgbToHex(rgb) {
+    const result = rgb.match(/\d+/g).map(Number).slice(0, 3);
+    return (
+      '#' +
+      result.map(x => x.toString(16).padStart(2, '0')).join('')
+    );
+  }
+
+  function enableCanvasDrag(canvas, controlsPenguin) {
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    canvas.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      canvas.classList.add("dragging");
+      controlsPenguin.enabled = false; // 🔴 Disabilita Orbit durante il drag
+
+      const rect = canvas.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+
+      canvas.style.position = 'fixed';
+      canvas.style.left = `${e.clientX - offsetX}px`;
+      canvas.style.top = `${e.clientY - offsetY}px`;
+      canvas.style.right = 'auto';
+      canvas.style.bottom = 'auto';
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      canvas.classList.remove("dragging");
+      controlsPenguin.enabled = true; // ✅ Riattiva Orbit alla fine del drag
+    });
+  }
+
+  function initPenguinCanvas() {
+    const canvas = document.getElementById("penguin-canvas");
+    if (!canvas) {
+      console.error("Canvas con id 'penguin-canvas' non trovato!");
+      return;
+    }
+
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = 1000 * dpr;
+    canvas.height = 1000 * dpr;
+
+    const scenePenguin = new THREE.Scene();
+    scenePenguin.background = null;
+
+    const aspect = canvas.width / canvas.height;
+    const cameraPenguin = new THREE.PerspectiveCamera(60, aspect, 1, 100000);
+    cameraPenguin.position.set(500, -300, 1500);
+    cameraPenguin.lookAt(500, -300, 0);
+
+    const rendererPenguin = new THREE.WebGLRenderer({
+      canvas: canvas,
+      antialias: true,
+      alpha: true
+    });
+    rendererPenguin.setClearColor(0x000000, 0);
+    rendererPenguin.setSize(600, 500, false);
+    rendererPenguin.setPixelRatio(dpr);
+
+    const controlsPenguin = new THREE.OrbitControls(cameraPenguin, rendererPenguin.domElement);
+    controlsPenguin.enableZoom = true;
+    controlsPenguin.enablePan = true;
+    controlsPenguin.minDistance = 800;
+    controlsPenguin.maxDistance = 6000;
+    controlsPenguin.maxPolarAngle = Math.PI;
+    controlsPenguin.minPolarAngle = 0;
+    controlsPenguin.target.set(500, -300, -250);
+    controlsPenguin.update();
+
+    enableCanvasDrag(canvas, controlsPenguin);
+
+    canvas.addEventListener("mouseenter", () => {
+      if (!controlsPenguin.enabled) controlsPenguin.enabled = true;
+    });
+    canvas.addEventListener("mouseleave", () => {
+      if (!canvas.classList.contains("dragging")) {
+        controlsPenguin.enabled = false;
+      }
+    });
+
+    let dynamicMaterial = null;
+
+    fetch('prova.json')
+      .then(res => res.json())
+      .then(data => {
+        const points = data.penguinpoints;
+        const edges = data.penguinedges;
+
+        const vertices = [];
+        edges.forEach(([start, end]) => {
+          const p1 = points[start];
+          const p2 = points[end];
+          vertices.push(new THREE.Vector3(p1.x, -p1.y, 0));
+          vertices.push(new THREE.Vector3(p2.x, -p2.y, 0));
+        });
+
+        const geometry = new THREE.BufferGeometry().setFromPoints(vertices);
+        dynamicMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff });
+        const lines = new THREE.LineSegments(geometry, dynamicMaterial);
+        scenePenguin.add(lines);
+      })
+      .catch(err => console.error('Errore caricamento JSON:', err));
+
+    function updateMaterialColorFromHero() {
+      const heroText = document.querySelector('.hero-text');
+      if (!heroText || !dynamicMaterial) return;
+
+      const color = getComputedStyle(heroText).color;
+      const hex = rgbToHex(color);
+      if (dynamicMaterial.color.getStyle() !== hex) {
+        dynamicMaterial.color.set(hex);
+      }
+    }
+
+    function animatePenguin() {
+      requestAnimationFrame(animatePenguin);
+      updateMaterialColorFromHero();
+      rendererPenguin.render(scenePenguin, cameraPenguin);
+    }
+
+    animatePenguin();
+  }
+</script>
+
+
+
+
+</body>
+</html>
