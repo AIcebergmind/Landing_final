@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Penguin Wireframe</title>
+  <style>
+    body { margin: 0; background: #111; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ✅ QUESTI SONO GLI UNICI SCRIPT CHE SERVONO -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.136.0/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x111111);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 3000);
+    camera.position.set(500, -300, 800);
+    camera.lookAt(500, -300, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.target.set(500, -300, 0);
+    controls.update();
+
+    // Carica il file JSON
+    fetch('penguin_wireframe_simplified.json')
+      .then(response => response.json())
+      .then(data => {
+        const points = data.penguinpoints;
+        const edges = data.penguinedges;
+
+        const vertices = [];
+        edges.forEach(([start, end]) => {
+          const p1 = points[start];
+          const p2 = points[end];
+          vertices.push(new THREE.Vector3(p1.x, -p1.y, 0));
+          vertices.push(new THREE.Vector3(p2.x, -p2.y, 0));
+        });
+
+        const geometry = new THREE.BufferGeometry().setFromPoints(vertices);
+        const material = new THREE.LineBasicMaterial({ color: 0x00ffff });
+        const lines = new THREE.LineSegments(geometry, material);
+        scene.add(lines);
+      })
+      .catch(err => console.error('Errore nel caricamento JSON:', err));
+
+    // Optional: griglia XY
+    const gridHelper = new THREE.GridHelper(1000, 20, 0x333333, 0x222222);
+    scene.add(gridHelper);
+
+    // Adatta a schermo
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Loop di rendering
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+ 
+</body>
+</html>
