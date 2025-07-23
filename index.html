@@ -503,7 +503,7 @@ section[style*="background: #"] p {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-left: 1rem;
+  margin: 0 0.5rem;
   position: relative;
   /* I colori verranno aggiornati dinamicamente dall'iceberg */
 }
@@ -523,6 +523,40 @@ section[style*="background: #"] p {
 .color-toggle-btn.frozen:hover {
   background: #ff5252;
   border-color: #ff5252;
+}
+
+/* === CONSOLE CONTAINER === */
+.console-container {
+  position: relative;
+  padding: 1.5rem 2rem 1.2rem 2rem;
+  margin-left: 2rem;
+  border: 2px solid var(--ice-cyan);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.console-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.console-label {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--ice-cyan);
+  background: white;
+  padding: 0 0.8rem;
+  text-transform: uppercase;
+}
+
+.console-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 /* === PULSANTE CLARITY === */
@@ -559,6 +593,15 @@ body.high-contrast .main-menu {
   background: #000 !important;
   color: #fff !important;
   border-bottom: 1px solid #333;
+}
+
+body.high-contrast .console-container {
+  border-color: #fff !important;
+}
+
+body.high-contrast .console-label {
+  color: #fff !important;
+  background: #000 !important;
 }
 
 body.high-contrast section,
@@ -681,6 +724,24 @@ body.high-contrast .hero-text {
   .hero-h1, .hero-h2, .hero-h3 {
     font-size: clamp(1.5rem, 4vw, 3rem); /* Responsive font size */
   }
+  
+  .console-container {
+    margin-left: 0;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem 0.8rem 1.5rem;
+    border-radius: 6px;
+  }
+  
+  .console-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .color-toggle-btn {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 
@@ -742,20 +803,26 @@ body.high-contrast .hero-text {
       <span class="word" data-target="PROJECTS">PROJECTS</span>
       <span class="word" data-target="#BLOG">BLOG</span>
       <span class="word" data-target="#JOIN US">JOIN US</span>
-      <button id="colorToggle" class="color-toggle-btn">
-        SYNAPSE
-        <div class="tooltip">
-          Controls the iceberg's dynamic color palette.<br>
-          <strong>SYNAPSE</strong> → <strong>FOCUS</strong> → <strong>LET IT FLOW</strong>
+      
+      <div class="console-container">
+        <div class="console-label">CONSOLE</div>
+        <div class="console-buttons">
+          <button id="colorToggle" class="color-toggle-btn">
+            SYNAPSE
+            <div class="tooltip">
+              Controls the iceberg's dynamic color palette.<br>
+              <strong>SYNAPSE</strong> → <strong>FOCUS</strong> → <strong>LET IT FLOW</strong>
+            </div>
+          </button>
+          <button id="clarityToggle" class="color-toggle-btn">
+            CLARITY
+            <div class="tooltip">
+              High contrast mode for better readability.<br>
+              Black background with white text.
+            </div>
+          </button>
         </div>
-      </button>
-      <button id="clarityToggle" class="color-toggle-btn">
-        CLARITY
-        <div class="tooltip">
-          High contrast mode for better readability.<br>
-          Black background with white text.
-        </div>
-      </button>
+      </div>
     </div>
   </nav>
 </header>
