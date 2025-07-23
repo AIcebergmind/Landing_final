@@ -817,6 +817,126 @@ body.high-contrast .hero-text {
   color: #fff !important;
 }
 
+/* === HIGH CONTRAST per MENU MOBILE === */
+body.high-contrast .hamburger-line {
+  background: #fff !important;
+}
+
+body.high-contrast .mobile-menu-overlay {
+  background: rgba(0, 0, 0, 0.95) !important;
+  border-left: 1px solid #fff;
+}
+
+body.high-contrast .mobile-nav-items .word {
+  color: #fff !important;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+body.high-contrast .mobile-console-container {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+body.high-contrast .mobile-console-container .console-label {
+  color: #fff !important;
+}
+
+body.high-contrast .mobile-console-container .color-toggle-btn {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+body.high-contrast .mobile-console-container .color-toggle-btn:hover {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* === MENU HAMBURGER === */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: relative;
+  z-index: 101;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background: var(--ice-cyan);
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+  /* CSS transition per slide effect */
+  transition: left 0.4s ease-in-out;
+}
+
+.mobile-menu-overlay.open {
+  left: 0;
+}
+
+.mobile-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  align-items: flex-end;
+}
+
+.mobile-nav-items .word {
+  font-size: 1.4rem;
+  text-align: right;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: auto;
+}
+
+.mobile-console-container {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-console-container .console-buttons {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobile-console-container .color-toggle-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
 /* === TOOLTIP RESPONSIVO === */
 .tooltip {
   position: absolute;
@@ -907,6 +1027,35 @@ body.high-contrast .hero-text {
     font-size: clamp(1.5rem, 4vw, 3rem); /* Responsive font size */
   }
   
+  /* === MENU HAMBURGER RESPONSIVE === */
+  .hamburger-menu {
+    display: flex !important;
+    background: rgba(255, 0, 0, 0.2); /* DEBUG: sfondo rosso per vedere se c'è */
+    border: 2px solid red; /* DEBUG: bordo rosso */
+  }
+  
+  .wordcanvas {
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+  
+  .wordcanvas > .word {
+    display: none; /* Nascondi le parole del menu normale */
+  }
+  
+  .console-container {
+    display: none; /* Nascondi la console nel menu principale */
+  }
+  
+  .main-menu {
+    height: 70px; /* Riduci altezza menu su mobile */
+  }
+  
+  /* === DISABILITA PINGUINO SU MOBILE === */
+  #penguin-canvas {
+    display: none !important;
+  }
+  
   .console-container {
     margin-left: 0;
     margin-top: 1rem;
@@ -925,13 +1074,9 @@ body.high-contrast .hero-text {
     text-align: center;
   }
   
+  /* === DISABILITA SYSTEM PANEL SU MOBILE === */
   .system-panel {
-    width: 100vw;
-    right: -100vw;
-  }
-  
-  .system-panel.open {
-    right: 0;
+    display: none !important;
   }
 }
 
@@ -1021,6 +1166,14 @@ body.high-contrast .hero-text {
           </button>
         </div>
       </div>
+      
+      <!-- Menu Hamburger (visibile solo su mobile) -->
+      <div class="hamburger-menu" id="hamburgerMenu">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
 
       <!-- Advanced System Panel -->
       <div id="systemPanel" class="system-panel">
@@ -1055,15 +1208,15 @@ body.high-contrast .hero-text {
             <h4>User Preferences</h4>
             <div class="control-group">
               <div class="slider-control">
-                <label>FLOW <span id="flowValue">Normal</span></label>
+                <label for="flowSlider">FLOW <span id="flowValue">Normal</span></label>
                 <input type="range" id="flowSlider" min="1" max="3" value="2">
               </div>
               <div class="slider-control">
-                <label>DEPTH <span id="depthValue">15</span></label>
+                <label for="depthSlider">DEPTH <span id="depthValue">15</span></label>
                 <input type="range" id="depthSlider" min="15" max="300" value="15">
               </div>
               <div class="slider-control">
-                <label>NEURAL <span id="neuralValue">On</span></label>
+                <label for="neuralSlider">NEURAL <span id="neuralValue">On</span></label>
                 <input type="range" id="neuralSlider" min="0" max="1" value="1">
               </div>
             </div>
@@ -1077,6 +1230,31 @@ body.high-contrast .hero-text {
     </div>
   </nav>
 </header>
+
+<!-- Menu Mobile Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+  <div class="mobile-nav-items">
+    <span class="word" data-target="ABOUT">ABOUT</span>
+    <span class="word" data-target="PROJECTS">PROJECTS</span>
+    <span class="word" data-target="#BLOG">BLOG</span>
+    <span class="word" data-target="#JOIN US">JOIN US</span>
+  </div>
+  
+  <div class="mobile-console-container">
+    <div class="console-label">CONSOLE</div>
+    <div class="console-buttons">
+      <button id="mobileColorToggle" class="color-toggle-btn">
+        SYNAPSE
+      </button>
+      <button id="mobileClarityToggle" class="color-toggle-btn">
+        CLARITY
+      </button>
+      <button id="mobileSystemToggle" class="color-toggle-btn">
+        SYSTEM
+      </button>
+    </div>
+  </div>
+</div>
 
 
 
@@ -1757,14 +1935,115 @@ if (self.progress > 0.8) {
 const menu = document.querySelector(".main-menu");
 gsap.set(menu, { autoAlpha: 0, y: -20 }); // stato iniziale: invisibile, leggermente sopra
 
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+// DESKTOP: Comportamento originale con ScrollTrigger
 ScrollTrigger.create({
   trigger: ".hero",
   start: "bottom top+=100", // ritarda apparizione
   onEnter: () => {
-    gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+    if (!isMobile()) {
+      gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+    }
   },
   onLeaveBack: () => {
-    gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
+    if (!isMobile()) {
+      gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
+    }
+  }
+});
+
+// MOBILE: Logica semplificata
+let mobileMenuShown = false;
+
+ScrollTrigger.create({
+  trigger: ".hero",
+  start: "bottom top+=100",
+  end: "max",
+  onUpdate: (self) => {
+    if (isMobile()) {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const heroHeight = document.querySelector('.hero').offsetHeight;
+      
+      // Se siamo oltre l'hero e il menu non è ancora mostrato
+      if (scrollTop > heroHeight + 100 && !mobileMenuShown) {
+        mobileMenuShown = true;
+        gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+      }
+      // Se torniamo completamente al top della pagina
+      else if (scrollTop <= 50 && mobileMenuShown) {
+        mobileMenuShown = false;
+        gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
+      }
+    }
+  }
+});
+
+// === MENU HAMBURGER CON CSS SEMPLICE ===
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerMenu = document.getElementById('hamburgerMenu');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  
+  if (hamburgerMenu && mobileMenuOverlay) {
+    // Click sul hamburger per aprire/chiudere menu
+    hamburgerMenu.addEventListener('click', function() {
+      hamburgerMenu.classList.toggle('active');
+      mobileMenuOverlay.classList.toggle('open');
+    });
+
+    // Sincronizza i pulsanti mobile con quelli desktop
+    const mobileColorToggle = document.getElementById('mobileColorToggle');
+    const mobileClarityToggle = document.getElementById('mobileClarityToggle');
+    const mobileSystemToggle = document.getElementById('mobileSystemToggle');
+
+    const desktopColorToggle = document.getElementById('colorToggle');
+    const desktopClarityToggle = document.getElementById('clarityToggle');
+    const desktopSystemToggle = document.getElementById('systemToggle');
+
+    // Sincronizza CLARITY button
+    if (mobileClarityToggle && desktopClarityToggle) {
+      mobileClarityToggle.addEventListener('click', () => {
+        desktopClarityToggle.click();
+        // Chiudi il menu mobile
+        hamburgerMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('open');
+      });
+    }
+
+    // Sincronizza SYNAPSE button
+    if (mobileColorToggle && desktopColorToggle) {
+      mobileColorToggle.addEventListener('click', () => {
+        desktopColorToggle.click();
+        // Chiudi il menu mobile
+        hamburgerMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('open');
+      });
+    }
+
+    // Sincronizza SYSTEM button - DISABILITATO SU MOBILE
+    if (mobileSystemToggle && desktopSystemToggle) {
+      mobileSystemToggle.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          alert('System panel is available only on desktop for better experience');
+        } else {
+          desktopSystemToggle.click();
+        }
+        // Chiudi il menu mobile
+        hamburgerMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('open');
+      });
+    }
+
+    // Chiudi menu quando si clicca su un link di navigazione
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-items .word');
+    mobileNavItems.forEach(item => {
+      item.addEventListener('click', () => {
+        hamburgerMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('open');
+      });
+    });
   }
 });
 </script>
