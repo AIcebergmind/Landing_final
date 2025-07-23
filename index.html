@@ -143,8 +143,8 @@ section[style*="background: #"] p {
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #fff;
-  border-top-color: transparent;
+  border: 4px solid #333;
+  border-top-color: #fff;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -164,7 +164,7 @@ section[style*="background: #"] p {
 #preloader {
   position: fixed;
   inset: 0;
-  background: #0f0f0f;
+  background: linear-gradient(to bottom, #fff 0%, #000 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -180,10 +180,12 @@ section[style*="background: #"] p {
 
 .preloader-controls {
   margin-top: 2rem;
-  background: rgba(30,40,60,0.85);
-  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
   padding: 2rem 2.5rem;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 32px rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -191,43 +193,48 @@ section[style*="background: #"] p {
 }
 
 .preloader-controls label {
-  color: #fff;
+  color: #000;
   font-size: 1.1rem;
+  font-weight: 500;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .preloader-controls input[type="range"] {
   width: 200px;
-  accent-color: #5EE4C3;
+  accent-color: #000;
   margin-top: 0.5rem;
+  height: 4px;
 }
 
 .preloader-controls span {
   margin-left: 0.5rem;
   font-weight: bold;
-  color: #5EE4C3;
+  color: #000;
   font-size: 1.1rem;
 }
 
 #startBtn {
   margin-top: 1rem;
   padding: 0.7rem 2.2rem;
-  background: linear-gradient(90deg, #5EE4C3 0%, #3AC8F5 100%);
-  color: #0F2B3A;
-  border: none;
-  border-radius: 2rem;
+  background: transparent;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 4px;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 12px rgba(90,220,255,0.15);
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 #startBtn:hover {
-  background: linear-gradient(90deg, #3AC8F5 0%, #5EE4C3 100%);
+  background: #000;
   color: #fff;
 }
 
@@ -248,7 +255,6 @@ section[style*="background: #"] p {
   width: 160px;
   max-width: 30vw;
   margin-bottom: 2rem;
-  filter: drop-shadow(0 0 8px #fff); /* effetto neon */
   opacity: 1;
   transform: scale(1);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -559,6 +565,134 @@ section[style*="background: #"] p {
   align-items: center;
 }
 
+/* === SYSTEM PANEL === */
+.system-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-left: 2px solid var(--ice-cyan);
+  transition: right 0.4s ease;
+  z-index: 200;
+  overflow-y: auto;
+}
+
+.system-panel.open {
+  right: 0;
+}
+
+.system-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--ice-cyan);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.system-panel-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ice-cyan);
+  letter-spacing: 0.1em;
+}
+
+.close-panel-btn {
+  background: none;
+  border: 2px solid var(--ice-cyan);
+  color: var(--ice-cyan);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-panel-btn:hover {
+  background: var(--ice-cyan);
+  color: white;
+}
+
+.system-panel-content {
+  padding: 1.5rem;
+}
+
+.control-section {
+  margin-bottom: 2rem;
+}
+
+.control-section h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--deep-night);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.system-btn {
+  background: transparent;
+  border: 1px solid var(--ice-cyan);
+  color: var(--ice-cyan);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.system-btn:hover, .system-btn.active {
+  background: var(--ice-cyan);
+  color: white;
+}
+
+.slider-control {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.slider-control label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--deep-night);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.slider-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--ice-cyan);
+  height: 4px;
+}
+
+.slider-control span {
+  color: var(--ice-cyan);
+  font-weight: 600;
+}
+
 /* === PULSANTE CLARITY === */
 #clarityToggle {
   background: transparent;
@@ -602,6 +736,54 @@ body.high-contrast .console-container {
 body.high-contrast .console-label {
   color: #fff !important;
   background: #000 !important;
+}
+
+body.high-contrast .system-panel {
+  background: rgba(0, 0, 0, 0.95) !important;
+  border-left-color: #fff !important;
+}
+
+body.high-contrast .system-panel-header {
+  background: rgba(0, 0, 0, 0.9) !important;
+  border-bottom-color: #fff !important;
+}
+
+body.high-contrast .system-panel-title {
+  color: #fff !important;
+}
+
+body.high-contrast .close-panel-btn {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+body.high-contrast .close-panel-btn:hover {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+body.high-contrast .control-section h4 {
+  color: #fff !important;
+  border-bottom-color: #333 !important;
+}
+
+body.high-contrast .system-btn {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+body.high-contrast .system-btn:hover,
+body.high-contrast .system-btn.active {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+body.high-contrast .slider-control label {
+  color: #fff !important;
+}
+
+body.high-contrast .slider-control span {
+  color: #fff !important;
 }
 
 body.high-contrast section,
@@ -742,6 +924,15 @@ body.high-contrast .hero-text {
     width: 100%;
     text-align: center;
   }
+  
+  .system-panel {
+    width: 100vw;
+    right: -100vw;
+  }
+  
+  .system-panel.open {
+    right: 0;
+  }
 }
 
 
@@ -821,6 +1012,66 @@ body.high-contrast .hero-text {
               Black background with white text.
             </div>
           </button>
+          <button id="systemToggle" class="color-toggle-btn">
+            SYSTEM
+            <div class="tooltip">
+              Advanced controls panel.<br>
+              Developer tools, user preferences, and system settings.
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Advanced System Panel -->
+      <div id="systemPanel" class="system-panel">
+        <div class="system-panel-header">
+          <span class="system-panel-title">SYSTEM CONTROLS</span>
+          <button id="closePanelBtn" class="close-panel-btn">×</button>
+        </div>
+        
+        <div class="system-panel-content">
+          <!-- Content Management -->
+          <div class="control-section">
+            <h4>Content Management</h4>
+            <div class="control-group">
+              <button class="system-btn" id="editBtn">EDIT</button>
+              <button class="system-btn" id="previewBtn">PREVIEW</button>
+              <button class="system-btn" id="publishBtn">PUBLISH</button>
+            </div>
+          </div>
+
+          <!-- Developer Tools -->
+          <div class="control-section">
+            <h4>Developer Tools</h4>
+            <div class="control-group">
+              <button class="system-btn" id="debugBtn">DEBUG</button>
+              <button class="system-btn" id="gridBtn">GRID</button>
+              <button class="system-btn" id="traceBtn">TRACE</button>
+            </div>
+          </div>
+
+          <!-- User Preferences -->
+          <div class="control-section">
+            <h4>User Preferences</h4>
+            <div class="control-group">
+              <div class="slider-control">
+                <label>FLOW <span id="flowValue">Normal</span></label>
+                <input type="range" id="flowSlider" min="1" max="3" value="2">
+              </div>
+              <div class="slider-control">
+                <label>DEPTH <span id="depthValue">15</span></label>
+                <input type="range" id="depthSlider" min="15" max="300" value="15">
+              </div>
+              <div class="slider-control">
+                <label>NEURAL <span id="neuralValue">On</span></label>
+                <input type="range" id="neuralSlider" min="0" max="1" value="1">
+              </div>
+            </div>
+            <div class="control-group">
+              <button class="system-btn" id="profileBtn">PROFILE</button>
+              <button class="system-btn" id="resetBtn">RESET</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1086,6 +1337,134 @@ AIceberg Mind is not an answer. It’s a question: what kind of world do we crea
       if (localStorage.getItem('clarityMode') === 'true') {
         clarityToggleBtn.click();
       }
+    }
+
+    // === CONTROLLO PANNELLO SYSTEM ===
+    const systemToggleBtn = document.getElementById("systemToggle");
+    const systemPanel = document.getElementById("systemPanel");
+    const closePanelBtn = document.getElementById("closePanelBtn");
+    let systemPanelOpen = false;
+
+    if (systemToggleBtn && systemPanel) {
+      // Gestione apertura/chiusura pannello
+      systemToggleBtn.addEventListener("click", () => {
+        systemPanelOpen = !systemPanelOpen;
+        
+        if (systemPanelOpen) {
+          systemPanel.classList.add('open');
+          systemToggleBtn.classList.add('active');
+        } else {
+          systemPanel.classList.remove('open');
+          systemToggleBtn.classList.remove('active');
+        }
+      });
+
+      // Bottone chiusura pannello
+      if (closePanelBtn) {
+        closePanelBtn.addEventListener("click", () => {
+          systemPanel.classList.remove('open');
+          systemToggleBtn.classList.remove('active');
+          systemPanelOpen = false;
+        });
+      }
+
+      // Chiudi pannello premendo ESC
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && systemPanelOpen) {
+          systemPanel.classList.remove('open');
+          systemToggleBtn.classList.remove('active');
+          systemPanelOpen = false;
+        }
+      });
+
+      // === CONTROLLI PANNELLO AVANZATO ===
+      
+      // Slider FLOW (velocità animazioni)
+      const flowSlider = document.getElementById("flowSlider");
+      const flowValue = document.getElementById("flowValue");
+      if (flowSlider && flowValue) {
+        flowSlider.addEventListener("input", (e) => {
+          const value = parseInt(e.target.value);
+          const speeds = ["Slow", "Normal", "Fast"];
+          flowValue.textContent = speeds[value - 1];
+          
+          // Applica velocità alle animazioni
+          const speedMultipliers = [0.5, 1, 2];
+          document.documentElement.style.setProperty('--animation-speed', speedMultipliers[value - 1]);
+        });
+      }
+
+      // Slider DEPTH (complessità iceberg)
+      const depthSlider = document.getElementById("depthSlider");
+      const depthValue = document.getElementById("depthValue");
+      if (depthSlider && depthValue) {
+        depthSlider.addEventListener("input", (e) => {
+          const value = parseInt(e.target.value);
+          depthValue.textContent = value;
+          numPoints = value;
+          generatePoints();
+        });
+      }
+
+      // Slider NEURAL (background particles)
+      const neuralSlider = document.getElementById("neuralSlider");
+      const neuralValue = document.getElementById("neuralValue");
+      if (neuralSlider && neuralValue) {
+        neuralSlider.addEventListener("input", (e) => {
+          const value = parseInt(e.target.value);
+          neuralValue.textContent = value ? "On" : "Off";
+          
+          const particlesCanvas = document.getElementById("particles-background");
+          if (particlesCanvas) {
+            particlesCanvas.style.display = value ? "block" : "none";
+          }
+        });
+      }
+
+      // Pulsanti del pannello
+      const buttons = {
+        debug: document.getElementById("debugBtn"),
+        grid: document.getElementById("gridBtn"),
+        trace: document.getElementById("traceBtn"),
+        edit: document.getElementById("editBtn"),
+        preview: document.getElementById("previewBtn"),
+        publish: document.getElementById("publishBtn"),
+        profile: document.getElementById("profileBtn"),
+        reset: document.getElementById("resetBtn")
+      };
+
+      // Gestione pulsanti toggle
+      Object.entries(buttons).forEach(([key, btn]) => {
+        if (btn) {
+          btn.addEventListener("click", () => {
+            btn.classList.toggle('active');
+            
+            // Logica specifica per ogni pulsante
+            switch(key) {
+              case 'debug':
+                // Mostra/nascondi info debug
+                console.log('Debug mode:', btn.classList.contains('active'));
+                break;
+              case 'grid':
+                // Mostra/nascondi griglia
+                document.body.classList.toggle('dev-grid', btn.classList.contains('active'));
+                break;
+              case 'trace':
+                // Abilita/disabilita trace mouse
+                console.log('Trace mode:', btn.classList.contains('active'));
+                break;
+              case 'reset':
+                // Reset tutte le impostazioni
+                if (confirm('Reset all settings to default?')) {
+                  location.reload();
+                }
+                break;
+              default:
+                console.log(`${key} button clicked`);
+            }
+          });
+        }
+      });
     }
   }
 
