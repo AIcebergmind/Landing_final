@@ -24,6 +24,9 @@
       overflow: auto;
       font-family: 'Inter', sans-serif;
 	  font-family: "IBM Plex Sans", sans-serif;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
     }
 
 
@@ -37,18 +40,54 @@
 
 /* === STILI GLOBALI TITOLI === */
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 700;
   line-height: 1.2;
-  margin: 0 0 2rem 0;
+  margin: 2rem 0;
+  padding: 2rem 0;
+  position: relative;
   /* Il colore verrà impostato dinamicamente dall'iceberg */
 }
 
+/* Linea wireframe sopra H1 */
+h1::before {
+  margin-top: 2rem;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+/* Linea wireframe sotto H1 */
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
 h2 {
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
   font-weight: 500;
   line-height: 1.3;
   margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
   /* Il colore verrà impostato dinamicamente dall'iceberg */
 }
 
@@ -72,10 +111,9 @@ h3 {
 
 /* === STILI GLOBALI PARAGRAFI === */
 p {
-  font-size: 1.1rem;
+  font-size: 0.8rem !important; /* 12.8px - molto più piccolo */
   line-height: 1.7;
   margin: 0 0 1.5rem 0;
-  /* Colori automatici: neri su sfondo chiaro, bianchi su sfondo scuro */
   color: #333;
 }
 
@@ -88,6 +126,25 @@ section[style*="background: #"] p {
 
 /* === LAYOUT GRID SEZIONI === */
 
+/* Classe generale per sezioni */
+
+    section {
+      position: relative;
+      min-height: 100vh; /* Cambiato da height a min-height per flessibilità */
+      height: auto; /* Permette l'espansione in base al contenuto */
+      display: flex;
+      align-items: flex-start; /* Cambiato da center a flex-start per contenuti lunghi */
+      justify-content: center;
+      text-align: left;
+      z-index: 6;
+      padding: 2rem;
+      width: 100%;
+      box-sizing: border-box;
+      flex-direction: column; /* Assicura sviluppo verticale */
+
+    }
+
+
 /* Grid a 2 elementi */
 .grid-2 {
   display: grid;
@@ -96,6 +153,65 @@ section[style*="background: #"] p {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+/* Grid esatto a 2 colonne */
+.grid-2-fixed {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  align-items: center;
+}
+
+/* Override per assicurarsi che funzioni dentro parallax-section */
+.parallax-section .grid-2-fixed {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+}
+
+@media (max-width: 768px) {
+  .grid-2-fixed {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === LAYOUT FLEXBOX (più affidabile) === */
+
+/* Contenitore a 2 colonne */
+.flex-2col {
+  display: flex;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  align-items: center;
+  height: auto; /* Altezza automatica basata sul contenuto */
+  min-height: auto; /* Nessuna altezza minima */
+}
+
+.flex-2col > * {
+  flex: 1; /* Ogni figlio prende la stessa larghezza */
+}
+
+/* Contenitore a larghezza piena */
+.flex-full {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  width: 100%;
+  height: auto; /* Altezza automatica basata sul contenuto */
+  min-height: auto; /* Nessuna altezza minima */
+}
+
+/* Responsive per mobile */
+@media (max-width: 768px) {
+  .flex-2col {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 /* Grid a 3 elementi */
@@ -120,20 +236,114 @@ section[style*="background: #"] p {
 
 /* Card/elemento del grid */
 .grid-item {
-  background: rgba(255,255,255,0.05);
   padding: 2rem;
-  border-radius: 1rem;
-  backdrop-filter: blur(10px);
 }
 
 
+   .parallax-section {
+      text-align: left;
+      display: block;
+      padding: 6rem 2rem;
+      margin-top: 0; /* Rimuove margin tra sezioni */
+      z-index: 5;
+      min-height: auto; /* Override min-height per sezioni parallax */
+      height: auto; /* Altezza completamente flessibile */
+      flex-direction: column; /* Per contenuti che si sviluppano verticalmente */
+    }
 
+    /* Sezione hero senza padding extra */
+    .hero {
+      padding: 0 !important; /* Nessun padding per hero */
+    }
 
+    /* Responsive padding per sezioni */
+    @media (max-width: 768px) {
+      .parallax-section {
+        padding: 2rem 1rem; /* Ridotto da 4rem a 2rem per meno spazio verticale */
+        margin-top: 0; /* Nessun margin tra sezioni anche su mobile */
+      }
+      
+      .hero {
+        padding: 0 !important; /* Nessun padding anche su mobile */
+      }
+    }
 
+    .parallax-image {
+      position: absolute;
+      width: 60vw;
+      max-width: 800px;
+      z-index: 2;
+      opacity: 0.2;
+    }
 
+    /* Override per immagini parallax nel grid/flex */
+    .grid-2-fixed .parallax-image,
+    .grid-item .parallax-image,
+    .flex-2col .parallax-image,
+    .flex-full .parallax-image {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      opacity: 0.2;
+      transform: translateY(20px) scale(0.5); /* Parte da metà scala */
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+      transform-origin: center center; /* Zoom dal centro */
+    }
 
+    /* Stato visibile quando in vista */
+    .grid-2-fixed .parallax-image.in-view,
+    .grid-item .parallax-image.in-view,
+    .flex-2col .parallax-image.in-view,
+    .flex-full .parallax-image.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(0.8); /* Si sviluppa all'80% */
+    }
 
+    .parallax-text {
+      z-index: 2;
+      font-size: 2rem;
+      max-width: 60vw;
+    }
 
+/* === RESPONSIVE PARALLAX IMAGES === */
+@media (max-width: 768px) {
+  /* Su mobile: immagini parallax centrate e non sovrapposte */
+  .flex-2col .parallax-image,
+  .flex-full .parallax-image,
+  .grid-2-fixed .parallax-image,
+  .grid-item .parallax-image {
+    display: block;
+    margin: 2rem auto; /* Centrate con margin */
+    max-width: calc(100% - 4rem); /* Rispetta il padding del sito */
+    width: auto;
+    height: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.6); /* Più piccole su mobile */
+  }
+  
+  .flex-2col .parallax-image.in-view,
+  .flex-full .parallax-image.in-view,
+  .grid-2-fixed .parallax-image.in-view,
+  .grid-item .parallax-image.in-view {
+    transform: translateY(0) scale(0.7); /* Scale finale più contenuta su mobile */
+  }
+  
+  /* Contenitori flex-2col su mobile diventano colonna */
+  .flex-2col {
+    flex-direction: column;
+    gap: 3rem; /* Più spazio tra contenuto e immagine */
+  }
+  
+  /* Ordine degli elementi su mobile */
+  .flex-2col .parallax-image {
+    order: 2; /* Immagine dopo il contenuto */
+  }
+  
+  .flex-2col .content-column {
+    order: 1; /* Contenuto prima */
+  }
+}
 
 
 
@@ -267,12 +477,7 @@ section[style*="background: #"] p {
 }
 
 
-.hero {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  z-index:10;
-}
+
 
 #iceberg {
   width: 100%;
@@ -282,6 +487,15 @@ section[style*="background: #"] p {
   background-color: #2b2d42; /* fallback se il canvas non disegna subito */
 }
 
+
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index:10;
+  padding: 0 !important; /* Rimuove completamente il padding */
+  margin: 0 !important; /* Rimuove qualsiasi margin */
+}
 .hero-text {
   position: absolute;
   z-index: 10;
@@ -427,36 +641,8 @@ section[style*="background: #"] p {
   background: transparent;
     }
 
-    section {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align:left;
-      z-index: 1;
 
-    }
-
-    .parallax-section {
-      text-align: center;
-      padding: 4rem;
-      z-index: 2;
-    }
-
-    .parallax-image {
-      position: absolute;
-      width: 60vw;
-      max-width: 800px;
-      z-index: 2;
-      opacity: 0.2;
-    }
-
-    .parallax-text {
-      z-index: 2;
-      font-size: 2rem;
-      max-width: 60vw;
-    }
+ 
 
 #penguin-canvas {
   width: 400px;     /* come viene disegnato a schermo */
@@ -563,6 +749,36 @@ section[style*="background: #"] p {
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+/* === CTA JOIN US === */
+.join-us-cta {
+  background: linear-gradient(135deg, var(--ice-cyan), #5dade2);
+  border: none;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 174, 239, 0.3);
+}
+
+.join-us-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 174, 239, 0.4);
+  background: linear-gradient(135deg, #5dade2, var(--ice-cyan));
+}
+
+/* CTA nascosta su mobile */
+@media (max-width: 768px) {
+  .join-us-cta {
+    display: none;
+  }
 }
 
 /* === SYSTEM PANEL === */
@@ -898,6 +1114,49 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
   padding-top: 80px;
   /* CSS transition per slide effect */
   transition: left 0.4s ease-in-out;
+  /* Scroll abilitato */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scrollbar personalizzata per mobile menu */
+.mobile-menu-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-menu-overlay::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 80px 0 20px 0; /* Evita sovrapposizione con X e bordo inferiore */
+}
+
+.mobile-menu-overlay::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.mobile-menu-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Per Firefox */
+.mobile-menu-overlay {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar in modalità clarity */
+body.high-contrast .mobile-menu-overlay::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+body.high-contrast .mobile-menu-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+body.high-contrast .mobile-menu-overlay {
+  scrollbar-color: rgba(0, 0, 0, 0.4) rgba(255, 255, 255, 0.1);
 }
 
 .mobile-menu-overlay.open {
@@ -909,8 +1168,9 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 2rem;
-  color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
   cursor: pointer;
   z-index: 400;
   width: 40px;
@@ -919,13 +1179,24 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: transparent;
+  border: 2px solid rgba(176, 224, 230, 1); /* Bordo glacier blue */
   transition: all 0.3s ease;
 }
 
 .mobile-close-btn:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(176, 224, 230, 0.2);
   transform: scale(1.1);
+}
+
+/* Modalità clarity - X nera */
+body.high-contrast .mobile-close-btn {
+  color: #000;
+  border-color: rgba(176, 224, 230, 1);
+}
+
+body.high-contrast .mobile-close-btn:hover {
+  background: rgba(176, 224, 230, 0.3);
 }
 
 .mobile-nav-items {
@@ -948,6 +1219,19 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
   margin-top: 1.5rem;
   padding: 1.5rem 2rem;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Fix per la label CONSOLE su mobile - posizionata dentro il container */
+.mobile-console-container .console-label {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin-bottom: 1rem;
+  background: none !important;
+  padding: 0 !important;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 .mobile-console-container .console-buttons {
@@ -959,6 +1243,283 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
   width: 100%;
   padding: 0.8rem;
   font-size: 0.95rem;
+}
+
+/* === CTA JOIN US MOBILE === */
+.mobile-cta-container {
+  margin-top: 2rem;
+  padding: 0 2rem 2rem 2rem; /* Aggiunto padding bottom per scroll */
+  display: flex;
+  justify-content: center;
+}
+
+.mobile-join-us-cta {
+  background: linear-gradient(135deg, var(--ice-cyan), #5dade2);
+  border: none;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 174, 239, 0.4);
+  width: 100%;
+  max-width: 200px;
+}
+
+.mobile-join-us-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 174, 239, 0.5);
+  background: linear-gradient(135deg, #5dade2, var(--ice-cyan));
+}
+
+/* === ACCORDION RIUTILIZZABILE === */
+.accordion {
+  margin: 2rem 0;
+  max-width: 800px;
+}
+
+.accordion-header {
+  cursor: pointer;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+  opacity: 0.8;
+}
+
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+  max-height: 0;
+}
+
+.accordion.open .accordion-content {
+  max-height: 800px; /* Regola in base al contenuto */
+}
+
+.accordion-text {
+  padding: 1.5rem 0;
+  line-height: 1.6;
+}
+
+/* === SEZIONI DINAMICHE PER ACCORDION === */
+.parallax-section:has(.accordion.open) {
+  height: auto !important;
+  min-height: auto !important;
+}
+
+/* Assicura che tutti i contenitori si adattino al contenuto */
+.section1, .section2, .section3, .section4 {
+  height: auto !important;
+  min-height: 100vh;
+  margin: 0 !important; /* Nessun margin tra sezioni */
+  padding: 0 !important; /* Nessun padding nelle sezioni stesse */
+}
+
+
+/* === READ MORE RIUTILIZZABILE === */
+/* 
+  Uso:
+  <div class="read-more-container">
+    <div class="read-more-preview">Testo sempre visibile</div>
+    <div class="read-more-content" id="uniqueId">
+      <div class="read-more-text">Testo nascosto</div>
+    </div>
+    <button class="read-more-btn" data-target="uniqueId">
+      <span class="read-more-text">Read more</span>
+      <span class="read-less-text">Read less</span>
+    </button>
+  </div>
+*/
+.read-more-container {
+  max-width: 800px;
+  margin: 2rem 0;
+}
+
+.read-more-preview {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.read-more-content {
+  overflow: hidden;
+  transition: max-height 0.8s ease-out, opacity 0.6s ease-out;
+  max-height: 0;
+  opacity: 0;
+}
+
+.read-more-content.open {
+  max-height: 1000px; /* Altezza sufficiente per tutto il contenuto */
+  opacity: 1;
+}
+
+.read-more-text {
+  line-height: 1.6;
+  padding-top: 0.5rem;
+}
+
+.read-more-btn {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: inherit;
+}
+
+.read-more-btn:hover {
+  background: currentColor;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Responsive read more */
+@media (max-width: 768px) {
+  .read-more-container {
+    margin: 1.5rem 0;
+  }
+  
+  .read-more-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+/* === DIVIDERS RIUTILIZZABILI === */
+/* Divider semplice con linea */
+.divider {
+  margin: 3rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+/* Divider con simbolo al centro */
+.divider-symbol {
+  margin: 3rem 0;
+  text-align: center;
+  position: relative;
+  font-size: 1.5rem;
+  color: currentColor;
+  opacity: 0.6;
+}
+
+.divider-symbol::before,
+.divider-symbol::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0.3;
+}
+
+.divider-symbol::before {
+  left: 0;
+}
+
+.divider-symbol::after {
+  right: 0;
+}
+
+/* Divider wireframe (stile iceberg) */
+.divider-wireframe {
+  margin: 3rem 0;
+  height: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-wireframe::before {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  border: 1px solid currentColor;
+  border-radius: 50% 50% 0 0;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+
+.divider-wireframe::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 30%, 
+    currentColor 70%, 
+    transparent 100%);
+  opacity: 0.2;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Divider dots */
+.divider-dots {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.divider-dots::before {
+  content: '• • •';
+  font-size: 1.2rem;
+  letter-spacing: 0.8rem;
+  color: currentColor;
+  opacity: 0.4;
+}
+
+/* Divider spacing variants */
+.divider-sm { margin: 1.5rem 0; }
+.divider-lg { margin: 4rem 0; }
+.divider-xl { margin: 5rem 0; }
+
+/* Responsive dividers */
+@media (max-width: 768px) {
+  .divider,
+  .divider-symbol,
+  .divider-wireframe,
+  .divider-dots {
+    margin: 2rem 0;
+  }
+  
+  .divider-lg { margin: 2.5rem 0; }
+  .divider-xl { margin: 3rem 0; }
 }
 
 /* === TOOLTIP RESPONSIVO === */
@@ -1044,7 +1605,12 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
 @media (max-width: 768px) {
   
   .hero-titles-wrapper {
-    bottom: -80px; /* Riduci lo strabordamento su mobile */
+    position: fixed !important; /* Usa fixed invece di absolute su mobile */
+    bottom: 20vh !important; /* Posiziona i titoli nel 20% inferiore dello schermo */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 15 !important; /* Sopra l'iceberg che ha z-index 10 */
+    width: 90% !important; /* Limita la larghezza per mobile */
   }
   
   .hero-h1, .hero-h2, .hero-h3 {
@@ -1055,7 +1621,7 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
   .hamburger-menu {
     display: flex !important;
     background: rgba(255, 0, 0, 0.2); /* DEBUG: sfondo rosso per vedere se c'è */
-    border: 2px solid red; /* DEBUG: bordo rosso */
+    border: 2px solid var(--glacier-blue);
   }
   
   .wordcanvas {
@@ -1162,7 +1728,7 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
       <span class="word" data-target="ABOUT">ABOUT</span>
       <span class="word" data-target="PROJECTS">PROJECTS</span>
       <span class="word" data-target="#BLOG">BLOG</span>
-      <span class="word" data-target="#JOIN US">JOIN US</span>
+      <span class="word" data-target="TEAM">TEAM</span>
       
       <div class="console-container">
         <div class="console-label">CONSOLE</div>
@@ -1190,6 +1756,9 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
           </button>
         </div>
       </div>
+      
+      <!-- CTA JOIN US -->
+      <button class="join-us-cta" id="joinUsCta">JOIN US</button>
       
       <!-- Menu Hamburger (visibile solo su mobile) -->
       <div class="hamburger-menu" id="hamburgerMenu">
@@ -1264,7 +1833,7 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
     <span class="word" data-target="ABOUT">ABOUT</span>
     <span class="word" data-target="PROJECTS">PROJECTS</span>
     <span class="word" data-target="#BLOG">BLOG</span>
-    <span class="word" data-target="#JOIN US">JOIN US</span>
+    <span class="word" data-target="TEAM">TEAM</span>
   </div>
   
   <div class="mobile-console-container">
@@ -1279,6 +1848,11 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
       <!-- SYSTEM button rimosso su mobile -->
     </div>
   </div>
+  
+  <!-- CTA JOIN US per mobile -->
+  <div class="mobile-cta-container">
+    <button class="mobile-join-us-cta" id="mobileJoinUsCta">JOIN US</button>
+  </div>
 </div>
 
 
@@ -1286,15 +1860,18 @@ body.high-contrast .mobile-console-container .color-toggle-btn:hover {
   <section class="hero" id="hero">
     <canvas id="iceberg" class="hero-canvas"></canvas>
 	<div class="hero-text-wrapper">
-  	<div class="hero-text">DEPTH<br>is not a feature. is our<br>NATURE</div>
-    <div class="hero-text"><strong>AI</strong>CEBERG<br>MIND</div>
-    </div>  
+<div class="hero-text-wrapper">
+  <div class="hero-text text-compose mobile-no-text-compose">DEPTH<br>is not a feature. is our<br>NATURE</div>
+  <div class="hero-text text-compose mobile-no-text-compose"><strong>AI</strong>CEBERG<br>MIND</div>
+</div>
+
+
 
     <!-- Nuovi titoli che appaiono durante lo scroll -->
     <div class="hero-titles-wrapper">
 
-      <h2 class="hero-h2">Depth is not a feature. It’s our nature</h2>
-      <h3 class="hero-h3"><strong>Empowering people</strong> through playful education, creative content 
+      <h2 class="hero-h3"><strong>EMPOWERING HUMANS</strong></h3>
+      <h3 class="hero-h3">through playful education, creative content 
 Inspired by science, crafted by AI</h3>
     </div>
 
@@ -1303,55 +1880,94 @@ Inspired by science, crafted by AI</h3>
       <div class="scroll-box"></div>
       <div class="scroll-text">DIVE IN</div>
     </div>
-
-	
-	
   </section>
 
-<section class="parallax-section section1 about-section">
-  <div class="manifesto-container">
-    <!-- Header principale -->
-    <div class="manifesto-header">
+
+
+
+
+
+
+
+<!-- Sezione 1 -->
+<section class="parallax-section section1" id="about">
+  <div class="flex-2col">
+    <div class="content-column">
       <h1>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h1>
-      <h2 class="tagline">from the earliest spark to the lifelong wonder of the mind.</h2>
-      <p class="intro-text">
-        It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
-      </p>
+      <h2>from the earliest spark to the lifelong wonder of the mind.</h2>
     </div>
+    <div class="image-column">
+      <img src="images/image_placeholder_about.png" alt="Img 1" class="parallax-image image1" />
+    </div>
+  </div>
+  <div class="flex-full">
+    <h3>
+      It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath <br>the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
+    </h3>
+    <div class="divider-dots"></div>
+    <!-- Manifesto con Read More -->
+    <h3 class="text-compose"><strong>a short manifesto</strong> </h3>
+    
+    <div class="read-more-container">
+      <!-- Testo preview sempre visibile (prime tre righe) -->
+      <div class="read-more-preview">
+        AIceberg Mind was born from a simple belief: that intelligence is not a race to the top, but a journey below the surface. In a world flooded with fast content and noisy knowledge, we wanted to create something different.<br><br>
 
-    <!-- Manifesto body -->
-    <div class="manifesto-body">
-      <h3 class="manifesto-title">— a short manifesto</h3>
-      
-      <div class="manifesto-content">
-        <p>AIceberg Mind was born from a simple belief: that intelligence is not a race to the top, but a journey below the surface. In a world flooded with fast content and noisy knowledge, we wanted to create something different — something that blends the joy of discovery, the power of science, and the careful support of artificial intelligence not to shape minds, but to design the tools that let them unfold.
+        We see content not as a product, but as a living experience — one that can play, teach, surprise, and empower. We create digital objects: some playful, some poetic, some purely practical.<br><br>
 
-We see content not as a product, but as a living experience — one that can play, teach, surprise, and empower. We create digital objects: some playful, some poetic, some purely practical. A unit converter, a 3D viewer, a QR code generator, a YouTube channel — nothing is too small to carry meaning. Each project is an excuse to learn, to observe the world, to design differently, and to share. We make things that work, and through them, we open windows on how things work — and why.
-
-We don’t claim expertise in psychology or nervous system science. What we claim is curiosity in subconscious rewiring, craftsmanship, and care. We are designers, makers, researchers, and parents — trying to shape tools that spark ideas, facilitate creation, or gently awaken minds.
-
-Some of our content is designed for children. Some for adults. Some for both. But all of it is guided by the same principle: explore below the surface. Education is not always the goal — but it’s often the side effect. And so is joy.
-
-Inspired by the iceberg, our craft is layered: playful on the surface, rooted in research below. We use AI to enhance form and interaction, but never to replace thought. 
-
-Our vision begins in early childhood, where so much is silently shaped — but it doesn’t end there. It reaches the child within us all, the parents who guide, the educators who nurture, and the minds that still wonder. 
-
-AIceberg Mind is not an answer. It’s a question: what kind of world do we create when we shape content from the depth of human potential?
-</p>
-
+        We don't claim expertise in psychology or nervous system science. What we claim is curiosity in subconscious rewiring, craftsmanship, and care.
       </div>
+      
+      <!-- Contenuto completo nascosto inizialmente -->
+      <div class="read-more-content" id="readMoreContent">
+        <div class="read-more-text">
+          We are designers, makers, researchers, and parents — trying to shape tools that spark ideas, facilitate creation, or gently awaken minds.<br><br>
+
+          Some of our content is designed for children. Some for adults. Some for both. But all of it is guided by the same principle: explore below the surface. Education is not always the goal — but it's often the side effect. And so is joy.<br><br>
+
+          Inspired by the iceberg, our craft is layered: playful on the surface, rooted in research below. We use AI to enhance form and interaction, but never to replace thought.<br><br>
+
+          Our vision begins in early childhood, where so much is silently shaped — but it doesn't end there. It reaches the child within us all, the parents who guide, the educators who nurture, and the minds that still wonder.<br><br>
+
+          AIceberg Mind is not an answer. It's a question: what kind of world do we create when we shape content from the depth of human potential?
+        </div>
+      </div>
+      
+      <!-- Pulsante Read More -->
+      <button class="read-more-btn" id="readMoreBtn">
+        <span class="read-more-text">Read more</span>
+        <span class="read-less-text" style="display: none;">Read less</span>
+      </button>
     </div>
+    
+    <!-- Esempi di divider riutilizzabili     <p class="text-compose">This is additional content separated by a wireframe divider that recalls the iceberg aesthetic.</p>
+    
+    <div class="divider-symbol">◊</div>
+    
+    <p class="text-compose">Another section with a symbol divider. You can use any symbol: ◊, ●, ▲, ✦, etc.</p>
+    
+    <div class="divider-dots"></div>
+    
+    <p class="text-compose">Final section with a simple dots divider. Perfect for lighter separations.</p>
+    
+    <div class="divider"></div>
+    <div class="divider-wireframe"></div>-->
+    
+    
+
+    
   </div>
 </section>
 
-  <!-- Sezione 2 -->
-  <section class="parallax-section section2">
-    <img src="https://via.placeholder.com/800x600" alt="Img 2" class="parallax-image image2" />
-    <div class="parallax-text text2">
-      <h2>Knowledge Below the Surface</h2>
-      <p>Dive deeper into complexity and connections.</p>
-    </div>
-  </section>
+
+
+
+
+
+
+
+
+
 
   <!-- Sezione 3 -->
   <section class="parallax-section section3">
@@ -1921,8 +2537,6 @@ setInterval(updateHeroBackground, 60 * 60 * 1000);
 
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
 // ScrollTrigger con pin + animazioni cinematiche
 ScrollTrigger.create({
   trigger: ".hero",
@@ -1933,7 +2547,7 @@ ScrollTrigger.create({
   anticipatePin: 1,
   onUpdate: self => {
     // Zoom iceberg canvas
-    scrollScale = 1 + self.progress * 0.7;
+    scrollScale = 1 + self.progress * 0.3;
 
     // Testo hero: fade + movimento
     const heroText = document.querySelector(".hero-text");
@@ -2017,18 +2631,47 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeMenu() {
       hamburgerMenu.classList.remove('active');
       mobileMenuOverlay.classList.remove('open');
+      // Riabilita scroll della pagina
+      document.body.style.overflow = '';
+    }
+    
+    // Funzione per aprire il menu
+    function openMenu() {
+      hamburgerMenu.classList.add('active');
+      mobileMenuOverlay.classList.add('open');
+      // Blocca scroll della pagina
+      document.body.style.overflow = 'hidden';
     }
     
     // Click sul hamburger per aprire/chiudere menu
     hamburgerMenu.addEventListener('click', function() {
-      hamburgerMenu.classList.toggle('active');
-      mobileMenuOverlay.classList.toggle('open');
+      if (mobileMenuOverlay.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
     // Click sulla X per chiudere il menu
     if (mobileCloseBtn) {
       mobileCloseBtn.addEventListener('click', closeMenu);
     }
+
+    // Chiudi menu con tasto ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileMenuOverlay.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+
+    // Previeni scroll della pagina quando si scrolla nel menu
+    mobileMenuOverlay.addEventListener('wheel', function(e) {
+      e.stopPropagation();
+    });
+
+    mobileMenuOverlay.addEventListener('touchmove', function(e) {
+      e.stopPropagation();
+    });
 
     // Sincronizza i pulsanti mobile con quelli desktop
     const mobileColorToggle = document.getElementById('mobileColorToggle');
@@ -2058,6 +2701,16 @@ document.addEventListener('DOMContentLoaded', function() {
     mobileNavItems.forEach(item => {
       item.addEventListener('click', closeMenu);
     });
+
+    // Gestione CTA JOIN US mobile
+    const mobileJoinUsCta = document.getElementById('mobileJoinUsCta');
+    if (mobileJoinUsCta) {
+      mobileJoinUsCta.addEventListener('click', () => {
+        // Qui puoi aggiungere l'azione per JOIN US (es. aprire form, redirect, etc.)
+        console.log('JOIN US clicked from mobile');
+        closeMenu();
+      });
+    }
   }
 });
 </script>
@@ -2384,18 +3037,36 @@ document.addEventListener('DOMContentLoaded', function() {
 gsap.registerPlugin(ScrollTrigger);
 
 
- // Parallax animazioni per immagini
+ // Parallax animazioni per immagini con effetto zoom avanzato
     gsap.utils.toArray(".parallax-image").forEach((image, i) => {
-      gsap.to(image, {
-        y: -100,
-        scale: 1.2,
-        scrollTrigger: {
-          trigger: image.closest("section"),
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
+      // Valori diversi per mobile e desktop
+      const isMobile = window.innerWidth <= 768;
+      const startScale = isMobile ? 0.6 : 0.5;
+      const endScale = isMobile ? 0.7 : 0.8;
+      const startY = isMobile ? 30 : 50;
+      const endY = isMobile ? -30 : -50;
+      
+      // Animazione zoom progressivo durante lo scroll
+      gsap.fromTo(image, 
+        { 
+          scale: startScale, // Parte da metà scala
+          y: startY,
+          opacity: 0.2
+        },
+        {
+          scale: endScale, // Si sviluppa all'80% (70% su mobile)
+          y: endY,
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: image.closest("section"),
+            start: "top 80%", // Inizia prima
+            end: "bottom 20%", // Finisce dopo
+            scrub: 1, // Animazione fluida legata allo scroll
+            toggleActions: "play none none reverse"
+          }
         }
-      });
+      );
     });
 
 // Immagine parallax: movimento più lento
@@ -2447,20 +3118,6 @@ gsap.utils.toArray(".bg-layer").forEach(bg => {
   );
 });
 
-// Animazione per il manifesto
-gsap.timeline({
-  scrollTrigger: {
-    trigger: ".manifesto-section",
-    start: "top 80%",
-    end: "bottom 20%",
-    toggleActions: "play none none reverse"
-  }
-})
-.from(".manifesto-header h1", { y: 50, opacity: 0, duration: 1, ease: "power2.out" })
-.from(".tagline", { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.5")
-.from(".intro-text", { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.3")
-.from(".manifesto-title", { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.2")
-.from(".manifesto-content p", { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }, "-=0.1");
 </script>
 
 
@@ -2554,7 +3211,7 @@ gsap.timeline({
     rendererPenguin.setPixelRatio(dpr);
 
     const controlsPenguin = new THREE.OrbitControls(cameraPenguin, rendererPenguin.domElement);
-    controlsPenguin.enableZoom = true;
+    controlsPenguin.enableZoom = false;
     controlsPenguin.enablePan = true;
     controlsPenguin.minDistance = 800;
     controlsPenguin.maxDistance = 6000;
@@ -2618,8 +3275,229 @@ gsap.timeline({
   }
 </script>
 
+<!-- ✅ EFFETTO FADE-IN DELLE IMMAGINI PARALLAX CON SCROLL -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Seleziona tutte le immagini parallax nei layout flex/grid
+  const parallaxImages = document.querySelectorAll('.flex-2col .parallax-image, .flex-full .parallax-image, .grid-2-fixed .parallax-image, .grid-item .parallax-image');
+  
+  // Crea l'Intersection Observer
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Aggiunge la classe in-view quando l'immagine entra in vista
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, {
+    threshold: 0.3, // Trigger quando il 30% dell'immagine è visibile
+    rootMargin: '0px 0px -50px 0px' // Trigger un po' prima che sia completamente visibile
+  });
 
+  // Osserva tutte le immagini parallax
+  parallaxImages.forEach(image => {
+    imageObserver.observe(image);
+  });
+});
+</script>
 
+<!-- ✅ EFFETTO COMPOSIZIONE TESTO LETTERA PER LETTERA CON CLASSE CSS -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  
+  // Funzione per applicare l'effetto composizione testo
+  function applyTextCompositionEffect(element) {
+    // Salva il contenuto HTML originale per preservare <br> e altri tag
+    const originalHTML = element.innerHTML;
+    const originalStyle = window.getComputedStyle(element);
+    
+    // Evita overflow sui contenitori
+    const parent = element.parentElement;
+    if (parent) {
+      parent.style.overflow = 'hidden';
+    }
+    
+    // Funzione per processare nodi di testo preservando la struttura
+    function processTextNode(textNode) {
+      const text = textNode.textContent;
+      const letters = [];
+      
+      // Crea span per ogni lettera
+      text.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char; // Preserva spazi
+        span.style.display = 'inline-block';
+        span.style.position = 'relative';
+        span.style.opacity = '0';
+        span.style.transform = 'translateX(50px) scale(0.3)';
+        span.style.transition = `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+        span.dataset.letterIndex = letters.length; // Indice globale
+        letters.push(span);
+      });
+      
+      // Sostituisce il nodo di testo con gli span
+      const fragment = document.createDocumentFragment();
+      letters.forEach(letter => fragment.appendChild(letter));
+      textNode.parentNode.replaceChild(fragment, textNode);
+      
+      return letters;
+    }
+    
+    // Trova tutti i nodi di testo nell'elemento
+    function getTextNodes(node) {
+      const textNodes = [];
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        textNodes.push(node);
+      } else {
+        for (let child of node.childNodes) {
+          textNodes.push(...getTextNodes(child));
+        }
+      }
+      return textNodes;
+    }
+    
+    // Processa tutti i nodi di testo
+    const textNodes = getTextNodes(element);
+    const allLetters = [];
+    
+    textNodes.forEach(textNode => {
+      const letters = processTextNode(textNode);
+      allLetters.push(...letters);
+    });
+    
+    // Aggiorna gli indici per l'animazione sequenziale
+    allLetters.forEach((letter, globalIndex) => {
+      letter.style.transitionDelay = `${globalIndex * 0.03}s`;
+      letter.dataset.globalIndex = globalIndex;
+    });
+    
+    // Marca come processato
+    element.dataset.textComposition = 'processed';
+    
+    // Intersection Observer per attivare l'animazione
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Ritardo di attivazione per rendere l'effetto più elegante
+          setTimeout(() => {
+            // Attiva l'animazione delle lettere
+            allLetters.forEach((letter, index) => {
+              setTimeout(() => {
+                letter.style.opacity = '1';
+                letter.style.transform = 'translateX(0) scale(1)';
+              }, index * 30); // 30ms tra ogni lettera
+            });
+          }, 300); // Ritardo iniziale di 300ms
+          
+          // Smette di osservare una volta attivato
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1, // Attiva quando anche solo il 10% dell'elemento è visibile
+      rootMargin: '0px 0px 0px 0px' // Nessun margine - attiva appena è in vista
+    });
+    
+    observer.observe(element);
+    
+    // CONTROLLO IMMEDIATO: Se l'elemento è già visibile al caricamento, attiva subito
+    setTimeout(() => {
+      const rect = element.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isVisible && allLetters.length > 0 && allLetters[0].style.opacity === '0') {
+        // Ritardo di attivazione anche per elementi già visibili
+        setTimeout(() => {
+          // Attiva l'animazione immediatamente
+          allLetters.forEach((letter, index) => {
+            setTimeout(() => {
+              letter.style.opacity = '1';
+              letter.style.transform = 'translateX(0) scale(1)';
+            }, index * 30);
+          });
+        }, 500); // Ritardo maggiore per elementi già visibili (hero section)
+        observer.unobserve(element);
+      }
+    }, 200); // Piccolo delay per assicurarsi che il DOM sia pronto
+  }
+  
+  // AUTO-RILEVAMENTO: Cerca automaticamente tutti gli elementi con la classe 'text-compose'
+  // ESCLUSI: elementi che hanno 'no-text-compose' o 'mobile-no-text-compose' su mobile
+  function initTextComposition() {
+    const isMobile = window.innerWidth <= 768;
+    let selector = '.text-compose:not(.no-text-compose):not([data-text-composition="processed"])';
+    
+    // Su mobile, escludi anche gli elementi con 'mobile-no-text-compose'
+    if (isMobile) {
+      selector = '.text-compose:not(.no-text-compose):not(.mobile-no-text-compose):not([data-text-composition="processed"])';
+    }
+    
+    const textComposeElements = document.querySelectorAll(selector);
+    
+    textComposeElements.forEach(element => {
+      applyTextCompositionEffect(element);
+    });
+    
+    console.log(`Effetto composizione testo applicato a ${textComposeElements.length} elementi con classe .text-compose (mobile: ${isMobile})`);
+  }
+  
+  // Avvia il rilevamento automatico
+  setTimeout(initTextComposition, 100);
+  
+  // Espone la funzione globalmente per il riuso
+  window.initTextComposition = initTextComposition;
+  
+  // Funzione globale per applicare manualmente l'effetto (opzionale)
+  window.activateTextComposition = function(selectors) {
+    if (typeof selectors === 'string') {
+      selectors = [selectors];
+    }
+    
+    selectors.forEach(selector => {
+      const targetElements = document.querySelectorAll(`${selector}:not([data-text-composition="processed"])`);
+      targetElements.forEach(element => {
+        applyTextCompositionEffect(element);
+      });
+    });
+  };
+});
+</script>
+
+<!-- ✅ ACCORDION RIUTILIZZABILE -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Gestione click Read More riutilizzabile
+  const readMoreBtn = document.getElementById('readMoreBtn');
+  const readMoreContent = document.getElementById('readMoreContent');
+  const readMoreText = readMoreBtn?.querySelector('.read-more-text');
+  const readLessText = readMoreBtn?.querySelector('.read-less-text');
+  
+  if (readMoreBtn && readMoreContent) {
+    readMoreBtn.addEventListener('click', () => {
+      const isOpen = readMoreContent.classList.contains('open');
+      
+      if (isOpen) {
+        // Chiudi: contenuto completo -> solo preview
+        readMoreContent.classList.remove('open');
+        readMoreText.style.display = 'inline';
+        readLessText.style.display = 'none';
+      } else {
+        // Apri: mostra contenuto completo
+        readMoreContent.classList.add('open');
+        readMoreText.style.display = 'none';
+        readLessText.style.display = 'inline';
+        
+        // Attiva text-compose sul nuovo contenuto
+        setTimeout(() => {
+          if (window.initTextComposition) {
+            window.initTextComposition();
+          }
+        }, 400); // Delay per sincronizzarsi con l'animazione
+      }
+    });
+  }
+});
+</script>
 
 </body>
 </html>
