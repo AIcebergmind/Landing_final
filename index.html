@@ -21,8 +21,6 @@
     body, html {
       margin: 0;
       padding: 0;
-      overflow: auto;
-      font-family: 'Inter', sans-serif;
 	  font-family: "IBM Plex Sans", sans-serif;
       width: 100%;
       height: 100%;
@@ -40,18 +38,16 @@
 
 /* === STILI GLOBALI TITOLI === */
 h1 {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(2.8rem, 4vw, 2.8rem);
   font-weight: 700;
   line-height: 1.2;
   margin: 2rem 0;
   padding: 2rem 0;
   position: relative;
-  /* Il colore verrà impostato dinamicamente dall'iceberg */
 }
 
 /* Linea wireframe sopra H1 */
 h1::before {
-  margin-top: 2rem;
   content: '';
   position: absolute;
   top: 0;
@@ -88,7 +84,6 @@ h2 {
   line-height: 1.3;
   margin: 0 0 1.5rem 0;
   text-transform: uppercase;
-  /* Il colore verrà impostato dinamicamente dall'iceberg */
 }
 
 h3 {
@@ -96,7 +91,6 @@ h3 {
   font-weight: 400;
   line-height: 1.4;
   margin: 0 0 1rem 0;
-  /* Il colore verrà impostato dinamicamente dall'iceberg */
 }
 
 /* === STILE GLOBALE TAGLINE === */
@@ -111,7 +105,7 @@ h3 {
 
 /* === STILI GLOBALI PARAGRAFI === */
 p {
-  font-size: 0.8rem !important; /* 12.8px - molto più piccolo */
+  font-size: 1rem;
   line-height: 1.7;
   margin: 0 0 1.5rem 0;
   color: #333;
@@ -124,485 +118,318 @@ section[style*="background: #"] p {
 }
 
 
-/* === LAYOUT GRID SEZIONI === */
-
-/* Classe generale per sezioni */
-
-    section {
-      position: relative;
-      min-height: 100vh; /* Cambiato da height a min-height per flessibilità */
-      height: auto; /* Permette l'espansione in base al contenuto */
-      display: flex;
-      align-items: flex-start; /* Cambiato da center a flex-start per contenuti lunghi */
-      justify-content: center;
-      text-align: left;
-      z-index: 6;
-      padding: 2rem;
-      width: 100%;
-      box-sizing: border-box;
-      flex-direction: column; /* Assicura sviluppo verticale */
-
-    }
-
-
-/* Grid a 2 elementi */
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-/* Grid esatto a 2 colonne */
-.grid-2-fixed {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  align-items: center;
-}
-
-/* Override per assicurarsi che funzioni dentro parallax-section */
-.parallax-section .grid-2-fixed {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-}
-
-@media (max-width: 768px) {
-  .grid-2-fixed {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* === LAYOUT FLEXBOX (più affidabile) === */
-
-/* Contenitore a 2 colonne */
-.flex-2col {
-  display: flex;
-  gap: 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  align-items: center;
-  height: auto; /* Altezza automatica basata sul contenuto */
-  min-height: auto; /* Nessuna altezza minima */
-}
-
-.flex-2col > * {
-  flex: 1; /* Ogni figlio prende la stessa larghezza */
-}
-
-/* Contenitore a larghezza piena */
-.flex-full {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-  width: 100%;
-  height: auto; /* Altezza automatica basata sul contenuto */
-  min-height: auto; /* Nessuna altezza minima */
-}
-
-/* Responsive per mobile */
-@media (max-width: 768px) {
-  .flex-2col {
-    flex-direction: column;
-    gap: 2rem;
-  }
-}
-
-/* Grid a 3 elementi */
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-/* Grid a 4 elementi */
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-/* Card/elemento del grid */
-.grid-item {
-  padding: 2rem;
-}
-
-
-   .parallax-section {
-      text-align: left;
-      display: block;
-      padding: 6rem 2rem;
-      margin-top: 0; /* Rimuove margin tra sezioni */
-      z-index: 5;
-      min-height: auto; /* Override min-height per sezioni parallax */
-      height: auto; /* Altezza completamente flessibile */
-      flex-direction: column; /* Per contenuti che si sviluppano verticalmente */
-    }
-
-    /* Sezione hero senza padding extra */
-    .hero {
-      padding: 0 !important; /* Nessun padding per hero */
-    }
-
-    /* Responsive padding per sezioni */
-    @media (max-width: 768px) {
-      .parallax-section {
-        padding: 2rem 1rem; /* Ridotto da 4rem a 2rem per meno spazio verticale */
-        margin-top: 0; /* Nessun margin tra sezioni anche su mobile */
-      }
-      
-      .hero {
-        padding: 0 !important; /* Nessun padding anche su mobile */
-      }
-    }
-
-    .parallax-image {
-      position: absolute;
-      width: 60vw;
-      max-width: 800px;
-      z-index: 2;
-      opacity: 0.2;
-    }
-
-    /* Override per immagini parallax nel grid/flex */
-    .grid-2-fixed .parallax-image,
-    .grid-item .parallax-image,
-    .flex-2col .parallax-image,
-    .flex-full .parallax-image {
-      position: relative;
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      opacity: 0.2;
-      transform: translateY(20px) scale(0.5); /* Parte da metà scala */
-      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-      transform-origin: center center; /* Zoom dal centro */
-    }
-
-    /* Stato visibile quando in vista */
-    .grid-2-fixed .parallax-image.in-view,
-    .grid-item .parallax-image.in-view,
-    .flex-2col .parallax-image.in-view,
-    .flex-full .parallax-image.in-view {
-      opacity: 1;
-      transform: translateY(0) scale(0.8); /* Si sviluppa all'80% */
-    }
-
-    .parallax-text {
-      z-index: 2;
-      font-size: 2rem;
-      max-width: 60vw;
-    }
-
-/* === RESPONSIVE PARALLAX IMAGES === */
-@media (max-width: 768px) {
-  /* Su mobile: immagini parallax centrate e non sovrapposte */
-  .flex-2col .parallax-image,
-  .flex-full .parallax-image,
-  .grid-2-fixed .parallax-image,
-  .grid-item .parallax-image {
-    display: block;
-    margin: 2rem auto; /* Centrate con margin */
-    max-width: calc(100% - 4rem); /* Rispetta il padding del sito */
-    width: auto;
-    height: auto;
-    position: relative;
-    transform: translateY(20px) scale(0.6); /* Più piccole su mobile */
-  }
-  
-  .flex-2col .parallax-image.in-view,
-  .flex-full .parallax-image.in-view,
-  .grid-2-fixed .parallax-image.in-view,
-  .grid-item .parallax-image.in-view {
-    transform: translateY(0) scale(0.7); /* Scale finale più contenuta su mobile */
-  }
-  
-  /* Contenitori flex-2col su mobile diventano colonna */
-  .flex-2col {
-    flex-direction: column;
-    gap: 3rem; /* Più spazio tra contenuto e immagine */
-  }
-  
-  /* Ordine degli elementi su mobile */
-  .flex-2col .parallax-image {
-    order: 2; /* Immagine dopo il contenuto */
-  }
-  
-  .flex-2col .content-column {
-    order: 1; /* Contenuto prima */
-  }
+/* Paragrafi su sfondi chiari */
+.light-bg p, 
+section[style*="background: #"] p {
+  color: #000000;
 }
 
 
 
+/* === FUNYIONI E MODULI GLOBALI ================ */
 
-
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #333;
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+/* === ACCORDION RIUTILIZZABILE === */
+.accordion {
+  margin: 2rem 0;
+  max-width: 800px;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.accordion-header {
+  cursor: pointer;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
-.logo {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.accordion-header:hover {
+  opacity: 0.8;
+}
+
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+  max-height: 0;
+}
+
+.accordion.open .accordion-content {
+  max-height: 800px; /* Regola in base al contenuto */
+}
+
+.accordion-text {
+  padding: 1.5rem 0;
+  line-height: 1.6;
+}
+
+/* === SEZIONI DINAMICHE PER ACCORDION === */
+.parallax-section:has(.accordion.open) {
+  height: auto !important;
+  min-height: auto !important;
+}
+
+/* Assicura che tutti i contenitori si adattino al contenuto */
+.section1, .section2, .section3, .section4 {
+  height: auto !important;
+  min-height: 100vh;
+  margin: 0 !important; /* Nessun margin tra sezioni */
+  padding: 0 !important; /* Nessun padding nelle sezioni stesse */
+}
+
+
+.read-more-container {
+  max-width: 800px;
+  margin: 2rem 0;
+}
+
+.read-more-preview {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.read-more-content {
+  overflow: hidden;
+  transition: max-height 0.8s ease-out, opacity 0.6s ease-out;
+  max-height: 0;
+  opacity: 0;
+}
+
+.read-more-content.open {
+  max-height: 1000px; /* Altezza sufficiente per tutto il contenuto */
   opacity: 1;
 }
 
-
-#preloader {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(to bottom, #fff 0%, #000 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 0.6s ease;
+.read-more-text {
+  line-height: 1.6;
+  padding-top: 0.5rem;
 }
 
-#preloader.fade-out {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.preloader-controls {
-  margin-top: 2rem;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 4px 32px rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.preloader-controls label {
-  color: #ffffff;
-  font-size: 1.1rem;
-  font-weight: 500;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.3rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.preloader-controls input[type="range"] {
-  width: 200px;
-  accent-color: var(--glacier-blue);
-  margin-top: 0.5rem;
-  height: 4px;
-}
-
-.preloader-controls span {
-  margin-left: 0.5rem;
-  font-weight: bold;
-  color: #ffffff;
-  font-size: 1.1rem;
-}
-
-#startBtn {
-  margin-top: 1rem;
-  padding: 0.7rem 2.2rem;
+.read-more-btn {
   background: transparent;
-  color: #ffffff;
-  border: 2px solid #000;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  font-family: inherit;
 }
 
-#startBtn:hover {
-  background: #000;
+.read-more-btn:hover {
+  background: currentColor;
   color: #fff;
+  transform: translateY(-2px);
 }
 
-@media (max-width: 600px) {
-  .preloader-controls {
-    padding: 1.2rem 1rem;
-    width: 90vw;
+/* Responsive read more */
+@media (max-width: 768px) {
+  .read-more-container {
+    margin: 1.5rem 0;
   }
-  .preloader-controls input[type="range"] {
-    width: 120px;
+  
+  .read-more-btn {
+    width: 100%;
+    padding: 1rem;
   }
 }
 
-
-
-
-#preloader .preloader-logo {
-  width: 160px;
-  max-width: 30vw;
-  margin-bottom: 2rem;
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-#preloader .preloader-logo img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-
-
-
-#iceberg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  transform-origin: center center;
-  background-color: #2b2d42; /* fallback se il canvas non disegna subito */
-}
-
-
-.hero {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  z-index:10;
-  padding: 0 !important; /* Rimuove completamente il padding */
-  margin: 0 !important; /* Rimuove qualsiasi margin */
-}
-.hero-text {
-  position: absolute;
-  z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 4rem;
-  font-weight: normal;
-  color: white;
-  line-height: 2;
-  transition: opacity 1s ease, transform 1s ease, color 0.8s ease;
-}
-
-.hero-text-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-
-.hero-titles-wrapper {
-  position: absolute;
-  bottom: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
+/* === DIVIDERS RIUTILIZZABILI === */
+/* Divider semplice con linea */
+.divider {
+  margin: 3rem 0;
   text-align: center;
-  opacity: 0;
-  pointer-events: none;
+  position: relative;
 }
 
-.hero-h1 {
-  font-size: 4.5rem;
-  font-weight: bold;
-  color: white;
-  margin: 0 0 1rem 0;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.hero-h2 {
-  font-size: 3.5rem;
-  font-weight: 500;
-  color: var(--glacier-blue);
-  margin: 0 0 0.8rem 0;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-}
-
-.hero-h3 {
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--ice-cyan);
-  margin: 0;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-}
-
-.horizon-line {
+.divider::before {
+  content: '';
   position: absolute;
   top: 50%;
   left: 0;
-  width: 100%;
-  height: 4.5px;
-  background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(90,220,255,0.5), rgba(255,255,255,0.2));
-  z-index: 1;
-  pointer-events: none;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
 }
 
-.scroll-indicator {
-  position: absolute;
-  top: 50%;
-  right: 100px;
-  transform: translateY(-50%);
-  height: 250px;
-  width: 4px;
-  background-color: #222; /* linea verticale */
-  z-index: 20;
+/* Divider con simbolo al centro */
+.divider-symbol {
+  margin: 3rem 0;
+  text-align: center;
+  position: relative;
+  font-size: 1.5rem;
+  color: currentColor;
   opacity: 0.6;
 }
 
-.scroll-text {
+.divider-symbol::before,
+.divider-symbol::after {
+  content: '';
   position: absolute;
-  right: 15px;
   top: 50%;
-  transform-origin: right center;
-  font-size: 20px;
-  letter-spacing: 0.1em;
-  color: #222;
-  opacity: 0.8;
-  pointer-events: none;
-  user-select: none;
+  width: 30%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0.3;
 }
 
-.scroll-box {
+.divider-symbol::before {
+  left: 0;
+}
+
+.divider-symbol::after {
+  right: 0;
+}
+
+/* Divider wireframe (stile iceberg) */
+.divider-wireframe {
+  margin: 3rem 0;
+  height: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-wireframe::before {
+  content: '';
   position: absolute;
-  top: 0;
-  left: -6px;
-  width: 14px;
-  height: 14px;
-  background-color: #5EE4C3; /* rettangolino animato */
-  border-radius: 3px;
-  animation: scrollDown 2.5s infinite ease-in-out;
+  width: 60px;
+  height: 30px;
+  border: 1px solid currentColor;
+  border-radius: 50% 50% 0 0;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
 }
 
-@keyframes scrollDown {
-  0%   { top: 0; opacity: 1; }
-  50%  { top: 250px; opacity: 0.4; }
-  100% { top: 0; opacity: 1; }
+.divider-wireframe::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 30%, 
+    currentColor 70%, 
+    transparent 100%);
+  opacity: 0.2;
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Divider dots */
+.divider-dots {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.divider-dots::before {
+  content: '• • •';
+  font-size: 1.2rem;
+  letter-spacing: 0.8rem;
+  color: currentColor;
+  opacity: 0.4;
+}
+
+/* Divider spacing variants */
+.divider-sm { margin: 1.5rem 0; }
+.divider-lg { margin: 4rem 0; }
+.divider-xl { margin: 5rem 0; }
+
+/* Responsive dividers */
+@media (max-width: 768px) {
+  .divider,
+  .divider-symbol,
+  .divider-wireframe,
+  .divider-dots {
+    margin: 2rem 0;
+  }
+  
+  .divider-lg { margin: 2.5rem 0; }
+  .divider-xl { margin: 3rem 0; }
+}
+
+/* === TOOLTIP RESPONSIVO === */
+.tooltip {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.9);
+}
+
+.color-toggle-btn:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(5px);
+}
+
+/* Responsive tooltip per mobile */
+@media (max-width: 768px) {
+  .tooltip {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    max-width: calc(100vw - 2rem);
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+  }
+  
+  .tooltip::before {
+    display: none;
+  }
+  
+  .color-toggle-btn:hover .tooltip {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+
+
+
+
+
+/* ========== MENU E PULSANTI ========== */
 
 .main-menu {
   position: fixed;
@@ -625,36 +452,6 @@ section[style*="background: #"] p {
   height: 100%;
   display: block;
 }
-
-    #particles-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-  width: 100vw;
-  height: 100vh;
-        z-index: 15;
-		  pointer-events: none;      
-  background: transparent;
-    }
-
-
- 
-
-#penguin-canvas {
-  width: 400px;     /* come viene disegnato a schermo */
-  height: auto;
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  z-index: 300;
-   cursor: grab;
-}
-
-#penguin-canvas.dragging {
-  cursor: grabbing;
-}
-
-
 
 .wordcanvas {
   display: flex;
@@ -679,7 +476,67 @@ section[style*="background: #"] p {
   color: var(--glacier-blue);
 }
 
-/* === PULSANTE CONTROLLO COLORI === */
+
+ @media (max-width: 768px) {
+  /* === MENU HAMBURGER RESPONSIVE === */
+  .hamburger-menu {
+    display: flex !important;
+    background: rgba(255, 0, 0, 0.2); /* DEBUG: sfondo rosso per vedere se c'è */
+    border: 2px solid var(--glacier-blue);
+  }
+  
+  .wordcanvas {
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+  
+  .wordcanvas > .word {
+    display: none; /* Nascondi le parole del menu normale */
+  }
+  
+  .console-container {
+    display: none; /* Nascondi la console nel menu principale */
+  }
+  
+  .main-menu {
+    height: 70px; /* Riduci altezza menu su mobile */
+  }
+  
+  /* === DISABILITA PINGUINO SU MOBILE === */
+  #penguin-canvas {
+    display: none !important;
+  }
+  
+  .console-container {
+    margin-left: 0;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem 0.8rem 1.5rem;
+    border-radius: 6px;
+  }
+  
+  .console-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .color-toggle-btn {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* === DISABILITA SYSTEM PANEL SU MOBILE === */
+  .system-panel {
+    display: none !important;
+  }
+}
+
+
+
+
+
+
+/* === PULSANTi === */
 .color-toggle-btn {
   background: transparent;
   border: 2px solid var(--ice-cyan);
@@ -1272,330 +1129,537 @@ body.high-contrast .mobile-close-btn:hover {
   background: linear-gradient(135deg, #5dade2, var(--ice-cyan));
 }
 
-/* === ACCORDION RIUTILIZZABILE === */
-.accordion {
-  margin: 2rem 0;
-  max-width: 800px;
+
+/* === LAYOUT SEZIONI === */
+
+/* Classe generale per sezioni */
+
+    section {
+      position: relative;
+      min-height: 100vh; /* Cambiato da height a min-height per flessibilità */
+      height: auto; /* Permette l'espansione in base al contenuto */
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+      z-index: 6;
+      padding: 2rem;
+      width: 100%;
+      box-sizing: border-box;
+      flex-direction: column;
+    }
+
+
+
+/* === LAYOUT FLEXBOX  === */
+
+/* Contenitore a 2 colonne */
+.flex-2col {
+  display: flex;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  align-items: center;
+  height: auto; /* Altezza automatica basata sul contenuto */
+  min-height: auto; /* Nessuna altezza minima */
 }
 
-.accordion-header {
-  cursor: pointer;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+.flex-2col > * {
+  flex: 1; /* Ogni figlio prende la stessa larghezza */
 }
 
-.accordion-header:hover {
-  opacity: 0.8;
+/* Contenitore a larghezza piena */
+.flex-full {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  width: 100%;
+  height: auto; /* Altezza automatica basata sul contenuto */
+  min-height: auto; /* Nessuna altezza minima */
 }
 
-.accordion-content {
-  overflow: hidden;
-  transition: max-height 0.5s ease-out;
-  max-height: 0;
+/* Responsive per mobile */
+@media (max-width: 768px) {
+  .flex-2col {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
-.accordion.open .accordion-content {
-  max-height: 800px; /* Regola in base al contenuto */
+.projects-scroll {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 2rem 0;
 }
-
-.accordion-text {
-  padding: 1.5rem 0;
-  line-height: 1.6;
-}
-
-/* === SEZIONI DINAMICHE PER ACCORDION === */
-.parallax-section:has(.accordion.open) {
-  height: auto !important;
-  min-height: auto !important;
-}
-
-/* Assicura che tutti i contenitori si adattino al contenuto */
-.section1, .section2, .section3, .section4 {
-  height: auto !important;
-  min-height: 100vh;
-  margin: 0 !important; /* Nessun margin tra sezioni */
-  padding: 0 !important; /* Nessun padding nelle sezioni stesse */
+.project-box {
+  min-width: 320px;
+  flex: 0 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 2rem;
+  scroll-snap-align: start;
 }
 
 
-/* === READ MORE RIUTILIZZABILE === */
-/* 
-  Uso:
-  <div class="read-more-container">
-    <div class="read-more-preview">Testo sempre visibile</div>
-    <div class="read-more-content" id="uniqueId">
-      <div class="read-more-text">Testo nascosto</div>
-    </div>
-    <button class="read-more-btn" data-target="uniqueId">
-      <span class="read-more-text">Read more</span>
-      <span class="read-less-text">Read less</span>
-    </button>
-  </div>
-*/
-.read-more-container {
-  max-width: 800px;
-  margin: 2rem 0;
+   .parallax-section {
+      text-align: left;
+      display: block;
+      padding: 6rem 2rem;
+      margin-top: 0; /* Rimuove margin tra sezioni */
+      z-index: 5;
+      min-height: auto; /* Override min-height per sezioni parallax */
+      height: auto; /* Altezza completamente flessibile */
+      flex-direction: column; /* Per contenuti che si sviluppano verticalmente */
+      overflow-x: hidden; /* 🔥 Evita scroll orizzontale nelle sezioni */
+    }
+
+
+
+
+
+    /* Responsive padding per sezioni */
+    @media (max-width: 768px) {
+      .parallax-section {
+        padding: 2rem 1rem; /* Ridotto da 4rem a 2rem per meno spazio verticale */
+        margin-top: 0; /* Nessun margin tra sezioni anche su mobile */
+      }
+    
+    }
+
+    .parallax-image {
+      position: absolute;
+      width: 60vw;
+      max-width: 800px;
+      z-index: 2;
+      opacity: 0.2;
+    }
+
+
+
+
+
+    /* Override per immagini parallax nel flex */
+
+    .flex-2col .parallax-image,
+    .flex-full .parallax-image {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      opacity: 0.2;
+      transform: translateY(20px) scale(0.5); /* Parte da metà scala */
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+      transform-origin: center center; /* Zoom dal centro */
+    }
+
+    /* Stato visibile quando in vista */
+    .flex-2col .parallax-image.in-view,
+    .flex-full .parallax-image.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(0.8); /* Si sviluppa all'80% */
+    }
+
+    .parallax-text {
+      z-index: 2;
+      font-size: 2rem;
+      max-width: 60vw;
+    }
+
+/* === RESPONSIVE PARALLAX IMAGES === */
+@media (max-width: 768px) {
+  /* Su mobile: immagini parallax centrate e non sovrapposte */
+  .flex-2col .parallax-image,
+  .flex-full .parallax-image,{
+    display: block;
+    margin: 2rem auto; /* Centrate con margin */
+    max-width: calc(100% - 4rem); /* Rispetta il padding del sito */
+    width: auto;
+    height: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.6); /* Più piccole su mobile */
+  }
+  
+  .flex-2col .parallax-image.in-view,
+  .flex-full .parallax-image.in-view,
+    transform: translateY(0) scale(0.7); /* Scale finale più contenuta su mobile */
+  
+  /* Contenitori flex-2col su mobile diventano colonna */
+  .flex-2col {
+    flex-direction: column;
+    gap: 3rem; /* Più spazio tra contenuto e immagine */
+  }
+  
+  /* Ordine degli elementi su mobile */
+  .flex-2col .parallax-image {
+    order: 2; /* Immagine dopo il contenuto */
+  }
+  
+  .flex-2col .content-column {
+    order: 1; /* Contenuto prima */
+  }
 }
 
-.read-more-preview {
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+
+
+  /* PRELOADER*/
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #333;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-.read-more-content {
-  overflow: hidden;
-  transition: max-height 0.8s ease-out, opacity 0.6s ease-out;
-  max-height: 0;
-  opacity: 0;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.read-more-content.open {
-  max-height: 1000px; /* Altezza sufficiente per tutto il contenuto */
+.logo {
+  transition: opacity 0.3s ease, transform 0.3s ease;
   opacity: 1;
 }
 
-.read-more-text {
-  line-height: 1.6;
-  padding-top: 0.5rem;
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #fff 0%, #000 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
 }
 
-.read-more-btn {
-  background: transparent;
-  border: 1px solid currentColor;
-  color: inherit;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-controls {
+  margin-top: 2rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 32px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.preloader-controls label {
+  color: #ffffff;
+  font-size: 1.1rem;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-family: inherit;
 }
 
-.read-more-btn:hover {
-  background: currentColor;
+.preloader-controls input[type="range"] {
+  width: 200px;
+  accent-color: var(--glacier-blue);
+  margin-top: 0.5rem;
+  height: 4px;
+}
+
+.preloader-controls span {
+  margin-left: 0.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+#startBtn {
+  margin-top: 1rem;
+  padding: 0.7rem 2.2rem;
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+#startBtn:hover {
+  background: #000;
   color: #fff;
-  transform: translateY(-2px);
 }
 
-/* Responsive read more */
-@media (max-width: 768px) {
-  .read-more-container {
-    margin: 1.5rem 0;
+@media (max-width: 600px) {
+  .preloader-controls {
+    padding: 1.2rem 1rem;
+    width: 90vw;
   }
-  
-  .read-more-btn {
-    width: 100%;
-    padding: 1rem;
+  .preloader-controls input[type="range"] {
+    width: 120px;
   }
 }
 
-/* === DIVIDERS RIUTILIZZABILI === */
-/* Divider semplice con linea */
-.divider {
-  margin: 3rem 0;
-  text-align: center;
+
+#preloader .preloader-logo {
+  width: 160px;
+  max-width: 30vw;
+  margin-bottom: 2rem;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#preloader .preloader-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+/* ICEBERG E PINGUINO */
+
+#iceberg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform-origin: center center;
+  background-color: #2b2d42; /* fallback se il canvas non disegna subito */
+}
+
+#penguin-canvas {
+  width: 400px;     
+  height: auto;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 300;
+   cursor: grab;
+}
+
+#penguin-canvas.dragging {
+  cursor: grabbing;
+}
+
+
+
+
+/* GLOBAL EFFECT */
+
+    #particles-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+  width: 100vw;
+  height: 100vh;
+        z-index: 15;
+		  pointer-events: none;      
+  background: transparent;
+    }
+
+
+
+
+
+
+
+
+
+
+
+/* HERO E SUBHERO */
+
+
+
+
+
+.hero {
   position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index:10;
+  padding: 0;
+  margin: 0;
+          display: flex; /* da qui propeita section */
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+      z-index: 6;
+      width: 100%;
+      box-sizing: border-box;
+      flex-direction: column;
+
+}
+.hero-text {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-weight: normal;
+  color: white;
+  line-height: 2;
+  transition: opacity 1s ease, transform 1s ease, color 0.8s ease;
 }
 
-.divider::before {
-  content: '';
+.hero-text-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+.hero-titles-wrapper {
+  position: absolute;
+  bottom: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+.horizon-line {
   position: absolute;
   top: 50%;
   left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    currentColor 20%, 
-    currentColor 80%, 
-    transparent 100%);
-  opacity: 0.3;
+  width: 100%;
+  height: 4.5px;
+  background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(90,220,255,0.5), rgba(255,255,255,0.2));
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* Divider con simbolo al centro */
-.divider-symbol {
-  margin: 3rem 0;
-  text-align: center;
-  position: relative;
-  font-size: 1.5rem;
-  color: currentColor;
+.scroll-indicator {
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translateY(-50%);
+  height: 250px;
+  width: 4px;
+  background-color: #222; /* linea verticale */
+  z-index: 20;
   opacity: 0.6;
 }
 
-.divider-symbol::before,
-.divider-symbol::after {
-  content: '';
+.scroll-text {
   position: absolute;
+  right: 15px;
   top: 50%;
-  width: 30%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, currentColor, transparent);
-  opacity: 0.3;
+  transform-origin: right center;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  color: #222;
+  opacity: 0.8;
+  pointer-events: none;
+  user-select: none;
 }
 
-.divider-symbol::before {
-  left: 0;
+.scroll-box {
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  background-color: #5EE4C3; /* rettangolino animato */
+  border-radius: 3px;
+  animation: scrollDown 2.5s infinite ease-in-out;
 }
 
-.divider-symbol::after {
-  right: 0;
+@keyframes scrollDown {
+  0%   { top: 0; opacity: 1; }
+  50%  { top: 250px; opacity: 0.4; }
+  100% { top: 0; opacity: 1; }
 }
 
-/* Divider wireframe (stile iceberg) */
-.divider-wireframe {
-  margin: 3rem 0;
-  height: 40px;
-  position: relative;
+
+
+
+
+/* === SUBHERO -=== */
+.subhero {
+  /* background now handled by body for global effect */
+  color: #fff;
+  padding: 2.5rem 1.5rem;
+  margin: 0;
+  width: 100%;
+  min-height: 350px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.divider-wireframe::before {
-  content: '';
-  position: absolute;
-  width: 60px;
-  height: 30px;
-  border: 1px solid currentColor;
-  border-radius: 50% 50% 0 0;
-  opacity: 0.3;
-  animation: float 3s ease-in-out infinite;
-}
-
-.divider-wireframe::after {
-  content: '';
-  position: absolute;
-  top: 20px;
-  width: 80px;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    currentColor 30%, 
-    currentColor 70%, 
-    transparent 100%);
-  opacity: 0.2;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
-}
-
-/* Divider dots */
-.divider-dots {
-  margin: 3rem 0;
-  text-align: center;
-}
-
-.divider-dots::before {
-  content: '• • •';
-  font-size: 1.2rem;
-  letter-spacing: 0.8rem;
-  color: currentColor;
-  opacity: 0.4;
-}
-
-/* Divider spacing variants */
-.divider-sm { margin: 1.5rem 0; }
-.divider-lg { margin: 4rem 0; }
-.divider-xl { margin: 5rem 0; }
-
-/* Responsive dividers */
-@media (max-width: 768px) {
-  .divider,
-  .divider-symbol,
-  .divider-wireframe,
-  .divider-dots {
-    margin: 2rem 0;
-  }
-  
-  .divider-lg { margin: 2.5rem 0; }
-  .divider-xl { margin: 3rem 0; }
-}
-
-/* === TOOLTIP RESPONSIVO === */
-.tooltip {
-  position: absolute;
-  top: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.9);
-  color: #fff;
-  padding: 0.8rem 1.2rem;
-  border-radius: 0.8rem;
-  font-size: 0.85rem;
-  font-weight: 400;
-  line-height: 1.4;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  pointer-events: none;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.tooltip::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-bottom-color: rgba(0, 0, 0, 0.9);
-}
-
-.color-toggle-btn:hover .tooltip {
+  position: relative;
+  z-index: 1;
   opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(5px);
+  font-size: 1.2rem;
+  text-align: center;
+  border: none;
+  box-shadow: 0 8px 32px rgba(58,200,245,0.08);
 }
 
-/* Responsive tooltip per mobile */
+.subhero-container {
+  color: #fff;
+}
+
+.subhero-title {
+  color: var(--ice-cyan);
+  transition: color 0.5s;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.subhero-subtitle {
+  color: var(--glacier-blue);
+  transition: color 0.5s;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+
+
+/* Responsive SubHero */
 @media (max-width: 768px) {
-  .tooltip {
-    position: fixed;
-    top: auto;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: normal;
-    max-width: calc(100vw - 2rem);
-    text-align: center;
-    font-size: 0.8rem;
-    padding: 0.6rem 1rem;
+  .subhero {
+    min-height: 40vh;
+    padding: 2.5rem 1rem;
+    font-size: 1rem;
   }
-  
-  .tooltip::before {
-    display: none;
+  .subhero-title {
+    font-size: 1.5rem;
   }
-  
-  .color-toggle-btn:hover .tooltip {
-    transform: translateX(-50%) translateY(0);
+  .subhero-subtitle {
+    font-size: 1rem;
   }
 }
-
-
-
-
-
-.intro-text {
-  font-size: 1.3rem;
-  line-height: 1.6;
-  color: #495057;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-
-
 
 
 @media (max-width: 768px) {
@@ -1612,60 +1676,10 @@ body.high-contrast .mobile-close-btn:hover {
   .hero-h1, .hero-h2, .hero-h3 {
     font-size: clamp(1.5rem, 4vw, 3rem); /* Responsive font size */
   }
-  
-  /* === MENU HAMBURGER RESPONSIVE === */
-  .hamburger-menu {
-    display: flex !important;
-    background: rgba(255, 0, 0, 0.2); /* DEBUG: sfondo rosso per vedere se c'è */
-    border: 2px solid var(--glacier-blue);
   }
-  
-  .wordcanvas {
-    justify-content: space-between;
-    padding: 0.5rem 1rem;
-  }
-  
-  .wordcanvas > .word {
-    display: none; /* Nascondi le parole del menu normale */
-  }
-  
-  .console-container {
-    display: none; /* Nascondi la console nel menu principale */
-  }
-  
-  .main-menu {
-    height: 70px; /* Riduci altezza menu su mobile */
-  }
-  
-  /* === DISABILITA PINGUINO SU MOBILE === */
-  #penguin-canvas {
-    display: none !important;
-  }
-  
-  .console-container {
-    margin-left: 0;
-    margin-top: 1rem;
-    padding: 1rem 1.5rem 0.8rem 1.5rem;
-    border-radius: 6px;
-  }
-  
-  .console-buttons {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .color-toggle-btn {
-    margin: 0;
-    width: 100%;
-    text-align: center;
-  }
-  
-  /* === DISABILITA SYSTEM PANEL SU MOBILE === */
-  .system-panel {
-    display: none !important;
-  }
-}
 
+
+ 
 
   </style>
 
@@ -1853,7 +1867,7 @@ body.high-contrast .mobile-close-btn:hover {
 
 
 
-  <section class="hero" id="hero">
+  <class="hero" id="hero">
     <canvas id="iceberg" class="hero-canvas"></canvas>
 	<div class="hero-text-wrapper">
 <div class="hero-text-wrapper">
@@ -1876,47 +1890,58 @@ Inspired by science, crafted by AI</h3>
       <div class="scroll-box"></div>
       <div class="scroll-text">DIVE IN</div>
     </div>
-  </section>
+</div>
 
 
+<!-- SubHero Section -->
+<section class="subhero" id="subhero">
+  <div class="subhero-container">
+    <h2 class="subhero-title text-compose mobile-no-text-compose">
+      <strong>EMPOWERING HUMANS</strong>
+    </h2>
+    <h3 class="subhero-subtitle text-compose mobile-no-text-compose">
+      through playful education, creative content<br>
+      Inspired by science, crafted by AI
+    </h3>
+  </div>
+</section>
 
 
-
-
-
-
-<!-- Sezione 1 -->
-<section class="parallax-section section1" id="about">
+<!-- ABOUT -->
+<section class="parallax-section" id="about">
   <div class="flex-2col">
     <div class="content-column">
-      <h1>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h1>
-      <h2>from the earliest spark to the lifelong wonder of the mind.</h2>
+      <h1 class>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h1>
+      <h2 class="parallax-text">from the earliest spark to the lifelong wonder of the mind.</h2>
     </div>
     <div class="image-column">
       <img src="images/image_placeholder_about.png" alt="Img 1" class="parallax-image image1" />
     </div>
   </div>
+
   <div class="flex-full">
-    <h3>
-      It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath <br>the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
+    <h3 class="parallax-text">
+      It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath <br>
+      the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
     </h3>
     <div class="divider-dots"></div>
+
     <!-- Manifesto con Read More -->
-    <h3 class="text-compose"><strong>a short manifesto</strong> </h3>
-    
+    <h3 class="text-compose parallax-text"><strong>- a short manifesto</strong></h3>
+
     <div class="read-more-container">
       <!-- Testo preview sempre visibile (prime tre righe) -->
-      <div class="read-more-preview">
+      <p class="read-more-preview">
         AIceberg Mind was born from a simple belief: that intelligence is not a race to the top, but a journey below the surface. In a world flooded with fast content and noisy knowledge, we wanted to create something different.<br><br>
 
         We see content not as a product, but as a living experience — one that can play, teach, surprise, and empower. We create digital objects: some playful, some poetic, some purely practical.<br><br>
 
         We don't claim expertise in psychology or nervous system science. What we claim is curiosity in subconscious rewiring, craftsmanship, and care.
-      </div>
-      
+      </p>
+
       <!-- Contenuto completo nascosto inizialmente -->
       <div class="read-more-content" id="readMoreContent">
-        <div class="read-more-text">
+        <p class="read-more-text">
           We are designers, makers, researchers, and parents — trying to shape tools that spark ideas, facilitate creation, or gently awaken minds.<br><br>
 
           Some of our content is designed for children. Some for adults. Some for both. But all of it is guided by the same principle: explore below the surface. Education is not always the goal — but it's often the side effect. And so is joy.<br><br>
@@ -1926,32 +1951,77 @@ Inspired by science, crafted by AI</h3>
           Our vision begins in early childhood, where so much is silently shaped — but it doesn't end there. It reaches the child within us all, the parents who guide, the educators who nurture, and the minds that still wonder.<br><br>
 
           AIceberg Mind is not an answer. It's a question: what kind of world do we create when we shape content from the depth of human potential?
-        </div>
+        </p>
       </div>
-      
+
       <!-- Pulsante Read More -->
       <button class="read-more-btn" id="readMoreBtn">
         <span class="read-more-text">Read more</span>
         <span class="read-less-text" style="display: none;">Read less</span>
       </button>
     </div>
-    
-    <!-- Esempi di divider riutilizzabili     <p class="text-compose">This is additional content separated by a wireframe divider that recalls the iceberg aesthetic.</p>
-    
-    <div class="divider-symbol">◊</div>
-    
-    <p class="text-compose">Another section with a symbol divider. You can use any symbol: ◊, ●, ▲, ✦, etc.</p>
-    
-    <div class="divider-dots"></div>
-    
-    <p class="text-compose">Final section with a simple dots divider. Perfect for lighter separations.</p>
-    
-    <div class="divider"></div>
-    <div class="divider-wireframe"></div>-->
-    
-    
+  </div>
+</section>
 
-    
+
+
+
+
+
+
+<!-- PROJECTS -->
+<section class="parallax-section" id="projects">
+  <div class="flex-2col">
+    <div class="content-column">
+      <h1 class>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h1>
+      <h2 class="parallax-text">from the earliest spark to the lifelong wonder of the mind.</h2>
+    </div>
+    <div class="image-column">
+      <img src="images/image_placeholder_about.png" alt="Img 1" class="parallax-image image1" />
+    </div>
+  </div>
+
+  <div class="flex-full">
+    <h3 class="parallax-text">
+      It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath <br>
+      the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
+    </h3>
+    <div class="divider-dots"></div>
+
+    <!-- Manifesto con Read More -->
+    <h3 class="text-compose parallax-text"><strong>- a short manifesto</strong></h3>
+
+    <div class="read-more-container">
+      <!-- Testo preview sempre visibile (prime tre righe) -->
+      <p class="read-more-preview">
+        AIceberg Mind was born from a simple belief: that intelligence is not a race to the top, but a journey below the surface. In a world flooded with fast content and noisy knowledge, we wanted to create something different.<br><br>
+
+        We see content not as a product, but as a living experience — one that can play, teach, surprise, and empower. We create digital objects: some playful, some poetic, some purely practical.<br><br>
+
+        We don't claim expertise in psychology or nervous system science. What we claim is curiosity in subconscious rewiring, craftsmanship, and care.
+      </p>
+
+      <!-- Contenuto completo nascosto inizialmente -->
+      <div class="read-more-content" id="readMoreContent">
+        <p class="read-more-text">
+          We are designers, makers, researchers, and parents — trying to shape tools that spark ideas, facilitate creation, or gently awaken minds.<br><br>
+
+          Some of our content is designed for children. Some for adults. Some for both. But all of it is guided by the same principle: explore below the surface. Education is not always the goal — but it's often the side effect. And so is joy.<br><br>
+
+          Inspired by the iceberg, our craft is layered: playful on the surface, rooted in research below. We use AI to enhance form and interaction, but never to replace thought.<br><br>
+
+          Our vision begins in early childhood, where so much is silently shaped — but it doesn't end there. It reaches the child within us all, the parents who guide, the educators who nurture, and the minds that still wonder.<br><br>
+
+          AIceberg Mind is not an answer. It's a question: what kind of world do we create when we shape content from the depth of human potential?
+        </p>
+      </div>
+
+      <!-- Pulsante Read More -->
+      <button class="read-more-btn" id="readMoreBtn">
+        <span class="read-more-text">Read more</span>
+        <span class="read-less-text" style="display: none;">Read less</span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -1964,24 +2034,6 @@ Inspired by science, crafted by AI</h3>
 
 
 
-
-  <!-- Sezione 3 -->
-  <section class="parallax-section section3">
-    <img src="https://via.placeholder.com/800x600" alt="Img 3" class="parallax-image image3" />
-    <div class="parallax-text text3">
-      <h2>The Mind Unfolded</h2>
-      <p>Reveal what lies beneath the visible.</p>
-    </div>
-  </section>
-
-  <!-- Sezione 4 -->
-  <section class="parallax-section section4">
-    <img src="https://via.placeholder.com/800x600" alt="Img 4" class="parallax-image image3" />
-    <div class="parallax-text text4">
-      <h2>The Mind Unfolded</h2>
-      <p>Reveal what lies beneath the visible.</p>
-    </div>
-  </section>
 
 
 
@@ -2303,6 +2355,12 @@ function updateSectionsColor(currentBg, currentTextColor, interpolatedColor) {
     section.style.color = currentTextColor;
   });
   
+  const subhero = document.querySelector('.subhero');
+  if (subhero) {
+    subhero.style.background = currentBg;
+    subhero.style.color = currentTextColor;
+  }
+
   // Aggiorna colori dinamici per H1, H2, H3 globali
   document.querySelectorAll('h1, h2, h3').forEach(title => {
     title.style.color = currentTextColor;
@@ -2328,51 +2386,7 @@ function updateSectionsColor(currentBg, currentTextColor, interpolatedColor) {
 }
 </script>
 
-<!-- 🔥 FALLBACK CSS PER GITHUB PAGES (caso GSAP non carichi) -->
-<style id="github-fallback-styles" style="display: none;">
-.github-fallback .main-menu {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: translateY(0) !important;
-}
 
-.github-fallback .hero {
-  position: relative !important;
-}
-
-.github-fallback .parallax-section {
-  position: relative !important;
-}
-
-.github-fallback .parallax-image {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-.github-fallback .hero-text {
-  opacity: 1 !important;
-  transform: translate(-50%, -50%) !important;
-}
-</style>
-
-<script>
-// Attiva fallback se GSAP non si carica entro 5 secondi
-setTimeout(() => {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.warn('🔄 Attivando fallback CSS - GSAP non disponibile');
-    document.body.classList.add('github-fallback');
-    const fallbackStyles = document.getElementById('github-fallback-styles');
-    if (fallbackStyles) {
-      fallbackStyles.style.display = 'block';
-    }
-    // Assicura che il sito sia utilizzabile
-    document.body.style.overflow = 'auto';
-  }
-}, 5000);
-</script>
-
-<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
 
 <script>
 // === Canvas Setup
@@ -2457,7 +2471,7 @@ function draw() {
     ctx.rotate(rotate);
     ctx.scale(scrollScale, scrollScale);
     ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1;
     for (let i = 0; i < points.length; i++) {
       for (let j = i + 1; j < points.length; j++) {
         const p1 = points[i], p2 = points[j];
@@ -2478,7 +2492,7 @@ function draw() {
     ctx.scale(scrollScale, -scrollScale);
     ctx.globalAlpha = 0.3;
     ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 0.5;
     for (let i = 0; i < points.length; i++) {
       for (let j = i + 1; j < points.length; j++) {
         const p1 = points[i], p2 = points[j];
@@ -2554,205 +2568,182 @@ function draw() {
 </script>
 
 <script>
-// === Hero background gradient (cambio ogni ora)
-const hero = document.querySelector(".hero");
-const gradients = [
-  { from: "#2b2d42", to: "#3a0ca3" },
-  { from: "#3a0ca3", to: "#4361ee" },
-  { from: "#7209b7", to: "#f72585" },
-  { from: "#00f5d4", to: "#4cc9f0" },
-  { from: "#fbc2eb", to: "#b5179e" },
-  { from: "#edf2f4", to: "#9AA9B8" }
-];
+// 🔥 SISTEMA NATIVO SENZA GSAP
+console.log('🚀 AIceberg Mind - Sistema nativo caricato');
 
-function updateHeroBackground() {
-  const hour = new Date().getHours();
-  const g = gradients[Math.floor(hour / 2) % gradients.length];
-  if (hero) hero.style.background = `linear-gradient(to bottom, ${g.from}, ${g.to})`;
-}
-updateHeroBackground();
-setInterval(updateHeroBackground, 60 * 60 * 1000);
-</script>
-
-
-<script>
-// 🔥 SISTEMA DI DEBUG COMPLETO PER GITHUB PAGES
-console.log('🚀 Inizializzazione GitHub Pages Debug System');
-console.log('📍 User Agent:', navigator.userAgent);
-console.log('📍 Location:', window.location.href);
-console.log('📍 Protocol:', window.location.protocol);
-
-// Log di caricamento script
-window.addEventListener('load', () => {
-  console.log('📍 Pagina completamente caricata');
-  console.log('📍 GSAP disponibile:', typeof gsap !== 'undefined');
-  console.log('📍 ScrollTrigger disponibile:', typeof ScrollTrigger !== 'undefined');
-  console.log('📍 Three.js disponibile:', typeof THREE !== 'undefined');
+// === Inizializzazione sistemi nativi ===
+document.addEventListener('DOMContentLoaded', () => {
+  initNativeHeroEffects();     // 🎯 Hero separato con scroll listener
+  initNativeMenuEffects();     // 📱 Menu con Intersection Observer  
+  initNativeParallaxEffects(); // 🌊 Sezioni parallax con Intersection Observer
 });
 
-// Cattura errori JavaScript
-window.addEventListener('error', (e) => {
-  console.error('🚨 JavaScript Error:', e.error);
-  console.error('🚨 In file:', e.filename, 'line:', e.lineno);
-});
-
-// 🔥 SISTEMA DI CARICAMENTO ROBUSTO PER HERO SCROLLTRIGGER
-function waitForGSAPHero(callback, maxAttempts = 50) {
-  let attempts = 0;
+// 🎯 HERO SYSTEM - Completamente separato dalla logica parallax
+function initNativeHeroEffects() {
+  console.log('🚀 Inizializzazione Hero System (separato)');
   
-  function checkGSAPHero() {
-    attempts++;
-    
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      console.log('✅ GSAP Hero - caricato correttamente');
-      gsap.registerPlugin(ScrollTrigger);
-      callback();
-    } else if (attempts < maxAttempts) {
-      console.log(`⏳ Hero tentativo ${attempts}/${maxAttempts} - Aspettando GSAP...`);
-      setTimeout(checkGSAPHero, 100);
-    } else {
-      console.error('❌ GSAP Hero non caricato - Hero scroll disabilitato');
+  const heroText = document.querySelector(".hero-text");
+  const heroTitles = document.querySelector(".hero-titles-wrapper");
+  const hero = document.querySelector(".hero");
+  const isMobile = window.innerWidth <= 768;
+  
+  if (!hero) {
+    console.error('❌ Elemento .hero non trovato!');
+    return;
+  }
+  
+  console.log(isMobile ? '📱 Hero Mobile mode' : '🖥️ Hero Desktop mode');
+  
+  let ticking = false;
+  
+  function handleHeroScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const heroHeight = hero.offsetHeight;
+        const progress = Math.min(scrollTop / heroHeight, 1);
+        
+        // 🔍 Zoom iceberg (opzionale - connesso al canvas)
+        if (window.scrollScale !== undefined) {
+          window.scrollScale = 1 + progress * (isMobile ? 0.1 : 0.3);
+        }
+        
+        // 📝 Animazioni testo hero principale
+        if (heroText) {
+          heroText.style.opacity = 1 - progress;
+          if (!isMobile) {
+            heroText.style.transform = `translate(-50%, calc(-50% - ${progress * 80}px))`;
+          }
+        }
+        
+        // 🎯 Hero Titles - appaiono quando scroll > 66% dell'hero
+        if (heroTitles) {
+          const threshold = isMobile ? 0.6 : 0.66;
+          if (progress > threshold) {
+            const titleOpacity = (progress - threshold) / (1 - threshold);
+            heroTitles.style.opacity = titleOpacity;
+            if (!isMobile) {
+              heroTitles.style.transform = `translate(-50%, calc(-50% + ${(1 - progress) * 30}px))`;
+            }
+            
+            // Debug solo al cambiamento
+            if (titleOpacity > 0 && titleOpacity < 0.1) {
+              console.log('🎯 Hero Titles SHOW - Progress:', Math.round(progress * 100) + '%');
+            }
+          } else {
+            heroTitles.style.opacity = 0;
+            if (progress > 0.5 && progress < 0.6) { // Debug una volta
+              console.log('🎯 Hero Titles HIDE - Progress:', Math.round(progress * 100) + '%');
+            }
+          }
+        }
+        
+        ticking = false;
+      });
+      ticking = true;
     }
   }
   
-  checkGSAPHero();
+  // Listener scroll dedicato SOLO per l'hero
+  window.addEventListener('scroll', handleHeroScroll, { passive: true });
+  
+  // Controllo iniziale
+  handleHeroScroll();
+  
+  console.log('✅ Hero System attivo - Scroll listener dedicato');
 }
 
-// Avvia il sistema quando il DOM è pronto
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    waitForGSAPHero(initHeroScrollEffects);
+
+// === ScrollTrigger NATIVO con Intersection Observer ===
+function initNativeMenuEffects() {
+  console.log('🔧 Inizializzazione ScrollTrigger nativo...');
+  const menu = document.querySelector(".main-menu");
+  const subhero = document.querySelector(".subhero");
+  
+  if (!menu) {
+    console.error('❌ Menu .main-menu non trovato!');
+    return;
+  }
+  
+  if (!subhero) {
+    console.error('❌ Sezione .subhero non trovata!');
+    return;
+  }
+
+  console.log('✅ Menu e Subhero trovati');
+  
+  // Stato iniziale: nascosto
+  menu.style.opacity = '0';
+  menu.style.visibility = 'hidden';
+  menu.style.transform = 'translateY(-20px)';
+  menu.style.transition = 'opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out';
+  
+  let menuVisible = false;
+  
+  function showMenu() {
+    if (!menuVisible) {
+      console.log('🔼 Menu SHOW');
+      menuVisible = true;
+      menu.style.opacity = '1';
+      menu.style.visibility = 'visible';
+      menu.style.transform = 'translateY(0)';
+    }
+  }
+  
+  function hideMenu() {
+    if (menuVisible) {
+      console.log('🔽 Menu HIDE');
+      menuVisible = false;
+      menu.style.opacity = '0';
+      menu.style.visibility = 'hidden';
+      menu.style.transform = 'translateY(-20px)';
+    }
+  }
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      console.log(`📊 Subhero visibility: ${Math.round(entry.intersectionRatio * 100)}%`);
+
+      // Se il subhero è ancora visibile per più del 33% -> nascondi menu
+      if (entry.intersectionRatio > 0.33) {
+        hideMenu();
+      } 
+      // Se il hero è quasi completamente fuori vista -> mostra menu
+      else if (entry.intersectionRatio <= 0.33) {
+        showMenu();
+      }
+    });
+  }, {
+    // Osserva quando l'hero entra/esce dal viewport
+    threshold: [0, 0.1, 0.2, 0.33, 0.5, 0.66, 0.8, 1.0] // Controlli multipli
   });
-} else {
-  waitForGSAPHero(initHeroScrollEffects);
-}
 
-function initHeroScrollEffects() {
-// ScrollTrigger con pin + animazioni cinematiche
-ScrollTrigger.create({
-  trigger: ".hero",
-  start: "top top",
-  end: "+=100%",
-  scrub: true,
-  pin: true,
-  anticipatePin: 1,
-  onUpdate: self => {
-    // Zoom iceberg canvas
-    scrollScale = 1 + self.progress * 0.3;
+  // Inizia a osservare il subhero
+  observer.observe(subhero);
+  console.log('✅ Intersection Observer attivo sul subhero');
 
-    // Testo hero: fade + movimento
-    const heroText = document.querySelector(".hero-text");
-    const heroTitles = document.querySelector(".hero-titles-wrapper");
+  // FALLBACK: Controllo scroll tradizionale come backup
+  let ticking = false;
+  function handleScrollBackup() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const subheroHeight = subhero.offsetHeight;
+        const threshold = subheroHeight * 0.66;
 
-    if (heroText) {
-      heroText.style.opacity = 1 - self.progress;
-      heroText.style.transform = `translate(-50%, calc(-50% - ${self.progress * 80}px))`;
-    }
-    // Nuovi titoli: appaiono quando il testo hero scompare
-    if (heroTitles) {
-if (self.progress > 0.8) {
-  heroTitles.style.opacity = (self.progress - 0.8) / 0.2;
-  heroTitles.style.transform = `translate(-50%, calc(-50% + ${(1 - self.progress) * 30}px))`;
-} else {
-  heroTitles.style.opacity = 0;
-}
-    }
-  }
-});
-
-  console.log('🎯 Hero scroll effects inizializzati');
-} // Fine initHeroScrollEffects
-
-
-// === Menu animato con GSAP
-function waitForGSAPMenu(callback, maxAttempts = 50) {
-  let attempts = 0;
-  
-  function checkGSAPMenu() {
-    attempts++;
-    
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      console.log('✅ GSAP Menu - caricato correttamente');
-      gsap.registerPlugin(ScrollTrigger);
-      callback();
-    } else if (attempts < maxAttempts) {
-      console.log(`⏳ Menu tentativo ${attempts}/${maxAttempts} - Aspettando GSAP...`);
-      setTimeout(checkGSAPMenu, 100);
-    } else {
-      console.error('❌ GSAP Menu non caricato - Menu animato disabilitato');
-      // Fallback: mostra sempre il menu
-      const menu = document.querySelector(".main-menu");
-      if (menu) {
-        menu.style.opacity = '1';
-        menu.style.visibility = 'visible';
-      }
+        // Log ogni 200px
+        if (Math.floor(scrollTop / 200) !== Math.floor((scrollTop - 10) / 200)) {
+          console.log(`� BACKUP - Scroll: ${Math.round(scrollTop)}px | Threshold: ${Math.round(threshold)}px`);
+        }
+        
+        ticking = false;
+      });
+      ticking = true;
     }
   }
   
-  checkGSAPMenu();
+  window.addEventListener('scroll', handleScrollBackup, { passive: true });
 }
-
-// Avvia il sistema quando il DOM è pronto
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    waitForGSAPMenu(initMenuEffects);
-  });
-} else {
-  waitForGSAPMenu(initMenuEffects);
-}
-
-function initMenuEffects() {
-const menu = document.querySelector(".main-menu");
-gsap.set(menu, { autoAlpha: 0, y: -20 }); // stato iniziale: invisibile, leggermente sopra
-
-function isMobile() {
-  return window.innerWidth <= 768;
-}
-
-// DESKTOP: Comportamento originale con ScrollTrigger
-ScrollTrigger.create({
-  trigger: ".hero",
-  start: "bottom top+=100", // ritarda apparizione
-  onEnter: () => {
-    if (!isMobile()) {
-      gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
-    }
-  },
-  onLeaveBack: () => {
-    if (!isMobile()) {
-      gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
-    }
-  }
-});
-
-// MOBILE: Logica semplificata
-let mobileMenuShown = false;
-
-ScrollTrigger.create({
-  trigger: ".hero",
-  start: "bottom top+=100",
-  end: "max",
-  onUpdate: (self) => {
-    if (isMobile()) {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const heroHeight = document.querySelector('.hero').offsetHeight;
-      
-      // Se siamo oltre l'hero e il menu non è ancora mostrato
-      if (scrollTop > heroHeight + 100 && !mobileMenuShown) {
-        mobileMenuShown = true;
-        gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
-      }
-      // Se torniamo completamente al top della pagina
-      else if (scrollTop <= 50 && mobileMenuShown) {
-        mobileMenuShown = false;
-        gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
-      }
-    }
-  }
-});
-
-  console.log('🎯 Menu effects inizializzati');
-} // Fine initMenuEffects
 
 // === MENU HAMBURGER CON CSS SEMPLICE ===
 document.addEventListener('DOMContentLoaded', function() {
@@ -3163,130 +3154,147 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 </script>
 
-
-
- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
-// 🔥 SISTEMA DI CARICAMENTO ROBUSTO PER GITHUB PAGES
-function waitForGSAP(callback, maxAttempts = 50) {
-  let attempts = 0;
-  
-  function checkGSAP() {
-    attempts++;
-    
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      console.log('✅ GSAP e ScrollTrigger caricati correttamente');
-      gsap.registerPlugin(ScrollTrigger);
-      callback();
-    } else if (attempts < maxAttempts) {
-      console.log(`⏳ Tentativo ${attempts}/${maxAttempts} - Aspettando GSAP...`);
-      setTimeout(checkGSAP, 100); // Riprova ogni 100ms
-    } else {
-      console.error('❌ GSAP non caricato dopo', maxAttempts, 'tentativi - Parallax disabilitato');
-      // Fallback: abilita scroll normale
-      document.body.style.overflowY = 'auto';
-    }
-  }
-  
-  checkGSAP();
+// ⚡ SEZIONI PARALLAX SYSTEM - Separato dall'Hero
+function initNativeParallaxEffects() {
+  console.log('🌊 Inizializzazione Parallax System (solo sezioni, NO hero)');
+  document.body.style.overflowY = 'auto';
+  initParallaxImages();
+  initParallaxText();
+  initParallaxMovement();
+  initParallaxBackgrounds();
 }
 
-// Avvia il sistema quando il DOM è pronto
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    waitForGSAP(initParallaxEffects);
-  });
-} else {
-  waitForGSAP(initParallaxEffects);
-}
+// 🖼️ Parallax IMMAGINI
+function initParallaxImages() {
+  const parallaxImages = document.querySelectorAll('.parallax-image:not(.hero .parallax-image), .parallax-section .parallax-image, section:not(.hero) .parallax-image');
+  console.log(`🖼️ Parallax: Trovate ${parallaxImages.length} immagini (hero escluso)`);
 
-// Funzione che contiene tutti gli effetti parallax
-function initParallaxEffects() {
-    gsap.utils.toArray(".parallax-image").forEach((image, i) => {
-      // Valori diversi per mobile e desktop
-      const isMobile = window.innerWidth <= 768;
-      const startScale = isMobile ? 0.6 : 0.5;
-      const endScale = isMobile ? 0.7 : 0.8;
-      const startY = isMobile ? 30 : 50;
-      const endY = isMobile ? -30 : -50;
-      
-      // Animazione zoom progressivo durante lo scroll
-      gsap.fromTo(image, 
-        { 
-          scale: startScale, // Parte da metà scala
-          y: startY,
-          opacity: 0.2
-        },
-        {
-          scale: endScale, // Si sviluppa all'80% (70% su mobile)
-          y: endY,
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: image.closest("section"),
-            start: "top 80%", // Inizia prima
-            end: "bottom 20%", // Finisce dopo
-            scrub: 1, // Animazione fluida legata allo scroll
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.target.closest('.hero')) return;
+
+      const progress = entry.intersectionRatio;
+
+      if (entry.isIntersecting) {
+        entry.target.classList.add('parallax-active');
+
+        const isMobile = window.innerWidth <= 768;
+        const scaleRange = isMobile ? 0.1 : 0.3;
+        const yRange = isMobile ? 60 : 100;
+
+        const scale = (isMobile ? 0.6 : 0.5) + (scaleRange * progress);
+        const y = (isMobile ? 30 : 50) - (yRange * progress);
+        const opacity = 0.2 + (0.8 * progress);
+
+        entry.target.style.transform = `scale(${scale}) translateY(${y}px)`;
+        entry.target.style.opacity = opacity;
+        entry.target.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
+
+        if (progress === 1) console.log(`🖼️ Immagine parallax completamente visibile`);
+      }
     });
-
-// Immagine parallax: movimento più lento
-gsap.utils.toArray(".parallax-img").forEach(img => {
-  gsap.fromTo(img, 
-    { y: 100 }, 
-    { 
-      y: -100, 
-      ease: "none",
-      scrollTrigger: {
-        trigger: img.closest(".parallax-section"),
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    }
-  );
-});
-
-// Testo: fade in + su
-gsap.utils.toArray(".parallax-text").forEach(text => {
-  gsap.from(text, {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: text.closest(".parallax-section"),
-      start: "top 70%",
-      toggleActions: "play none none reverse"
-    }
+  }, {
+    threshold: Array.from({ length: 6 }, (_, i) => i / 5),
+    rootMargin: '50px 0px -50px 0px'
   });
-});
 
-// Sfondo: cambio gradiente (esempio avanzato, opzionale)
-gsap.utils.toArray(".bg-layer").forEach(bg => {
-  gsap.fromTo(bg, 
-    { backgroundPosition: "0% 0%" }, 
-    {
-      backgroundPosition: "0% 100%",
-      ease: "none",
-      scrollTrigger: {
-        trigger: bg.closest(".parallax-section"),
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
+  parallaxImages.forEach(image => imageObserver.observe(image));
+}
+
+// 📝 Parallax TESTO
+function initParallaxText() {
+  const parallaxTexts = document.querySelectorAll('.parallax-text:not(.hero .parallax-text), .parallax-section .parallax-text, section:not(.hero) .parallax-text');
+  console.log(`📝 Parallax: Trovati ${parallaxTexts.length} testi (hero escluso)`);
+
+  const textObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.target.closest('.hero')) return;
+
+      if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        textObserver.unobserve(entry.target); // ⬅️ miglioramento performance
+        console.log('📝 Testo parallax attivato');
       }
-    }
-  );
-});
+    });
+  }, {
+    threshold: [0, 0.3, 0.7, 1.0],
+    rootMargin: '0px 0px -100px 0px'
+  });
 
-  console.log('🎯 Tutti gli effetti parallax inizializzati');
-} // Fine initParallaxEffects
+  parallaxTexts.forEach(text => {
+    text.style.opacity = '0';
+    text.style.transform = 'translateY(50px)';
+    text.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+    textObserver.observe(text);
+  });
+}
 
+// 🎭 Parallax MOVIMENTO
+const activeParallaxImgs = new Set();
+
+function handleGlobalParallaxScroll() {
+  activeParallaxImgs.forEach(img => {
+    const rect = img.getBoundingClientRect();
+    const scrollProgress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+    const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+    const yOffset = 100 - (200 * clampedProgress);
+    img.style.transform = `translateY(${yOffset}px)`;
+  });
+}
+window.addEventListener('scroll', handleGlobalParallaxScroll, { passive: true });
+
+function initParallaxMovement() {
+  const parallaxImgs = document.querySelectorAll('.parallax-img:not(.hero .parallax-img), .parallax-section .parallax-img, section:not(.hero) .parallax-img');
+  console.log(`🎭 Parallax: Trovate ${parallaxImgs.length} immagini con movimento (hero escluso)`);
+
+  parallaxImgs.forEach(img => {
+    const movementObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target.closest('.hero')) return;
+
+        if (entry.isIntersecting) {
+          activeParallaxImgs.add(entry.target);
+          handleGlobalParallaxScroll(); // aggiorna subito
+          console.log('🎭 Movimento parallax attivato');
+        } else {
+          activeParallaxImgs.delete(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    movementObserver.observe(img);
+  });
+}
+
+// 🌈 Parallax SFONDI
+function initParallaxBackgrounds() {
+  const bgLayers = document.querySelectorAll('.bg-layer:not(.hero .bg-layer), .parallax-section .bg-layer,.bg-layer');
+  console.log(`🌈 Parallax: Trovati ${bgLayers.length} sfondi (hero escluso)`);
+
+  const bgObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.target.closest('.hero')) return;
+
+      if (entry.isIntersecting) {
+        const progress = entry.intersectionRatio;
+        entry.target.style.backgroundPosition = `0% ${progress * 100}%`;
+        entry.target.style.transition = 'background-position 0.6s ease-out';
+
+        if (progress === 1) {
+          console.log(`🌈 Sfondo parallax completamente attivo`);
+        }
+      }
+    });
+  }, {
+    threshold: Array.from({ length: 6 }, (_, i) => i / 5)
+  });
+
+  bgLayers.forEach(bg => bgObserver.observe(bg));
+}
 </script>
+
 
 
 
@@ -3446,8 +3454,8 @@ gsap.utils.toArray(".bg-layer").forEach(bg => {
 <!-- ✅ EFFETTO FADE-IN DELLE IMMAGINI PARALLAX CON SCROLL -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Seleziona tutte le immagini parallax nei layout flex/grid
-  const parallaxImages = document.querySelectorAll('.flex-2col .parallax-image, .flex-full .parallax-image, .grid-2-fixed .parallax-image, .grid-item .parallax-image');
+  // Seleziona tutte le immagini parallax nei layout flex
+  const parallaxImages = document.querySelectorAll('.flex-2col .parallax-image, .flex-full .parallax-image, .parallax-image, .parallax-image');
   
   // Crea l'Intersection Observer
   const imageObserver = new IntersectionObserver((entries) => {
@@ -3461,7 +3469,7 @@ document.addEventListener("DOMContentLoaded", () => {
     threshold: 0.3, // Trigger quando il 30% dell'immagine è visibile
     rootMargin: '0px 0px -50px 0px' // Trigger un po' prima che sia completamente visibile
   });
-
+  
   // Osserva tutte le immagini parallax
   parallaxImages.forEach(image => {
     imageObserver.observe(image);
@@ -3497,7 +3505,7 @@ document.addEventListener("DOMContentLoaded", () => {
         span.style.display = 'inline-block';
         span.style.position = 'relative';
         span.style.opacity = '0';
-        span.style.transform = 'translateX(50px) scale(0.3)';
+        span.style.transform = 'translateX(20px) scale(0.8)'; // 🔥 Ridotto da 50px a 20px
         span.style.transition = `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
         span.dataset.letterIndex = letters.length; // Indice globale
         letters.push(span);
@@ -3605,8 +3613,6 @@ document.addEventListener("DOMContentLoaded", () => {
     textComposeElements.forEach(element => {
       applyTextCompositionEffect(element);
     });
-    
-    console.log(`Effetto composizione testo applicato a ${textComposeElements.length} elementi con classe .text-compose (mobile: ${isMobile})`);
   }
   
   // Avvia il rilevamento automatico
