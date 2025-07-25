@@ -1,1 +1,3500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aiceberg Mind - Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+<canvas id="particles-background"></canvas>
+
+  <style>
+    :root {
+      --glacier-blue: #5EE4C3;
+      --ice-cyan: #3AC8F5;
+      --twilight: #a6c1ee;
+      --deep-night: #0F2B3A;
+      --frost-white: #F5F9FF;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      font-family: 'Inter', sans-serif;
+	  font-family: "IBM Plex Sans", sans-serif;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+
+  .ibm-plex-sans {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+
+/* === STILI GLOBALI TITOLI === */
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 2rem 0;
+  padding: 2rem 0;
+  position: relative;
+  /* Il colore verrà impostato dinamicamente dall'iceberg */
+}
+
+/* Linea wireframe sopra H1 */
+h1::before {
+  margin-top: 2rem;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+/* Linea wireframe sotto H1 */
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  /* Il colore verrà impostato dinamicamente dall'iceberg */
+}
+
+h3 {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1rem 0;
+  /* Il colore verrà impostato dinamicamente dall'iceberg */
+}
+
+/* === STILE GLOBALE TAGLINE === */
+.tagline {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 0 0 2rem 0;
+  /* Il colore verrà impostato dinamicamente dall'iceberg */
+}
+
+/* === STILI GLOBALI PARAGRAFI === */
+p {
+  font-size: 0.8rem !important; /* 12.8px - molto più piccolo */
+  line-height: 1.7;
+  margin: 0 0 1.5rem 0;
+  color: #333;
+}
+
+/* Paragrafi su sfondi scuri */
+.dark-bg p, 
+section[style*="background: #"] p {
+  color: #fff;
+}
+
+
+/* === LAYOUT GRID SEZIONI === */
+
+/* Classe generale per sezioni */
+
+    section {
+      position: relative;
+      min-height: 100vh; /* Cambiato da height a min-height per flessibilità */
+      height: auto; /* Permette l'espansione in base al contenuto */
+      display: flex;
+      align-items: flex-start; /* Cambiato da center a flex-start per contenuti lunghi */
+      justify-content: center;
+      text-align: left;
+      z-index: 6;
+      padding: 2rem;
+      width: 100%;
+      box-sizing: border-box;
+      flex-direction: column; /* Assicura sviluppo verticale */
+
+    }
+
+
+/* Grid a 2 elementi */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Grid esatto a 2 colonne */
+.grid-2-fixed {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  align-items: center;
+}
+
+/* Override per assicurarsi che funzioni dentro parallax-section */
+.parallax-section .grid-2-fixed {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+}
+
+@media (max-width: 768px) {
+  .grid-2-fixed {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === LAYOUT FLEXBOX (più affidabile) === */
+
+/* Contenitore a 2 colonne */
+.flex-2col {
+  display: flex;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  align-items: center;
+  height: auto; /* Altezza automatica basata sul contenuto */
+  min-height: auto; /* Nessuna altezza minima */
+}
+
+.flex-2col > * {
+  flex: 1; /* Ogni figlio prende la stessa larghezza */
+}
+
+/* Contenitore a larghezza piena */
+.flex-full {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  width: 100%;
+  height: auto; /* Altezza automatica basata sul contenuto */
+  min-height: auto; /* Nessuna altezza minima */
+}
+
+/* Responsive per mobile */
+@media (max-width: 768px) {
+  .flex-2col {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+/* Grid a 3 elementi */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Grid a 4 elementi */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Card/elemento del grid */
+.grid-item {
+  padding: 2rem;
+}
+
+
+   .parallax-section {
+      text-align: left;
+      display: block;
+      padding: 6rem 2rem;
+      margin-top: 0; /* Rimuove margin tra sezioni */
+      z-index: 5;
+      min-height: auto; /* Override min-height per sezioni parallax */
+      height: auto; /* Altezza completamente flessibile */
+      flex-direction: column; /* Per contenuti che si sviluppano verticalmente */
+    }
+
+    /* Sezione hero senza padding extra */
+    .hero {
+      padding: 0 !important; /* Nessun padding per hero */
+    }
+
+    /* Responsive padding per sezioni */
+    @media (max-width: 768px) {
+      .parallax-section {
+        padding: 2rem 1rem; /* Ridotto da 4rem a 2rem per meno spazio verticale */
+        margin-top: 0; /* Nessun margin tra sezioni anche su mobile */
+      }
+      
+      .hero {
+        padding: 0 !important; /* Nessun padding anche su mobile */
+      }
+    }
+
+    .parallax-image {
+      position: absolute;
+      width: 60vw;
+      max-width: 800px;
+      z-index: 2;
+      opacity: 0.2;
+    }
+
+    /* Override per immagini parallax nel grid/flex */
+    .grid-2-fixed .parallax-image,
+    .grid-item .parallax-image,
+    .flex-2col .parallax-image,
+    .flex-full .parallax-image {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      opacity: 0.2;
+      transform: translateY(20px) scale(0.5); /* Parte da metà scala */
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+      transform-origin: center center; /* Zoom dal centro */
+    }
+
+    /* Stato visibile quando in vista */
+    .grid-2-fixed .parallax-image.in-view,
+    .grid-item .parallax-image.in-view,
+    .flex-2col .parallax-image.in-view,
+    .flex-full .parallax-image.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(0.8); /* Si sviluppa all'80% */
+    }
+
+    .parallax-text {
+      z-index: 2;
+      font-size: 2rem;
+      max-width: 60vw;
+    }
+
+/* === RESPONSIVE PARALLAX IMAGES === */
+@media (max-width: 768px) {
+  /* Su mobile: immagini parallax centrate e non sovrapposte */
+  .flex-2col .parallax-image,
+  .flex-full .parallax-image,
+  .grid-2-fixed .parallax-image,
+  .grid-item .parallax-image {
+    display: block;
+    margin: 2rem auto; /* Centrate con margin */
+    max-width: calc(100% - 4rem); /* Rispetta il padding del sito */
+    width: auto;
+    height: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.6); /* Più piccole su mobile */
+  }
+  
+  .flex-2col .parallax-image.in-view,
+  .flex-full .parallax-image.in-view,
+  .grid-2-fixed .parallax-image.in-view,
+  .grid-item .parallax-image.in-view {
+    transform: translateY(0) scale(0.7); /* Scale finale più contenuta su mobile */
+  }
+  
+  /* Contenitori flex-2col su mobile diventano colonna */
+  .flex-2col {
+    flex-direction: column;
+    gap: 3rem; /* Più spazio tra contenuto e immagine */
+  }
+  
+  /* Ordine degli elementi su mobile */
+  .flex-2col .parallax-image {
+    order: 2; /* Immagine dopo il contenuto */
+  }
+  
+  .flex-2col .content-column {
+    order: 1; /* Contenuto prima */
+  }
+}
+
+
+
+
+
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #333;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+}
+
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #fff 0%, #000 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-controls {
+  margin-top: 2rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 32px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.preloader-controls label {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.preloader-controls input[type="range"] {
+  width: 200px;
+  accent-color: var(--glacier-blue);
+  margin-top: 0.5rem;
+  height: 4px;
+}
+
+.preloader-controls span {
+  margin-left: 0.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+#startBtn {
+  margin-top: 1rem;
+  padding: 0.7rem 2.2rem;
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+#startBtn:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .preloader-controls {
+    padding: 1.2rem 1rem;
+    width: 90vw;
+  }
+  .preloader-controls input[type="range"] {
+    width: 120px;
+  }
+}
+
+
+
+
+#preloader .preloader-logo {
+  width: 160px;
+  max-width: 30vw;
+  margin-bottom: 2rem;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#preloader .preloader-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+
+#iceberg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform-origin: center center;
+  background-color: #2b2d42; /* fallback se il canvas non disegna subito */
+}
+
+
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index:10;
+  padding: 0 !important; /* Rimuove completamente il padding */
+  margin: 0 !important; /* Rimuove qualsiasi margin */
+}
+.hero-text {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-weight: normal;
+  color: white;
+  line-height: 2;
+  transition: opacity 1s ease, transform 1s ease, color 0.8s ease;
+}
+
+.hero-text-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+.hero-titles-wrapper {
+  position: absolute;
+  bottom: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-h1 {
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: white;
+  margin: 0 0 1rem 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-h2 {
+  font-size: 3.5rem;
+  font-weight: 500;
+  color: var(--glacier-blue);
+  margin: 0 0 0.8rem 0;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.hero-h3 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--ice-cyan);
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.horizon-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4.5px;
+  background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(90,220,255,0.5), rgba(255,255,255,0.2));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scroll-indicator {
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translateY(-50%);
+  height: 250px;
+  width: 4px;
+  background-color: #222; /* linea verticale */
+  z-index: 20;
+  opacity: 0.6;
+}
+
+.scroll-text {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform-origin: right center;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  color: #222;
+  opacity: 0.8;
+  pointer-events: none;
+  user-select: none;
+}
+
+.scroll-box {
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  background-color: #5EE4C3; /* rettangolino animato */
+  border-radius: 3px;
+  animation: scrollDown 2.5s infinite ease-in-out;
+}
+
+@keyframes scrollDown {
+  0%   { top: 0; opacity: 1; }
+  50%  { top: 250px; opacity: 0.4; }
+  100% { top: 0; opacity: 1; }
+}
+
+.main-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 1rem 2rem;
+  z-index: 100;
+  transform: translateY(-100%);
+  transition: transform 0.6s ease;
+}
+
+.main-menu.visible {
+  transform: translateY(0);
+}
+
+#wordCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+    #particles-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+  width: 100vw;
+  height: 100vh;
+        z-index: 15;
+		  pointer-events: none;      
+  background: transparent;
+    }
+
+
+ 
+
+#penguin-canvas {
+  width: 400px;     /* come viene disegnato a schermo */
+  height: auto;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 300;
+   cursor: grab;
+}
+
+#penguin-canvas.dragging {
+  cursor: grabbing;
+}
+
+
+
+.wordcanvas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: transparent;
+}
+
+.word {
+  font-size: clamp(1rem, 2vw, 3rem);
+  cursor: pointer;
+  color: var(--ice-cyan);
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.word:hover {
+  transform: scale(1.2);
+  color: var(--glacier-blue);
+}
+
+/* === PULSANTE CONTROLLO COLORI === */
+.color-toggle-btn {
+  background: transparent;
+  border: 2px solid var(--ice-cyan);
+  color: var(--ice-cyan);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 0.5rem;
+  position: relative;
+  /* I colori verranno aggiornati dinamicamente dall'iceberg */
+}
+
+.color-toggle-btn:hover {
+  /* Lo sfondo hover verrà impostato dinamicamente */
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.color-toggle-btn.frozen {
+  background: #ff6b6b;
+  border-color: #ff6b6b;
+  color: #fff;
+}
+
+.color-toggle-btn.frozen:hover {
+  background: #ff5252;
+  border-color: #ff5252;
+}
+
+/* === CONSOLE CONTAINER === */
+.console-container {
+  position: relative;
+  padding: 1.5rem 2rem 1.2rem 2rem;
+  margin-left: 2rem;
+  border: 2px solid var(--ice-cyan);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.console-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.console-label {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--ice-cyan);
+  background: white;
+  padding: 0 0.8rem;
+  text-transform: uppercase;
+}
+
+.console-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* === CTA JOIN US === */
+.join-us-cta {
+  background: linear-gradient(135deg, var(--ice-cyan), #5dade2);
+  border: none;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 174, 239, 0.3);
+}
+
+.join-us-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 174, 239, 0.4);
+  background: linear-gradient(135deg, #5dade2, var(--ice-cyan));
+}
+
+/* CTA nascosta su mobile */
+@media (max-width: 768px) {
+  .join-us-cta {
+    display: none;
+  }
+}
+
+/* === SYSTEM PANEL === */
+.system-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-left: 2px solid var(--ice-cyan);
+  transition: right 0.4s ease;
+  z-index: 200;
+  overflow-y: auto;
+}
+
+.system-panel.open {
+  right: 0;
+}
+
+.system-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--ice-cyan);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.system-panel-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ice-cyan);
+  letter-spacing: 0.1em;
+}
+
+.close-panel-btn {
+  background: none;
+  border: 2px solid var(--ice-cyan);
+  color: var(--ice-cyan);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-panel-btn:hover {
+  background: var(--ice-cyan);
+  color: white;
+}
+
+.system-panel-content {
+  padding: 1.5rem;
+}
+
+.control-section {
+  margin-bottom: 2rem;
+}
+
+.control-section h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--deep-night);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.system-btn {
+  background: transparent;
+  border: 1px solid var(--ice-cyan);
+  color: var(--ice-cyan);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.system-btn:hover, .system-btn.active {
+  background: var(--ice-cyan);
+  color: white;
+}
+
+.slider-control {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.slider-control label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--deep-night);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.slider-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--ice-cyan);
+  height: 4px;
+}
+
+.slider-control span {
+  color: var(--ice-cyan);
+  font-weight: 600;
+}
+
+/* === PULSANTE CLARITY === */
+#clarityToggle {
+  background: transparent;
+  border: 2px solid #666;
+  color: #666;
+}
+
+#clarityToggle:hover {
+  background: #666;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+#clarityToggle.active {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+#clarityToggle.active:hover {
+  background: #222;
+  border-color: #222;
+}
+
+/* === MODALITÀ HIGH CONTRAST === */
+body.high-contrast {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body.high-contrast .main-menu {
+  background: #000 !important;
+  color: #fff !important;
+  border-bottom: 1px solid #333;
+}
+
+body.high-contrast .console-container {
+  border-color: #fff !important;
+}
+
+body.high-contrast .console-label {
+  color: #fff !important;
+  background: #000 !important;
+}
+
+body.high-contrast .system-panel {
+  background: rgba(0, 0, 0, 0.95) !important;
+  border-left-color: #fff !important;
+}
+
+body.high-contrast .system-panel-header {
+  background: rgba(0, 0, 0, 0.9) !important;
+  border-bottom-color: #fff !important;
+}
+
+body.high-contrast .system-panel-title {
+  color: #fff !important;
+}
+
+body.high-contrast .close-panel-btn {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+body.high-contrast .close-panel-btn:hover {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+body.high-contrast .control-section h4 {
+  color: #fff !important;
+  border-bottom-color: #333 !important;
+}
+
+body.high-contrast .system-btn {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+body.high-contrast .system-btn:hover,
+body.high-contrast .system-btn.active {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+body.high-contrast .slider-control label {
+  color: #fff !important;
+}
+
+body.high-contrast .slider-control span {
+  color: #fff !important;
+}
+
+body.high-contrast section,
+body.high-contrast .parallax-section {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast p,
+body.high-contrast .tagline,
+body.high-contrast .intro-text {
+  color: #fff !important;
+}
+
+body.high-contrast .word {
+  color: #fff !important;
+}
+
+body.high-contrast .word:hover {
+  color: #ccc !important;
+}
+
+body.high-contrast #iceberg {
+  background: #000 !important;
+}
+
+body.high-contrast .hero-text {
+  color: #fff !important;
+}
+
+/* === HIGH CONTRAST per MENU MOBILE === */
+body.high-contrast .hamburger-line {
+  background: #fff !important;
+}
+
+body.high-contrast .mobile-menu-overlay {
+  background: rgba(0, 0, 0, 0.95) !important;
+  border-left: 1px solid #fff;
+}
+
+body.high-contrast .mobile-nav-items .word {
+  color: #fff !important;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+body.high-contrast .mobile-console-container {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+body.high-contrast .mobile-console-container .console-label {
+  color: #fff !important;
+}
+
+body.high-contrast .mobile-console-container .color-toggle-btn {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+body.high-contrast .mobile-console-container .color-toggle-btn:hover {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* === MENU HAMBURGER === */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: relative;
+  z-index: 101;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background: var(--ice-cyan);
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background: rgba(176, 224, 230, 0.95); /* Glacier blue */
+  backdrop-filter: blur(20px);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px;
+  /* CSS transition per slide effect */
+  transition: left 0.4s ease-in-out;
+  /* Scroll abilitato */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scrollbar personalizzata per mobile menu */
+.mobile-menu-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-menu-overlay::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 80px 0 20px 0; /* Evita sovrapposizione con X e bordo inferiore */
+}
+
+.mobile-menu-overlay::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.mobile-menu-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Per Firefox */
+.mobile-menu-overlay {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar in modalità clarity */
+body.high-contrast .mobile-menu-overlay::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+body.high-contrast .mobile-menu-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+body.high-contrast .mobile-menu-overlay {
+  scrollbar-color: rgba(0, 0, 0, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-overlay.open {
+  left: 0;
+}
+
+/* X per chiudere il menu */
+.mobile-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  z-index: 400;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid rgba(176, 224, 230, 1); /* Bordo glacier blue */
+  transition: all 0.3s ease;
+}
+
+.mobile-close-btn:hover {
+  background: rgba(176, 224, 230, 0.2);
+  transform: scale(1.1);
+}
+
+/* Modalità clarity - X nera */
+body.high-contrast .mobile-close-btn {
+  color: #000;
+  border-color: rgba(176, 224, 230, 1);
+}
+
+body.high-contrast .mobile-close-btn:hover {
+  background: rgba(176, 224, 230, 0.3);
+}
+
+.mobile-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.5rem 2rem;
+  align-items: flex-end;
+}
+
+.mobile-nav-items .word {
+  font-size: 1.2rem;
+  text-align: right;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: auto;
+}
+
+.mobile-console-container {
+  margin-top: 1.5rem;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Fix per la label CONSOLE su mobile - posizionata dentro il container */
+.mobile-console-container .console-label {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin-bottom: 1rem;
+  background: none !important;
+  padding: 0 !important;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.mobile-console-container .console-buttons {
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.mobile-console-container .color-toggle-btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 0.95rem;
+}
+
+/* === CTA JOIN US MOBILE === */
+.mobile-cta-container {
+  margin-top: 2rem;
+  padding: 0 2rem 2rem 2rem; /* Aggiunto padding bottom per scroll */
+  display: flex;
+  justify-content: center;
+}
+
+.mobile-join-us-cta {
+  background: linear-gradient(135deg, var(--ice-cyan), #5dade2);
+  border: none;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 174, 239, 0.4);
+  width: 100%;
+  max-width: 200px;
+}
+
+.mobile-join-us-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 174, 239, 0.5);
+  background: linear-gradient(135deg, #5dade2, var(--ice-cyan));
+}
+
+/* === ACCORDION RIUTILIZZABILE === */
+.accordion {
+  margin: 2rem 0;
+  max-width: 800px;
+}
+
+.accordion-header {
+  cursor: pointer;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+  opacity: 0.8;
+}
+
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+  max-height: 0;
+}
+
+.accordion.open .accordion-content {
+  max-height: 800px; /* Regola in base al contenuto */
+}
+
+.accordion-text {
+  padding: 1.5rem 0;
+  line-height: 1.6;
+}
+
+/* === SEZIONI DINAMICHE PER ACCORDION === */
+.parallax-section:has(.accordion.open) {
+  height: auto !important;
+  min-height: auto !important;
+}
+
+/* Assicura che tutti i contenitori si adattino al contenuto */
+.section1, .section2, .section3, .section4 {
+  height: auto !important;
+  min-height: 100vh;
+  margin: 0 !important; /* Nessun margin tra sezioni */
+  padding: 0 !important; /* Nessun padding nelle sezioni stesse */
+}
+
+
+/* === READ MORE RIUTILIZZABILE === */
+/* 
+  Uso:
+  <div class="read-more-container">
+    <div class="read-more-preview">Testo sempre visibile</div>
+    <div class="read-more-content" id="uniqueId">
+      <div class="read-more-text">Testo nascosto</div>
+    </div>
+    <button class="read-more-btn" data-target="uniqueId">
+      <span class="read-more-text">Read more</span>
+      <span class="read-less-text">Read less</span>
+    </button>
+  </div>
+*/
+.read-more-container {
+  max-width: 800px;
+  margin: 2rem 0;
+}
+
+.read-more-preview {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.read-more-content {
+  overflow: hidden;
+  transition: max-height 0.8s ease-out, opacity 0.6s ease-out;
+  max-height: 0;
+  opacity: 0;
+}
+
+.read-more-content.open {
+  max-height: 1000px; /* Altezza sufficiente per tutto il contenuto */
+  opacity: 1;
+}
+
+.read-more-text {
+  line-height: 1.6;
+  padding-top: 0.5rem;
+}
+
+.read-more-btn {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: inherit;
+}
+
+.read-more-btn:hover {
+  background: currentColor;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Responsive read more */
+@media (max-width: 768px) {
+  .read-more-container {
+    margin: 1.5rem 0;
+  }
+  
+  .read-more-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+/* === DIVIDERS RIUTILIZZABILI === */
+/* Divider semplice con linea */
+.divider {
+  margin: 3rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+/* Divider con simbolo al centro */
+.divider-symbol {
+  margin: 3rem 0;
+  text-align: center;
+  position: relative;
+  font-size: 1.5rem;
+  color: currentColor;
+  opacity: 0.6;
+}
+
+.divider-symbol::before,
+.divider-symbol::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0.3;
+}
+
+.divider-symbol::before {
+  left: 0;
+}
+
+.divider-symbol::after {
+  right: 0;
+}
+
+/* Divider wireframe (stile iceberg) */
+.divider-wireframe {
+  margin: 3rem 0;
+  height: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-wireframe::before {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  border: 1px solid currentColor;
+  border-radius: 50% 50% 0 0;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+
+.divider-wireframe::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 30%, 
+    currentColor 70%, 
+    transparent 100%);
+  opacity: 0.2;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Divider dots */
+.divider-dots {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.divider-dots::before {
+  content: '• • •';
+  font-size: 1.2rem;
+  letter-spacing: 0.8rem;
+  color: currentColor;
+  opacity: 0.4;
+}
+
+/* Divider spacing variants */
+.divider-sm { margin: 1.5rem 0; }
+.divider-lg { margin: 4rem 0; }
+.divider-xl { margin: 5rem 0; }
+
+/* Responsive dividers */
+@media (max-width: 768px) {
+  .divider,
+  .divider-symbol,
+  .divider-wireframe,
+  .divider-dots {
+    margin: 2rem 0;
+  }
+  
+  .divider-lg { margin: 2.5rem 0; }
+  .divider-xl { margin: 3rem 0; }
+}
+
+/* === TOOLTIP RESPONSIVO === */
+.tooltip {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.9);
+}
+
+.color-toggle-btn:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(5px);
+}
+
+/* Responsive tooltip per mobile */
+@media (max-width: 768px) {
+  .tooltip {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    max-width: calc(100vw - 2rem);
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+  }
+  
+  .tooltip::before {
+    display: none;
+  }
+  
+  .color-toggle-btn:hover .tooltip {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+
+
+
+
+.intro-text {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #495057;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  
+  .hero-titles-wrapper {
+    position: fixed !important; /* Usa fixed invece di absolute su mobile */
+    bottom: 20vh !important; /* Posiziona i titoli nel 20% inferiore dello schermo */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 15 !important; /* Sopra l'iceberg che ha z-index 10 */
+    width: 90% !important; /* Limita la larghezza per mobile */
+  }
+  
+  .hero-h1, .hero-h2, .hero-h3 {
+    font-size: clamp(1.5rem, 4vw, 3rem); /* Responsive font size */
+  }
+  
+  /* === MENU HAMBURGER RESPONSIVE === */
+  .hamburger-menu {
+    display: flex !important;
+    background: rgba(255, 0, 0, 0.2); /* DEBUG: sfondo rosso per vedere se c'è */
+    border: 2px solid var(--glacier-blue);
+  }
+  
+  .wordcanvas {
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+  
+  .wordcanvas > .word {
+    display: none; /* Nascondi le parole del menu normale */
+  }
+  
+  .console-container {
+    display: none; /* Nascondi la console nel menu principale */
+  }
+  
+  .main-menu {
+    height: 70px; /* Riduci altezza menu su mobile */
+  }
+  
+  /* === DISABILITA PINGUINO SU MOBILE === */
+  #penguin-canvas {
+    display: none !important;
+  }
+  
+  .console-container {
+    margin-left: 0;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem 0.8rem 1.5rem;
+    border-radius: 6px;
+  }
+  
+  .console-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .color-toggle-btn {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* === DISABILITA SYSTEM PANEL SU MOBILE === */
+  .system-panel {
+    display: none !important;
+  }
+}
+
+
+  </style>
+
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+	<canvas id="penguin-canvas" width="1000" height="1000"></canvas>
+<div id="preloader">
+<div class="logo logotype preloader-logo">
+  <img src="images/logo/logotext.svg" alt="Logo">
+</div>
+
+<div class="spinner"></div>
+<p style="color: white; font-size: 1.1rem; margin-bottom: 1rem; text-align: center;">
+  Craft your iceberg before diving in
+</p>
+  <div class="preloader-controls">
+    <label>
+      Nodes
+      <input type="range" id="nodesRange" min="15" max="300" value="15">
+      <span id="nodesValue">15</span>
+    </label>
+    <label>
+      Line Distance
+      <input type="range" id="distanceRange" min="250" max="550" value="200">
+      <span id="distanceValue">200</span>
+    </label>
+    <button id="startBtn">DIVE IN</button>
+
+  </div>
+  
+</div>
+  <canvas id="particles-background"></canvas>
+<header class="main-menu">
+  <nav>
+    <div class="wordcanvas">
+      <span class="word" data-target="ABOUT">ABOUT</span>
+      <span class="word" data-target="PROJECTS">PROJECTS</span>
+      <span class="word" data-target="#BLOG">BLOG</span>
+      <span class="word" data-target="TEAM">TEAM</span>
+      
+      <div class="console-container">
+        <div class="console-label">CONSOLE</div>
+        <div class="console-buttons">
+          <button id="colorToggle" class="color-toggle-btn">
+            SYNAPSE
+            <div class="tooltip">
+              Controls the iceberg's dynamic color palette.<br>
+              <strong>SYNAPSE</strong> → <strong>FOCUS</strong> → <strong>LET IT FLOW</strong>
+            </div>
+          </button>
+          <button id="clarityToggle" class="color-toggle-btn">
+            CLARITY
+            <div class="tooltip">
+              High contrast mode for better readability.<br>
+              Black background with white text.
+            </div>
+          </button>
+          <button id="systemToggle" class="color-toggle-btn">
+            SYSTEM
+            <div class="tooltip">
+              Advanced controls panel.<br>
+              Developer tools, user preferences, and system settings.
+            </div>
+          </button>
+        </div>
+      </div>
+      
+      <!-- CTA JOIN US -->
+      <button class="join-us-cta" id="joinUsCta">JOIN US</button>
+      
+      <!-- Menu Hamburger (visibile solo su mobile) -->
+      <div class="hamburger-menu" id="hamburgerMenu">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+
+      <!-- Advanced System Panel -->
+      <div id="systemPanel" class="system-panel">
+        <div class="system-panel-header">
+          <span class="system-panel-title">SYSTEM CONTROLS</span>
+          <button id="closePanelBtn" class="close-panel-btn">×</button>
+        </div>
+        
+        <div class="system-panel-content">
+          <!-- Content Management -->
+          <div class="control-section">
+            <h4>Content Management</h4>
+            <div class="control-group">
+              <button class="system-btn" id="editBtn">EDIT</button>
+              <button class="system-btn" id="previewBtn">PREVIEW</button>
+              <button class="system-btn" id="publishBtn">PUBLISH</button>
+            </div>
+          </div>
+
+          <!-- Developer Tools -->
+          <div class="control-section">
+            <h4>Developer Tools</h4>
+            <div class="control-group">
+              <button class="system-btn" id="debugBtn">DEBUG</button>
+              <button class="system-btn" id="gridBtn">GRID</button>
+              <button class="system-btn" id="traceBtn">TRACE</button>
+            </div>
+          </div>
+
+          <!-- User Preferences -->
+          <div class="control-section">
+            <h4>User Preferences</h4>
+            <div class="control-group">
+              <div class="slider-control">
+                <label for="flowSlider">FLOW <span id="flowValue">Normal</span></label>
+                <input type="range" id="flowSlider" min="1" max="3" value="2">
+              </div>
+              <div class="slider-control">
+                <label for="depthSlider">DEPTH <span id="depthValue">15</span></label>
+                <input type="range" id="depthSlider" min="15" max="300" value="15">
+              </div>
+              <div class="slider-control">
+                <label for="neuralSlider">NEURAL <span id="neuralValue">On</span></label>
+                <input type="range" id="neuralSlider" min="0" max="1" value="1">
+              </div>
+            </div>
+            <div class="control-group">
+              <button class="system-btn" id="profileBtn">PROFILE</button>
+              <button class="system-btn" id="resetBtn">RESET</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Menu Mobile Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+  <!-- X per chiudere il menu -->
+  <div class="mobile-close-btn" id="mobileCloseBtn">×</div>
+  
+  <div class="mobile-nav-items">
+    <span class="word" data-target="ABOUT">ABOUT</span>
+    <span class="word" data-target="PROJECTS">PROJECTS</span>
+    <span class="word" data-target="#BLOG">BLOG</span>
+    <span class="word" data-target="TEAM">TEAM</span>
+  </div>
+  
+  <div class="mobile-console-container">
+    <div class="console-label">CONSOLE</div>
+    <div class="console-buttons">
+      <button id="mobileColorToggle" class="color-toggle-btn">
+        SYNAPSE
+      </button>
+      <button id="mobileClarityToggle" class="color-toggle-btn">
+        CLARITY
+      </button>
+      <!-- SYSTEM button rimosso su mobile -->
+    </div>
+  </div>
+  
+  <!-- CTA JOIN US per mobile -->
+  <div class="mobile-cta-container">
+    <button class="mobile-join-us-cta" id="mobileJoinUsCta">JOIN US</button>
+  </div>
+</div>
+
+
+
+  <section class="hero" id="hero">
+    <canvas id="iceberg" class="hero-canvas"></canvas>
+	<div class="hero-text-wrapper">
+<div class="hero-text-wrapper">
+  <div class="hero-text text-compose mobile-no-text-compose">DEPTH<br>is not a feature. is our<br>NATURE</div>
+  <div class="hero-text text-compose mobile-no-text-compose"><strong>AI</strong>CEBERG<br>MIND</div>
+</div>
+
+
+
+    <!-- Nuovi titoli che appaiono durante lo scroll -->
+    <div class="hero-titles-wrapper">
+
+      <h2 class="hero-h3"><strong>EMPOWERING HUMANS</strong></h3>
+      <h3 class="hero-h3">through playful education, creative content 
+Inspired by science, crafted by AI</h3>
+    </div>
+
+    <div class="horizon-line"></div>
+    <div class="scroll-indicator">
+      <div class="scroll-box"></div>
+      <div class="scroll-text">DIVE IN</div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+<!-- Sezione 1 -->
+<section class="parallax-section section1" id="about">
+  <div class="flex-2col">
+    <div class="content-column">
+      <h1>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h1>
+      <h2>from the earliest spark to the lifelong wonder of the mind.</h2>
+    </div>
+    <div class="image-column">
+      <img src="images/image_placeholder_about.png" alt="Img 1" class="parallax-image image1" />
+    </div>
+  </div>
+  <div class="flex-full">
+    <h3>
+      It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath <br>the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
+    </h3>
+    <div class="divider-dots"></div>
+    <!-- Manifesto con Read More -->
+    <h3 class="text-compose"><strong>a short manifesto</strong> </h3>
+    
+    <div class="read-more-container">
+      <!-- Testo preview sempre visibile (prime tre righe) -->
+      <div class="read-more-preview">
+        AIceberg Mind was born from a simple belief: that intelligence is not a race to the top, but a journey below the surface. In a world flooded with fast content and noisy knowledge, we wanted to create something different.<br><br>
+
+        We see content not as a product, but as a living experience — one that can play, teach, surprise, and empower. We create digital objects: some playful, some poetic, some purely practical.<br><br>
+
+        We don't claim expertise in psychology or nervous system science. What we claim is curiosity in subconscious rewiring, craftsmanship, and care.
+      </div>
+      
+      <!-- Contenuto completo nascosto inizialmente -->
+      <div class="read-more-content" id="readMoreContent">
+        <div class="read-more-text">
+          We are designers, makers, researchers, and parents — trying to shape tools that spark ideas, facilitate creation, or gently awaken minds.<br><br>
+
+          Some of our content is designed for children. Some for adults. Some for both. But all of it is guided by the same principle: explore below the surface. Education is not always the goal — but it's often the side effect. And so is joy.<br><br>
+
+          Inspired by the iceberg, our craft is layered: playful on the surface, rooted in research below. We use AI to enhance form and interaction, but never to replace thought.<br><br>
+
+          Our vision begins in early childhood, where so much is silently shaped — but it doesn't end there. It reaches the child within us all, the parents who guide, the educators who nurture, and the minds that still wonder.<br><br>
+
+          AIceberg Mind is not an answer. It's a question: what kind of world do we create when we shape content from the depth of human potential?
+        </div>
+      </div>
+      
+      <!-- Pulsante Read More -->
+      <button class="read-more-btn" id="readMoreBtn">
+        <span class="read-more-text">Read more</span>
+        <span class="read-less-text" style="display: none;">Read less</span>
+      </button>
+    </div>
+    
+    <!-- Esempi di divider riutilizzabili     <p class="text-compose">This is additional content separated by a wireframe divider that recalls the iceberg aesthetic.</p>
+    
+    <div class="divider-symbol">◊</div>
+    
+    <p class="text-compose">Another section with a symbol divider. You can use any symbol: ◊, ●, ▲, ✦, etc.</p>
+    
+    <div class="divider-dots"></div>
+    
+    <p class="text-compose">Final section with a simple dots divider. Perfect for lighter separations.</p>
+    
+    <div class="divider"></div>
+    <div class="divider-wireframe"></div>-->
+    
+    
+
+    
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Sezione 3 -->
+  <section class="parallax-section section3">
+    <img src="https://via.placeholder.com/800x600" alt="Img 3" class="parallax-image image3" />
+    <div class="parallax-text text3">
+      <h2>The Mind Unfolded</h2>
+      <p>Reveal what lies beneath the visible.</p>
+    </div>
+  </section>
+
+  <!-- Sezione 4 -->
+  <section class="parallax-section section4">
+    <img src="https://via.placeholder.com/800x600" alt="Img 4" class="parallax-image image3" />
+    <div class="parallax-text text4">
+      <h2>The Mind Unfolded</h2>
+      <p>Reveal what lies beneath the visible.</p>
+    </div>
+  </section>
+
+
+
+<script>
+  let scrollScale = 1;
+  let bgTransitionProgress = 1;
+  let numPoints = 15;
+  let lineDistance = 500;
+  let points = [];
+
+  const canvas = document.getElementById("iceberg");
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function generatePoints() {
+    points = [];
+    const radius = Math.min(canvas.width, canvas.height) / 4;
+    for (let i = 0; i < numPoints; i++) {
+      const angle = (Math.PI * 2 * i) / numPoints;
+      const x = Math.cos(angle) * radius * (0.5 + Math.random());
+      const y = Math.sin(angle) * radius * (0.5 + Math.random());
+      points.push({ x, y });
+    }
+  }
+
+  function initPage() {
+    resizeCanvas();
+    generatePoints();
+
+    document.getElementById("nodesRange").addEventListener("input", (e) => {
+      numPoints = parseInt(e.target.value);
+      document.getElementById("nodesValue").textContent = numPoints;
+      generatePoints();
+    });
+
+    document.getElementById("distanceRange").addEventListener("input", (e) => {
+      lineDistance = parseInt(e.target.value);
+      document.getElementById("distanceValue").textContent = lineDistance;
+    });
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      const preloader = document.getElementById("preloader");
+      preloader.classList.add("fade-out");
+      setTimeout(() => preloader.remove(), 600);
+      document.getElementById("penguin-canvas").style.display = "block";
+      requestAnimationFrame(draw);
+    });
+
+    // === CONTROLLO CICLO COLORI ===
+    const colorToggleBtn = document.getElementById("colorToggle");
+    if (colorToggleBtn) {
+      // Testi per gli stati del pulsante
+      const texts = {
+        active: "SYNAPSE",
+        hover: "FOCUS", 
+        frozen: "LET IT FLOW"
+      };
+      
+      // Gestione tooltip su mobile con touch
+      let tooltipTimeout;
+      
+      // Touch devices: mostra tooltip temporaneamente
+      colorToggleBtn.addEventListener("touchstart", (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const tooltip = colorToggleBtn.querySelector('.tooltip');
+          if (tooltip) {
+            tooltip.style.opacity = '1';
+            tooltip.style.visibility = 'visible';
+            
+            clearTimeout(tooltipTimeout);
+            tooltipTimeout = setTimeout(() => {
+              tooltip.style.opacity = '0';
+              tooltip.style.visibility = 'hidden';
+            }, 3000);
+          }
+        }
+      });
+      
+      // Gestione hover desktop - cambia solo il testo, non il tooltip
+      colorToggleBtn.addEventListener("mouseenter", () => {
+        if (colorCycleActive && window.innerWidth > 768) {
+          const currentTooltip = colorToggleBtn.querySelector('.tooltip');
+          colorToggleBtn.innerHTML = `${texts.hover}${currentTooltip ? currentTooltip.outerHTML : ''}`;
+        }
+      });
+      
+      colorToggleBtn.addEventListener("mouseleave", () => {
+        if (colorCycleActive && window.innerWidth > 768) {
+          const currentTooltip = colorToggleBtn.querySelector('.tooltip');
+          colorToggleBtn.innerHTML = `${texts.active}${currentTooltip ? currentTooltip.outerHTML : ''}`;
+        } else if (!colorCycleActive) {
+          const currentTooltip = colorToggleBtn.querySelector('.tooltip');
+          colorToggleBtn.innerHTML = `${texts.frozen}${currentTooltip ? currentTooltip.outerHTML : ''}`;
+        }
+      });
+      
+      // Gestione click
+      colorToggleBtn.addEventListener("click", () => {
+        colorCycleActive = !colorCycleActive;
+        
+        if (colorCycleActive) {
+          colorToggleBtn.innerHTML = `${texts.active}<div class="tooltip">Controls the iceberg's dynamic color palette.<br><strong>SYNAPSE</strong> → <strong>FOCUS</strong> → <strong>LET IT FLOW</strong></div>`;
+          colorToggleBtn.classList.remove("frozen");
+          startColorCycle();
+        } else {
+          colorToggleBtn.innerHTML = `${texts.frozen}<div class="tooltip">Color cycle paused.<br>Click to resume the flow.</div>`;
+          colorToggleBtn.classList.add("frozen");
+          stopColorCycle();
+        }
+      });
+    }
+
+    // === CONTROLLO MODALITÀ CLARITY ===
+    const clarityToggleBtn = document.getElementById("clarityToggle");
+    let clarityModeActive = false;
+    
+    if (clarityToggleBtn) {
+      // Gestione tooltip su mobile con touch
+      let clarityTooltipTimeout;
+      
+      // Touch devices: mostra tooltip temporaneamente
+      clarityToggleBtn.addEventListener("touchstart", (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const tooltip = clarityToggleBtn.querySelector('.tooltip');
+          if (tooltip) {
+            tooltip.style.opacity = '1';
+            tooltip.style.visibility = 'visible';
+            
+            clearTimeout(clarityTooltipTimeout);
+            clarityTooltipTimeout = setTimeout(() => {
+              tooltip.style.opacity = '0';
+              tooltip.style.visibility = 'hidden';
+            }, 3000);
+          }
+        }
+      });
+      
+      // Gestione click per attivare/disattivare modalità high contrast
+      clarityToggleBtn.addEventListener("click", () => {
+        clarityModeActive = !clarityModeActive;
+        
+        if (clarityModeActive) {
+          // Attiva modalità high contrast
+          document.body.classList.add('high-contrast');
+          clarityToggleBtn.classList.add('active');
+          clarityToggleBtn.innerHTML = `CLARITY<div class="tooltip">High contrast mode active.<br>Click to return to normal view.</div>`;
+          
+          // Salva preferenza
+          localStorage.setItem('clarityMode', 'true');
+        } else {
+          // Disattiva modalità high contrast
+          document.body.classList.remove('high-contrast');
+          clarityToggleBtn.classList.remove('active');
+          clarityToggleBtn.innerHTML = `CLARITY<div class="tooltip">High contrast mode for better readability.<br>Black background with white text.</div>`;
+          
+          // Rimuovi preferenza
+          localStorage.removeItem('clarityMode');
+        }
+      });
+      
+      // Carica preferenza salvata
+      if (localStorage.getItem('clarityMode') === 'true') {
+        clarityToggleBtn.click();
+      }
+    }
+
+    // === CONTROLLO PANNELLO SYSTEM ===
+    const systemToggleBtn = document.getElementById("systemToggle");
+    const systemPanel = document.getElementById("systemPanel");
+    const closePanelBtn = document.getElementById("closePanelBtn");
+    let systemPanelOpen = false;
+
+    if (systemToggleBtn && systemPanel) {
+      // Gestione apertura/chiusura pannello
+      systemToggleBtn.addEventListener("click", () => {
+        systemPanelOpen = !systemPanelOpen;
+        
+        if (systemPanelOpen) {
+          systemPanel.classList.add('open');
+          systemToggleBtn.classList.add('active');
+        } else {
+          systemPanel.classList.remove('open');
+          systemToggleBtn.classList.remove('active');
+        }
+      });
+
+      // Bottone chiusura pannello
+      if (closePanelBtn) {
+        closePanelBtn.addEventListener("click", () => {
+          systemPanel.classList.remove('open');
+          systemToggleBtn.classList.remove('active');
+          systemPanelOpen = false;
+        });
+      }
+
+      // Chiudi pannello premendo ESC
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && systemPanelOpen) {
+          systemPanel.classList.remove('open');
+          systemToggleBtn.classList.remove('active');
+          systemPanelOpen = false;
+        }
+      });
+
+      // === CONTROLLI PANNELLO AVANZATO ===
+      
+      // Slider FLOW (velocità animazioni)
+      const flowSlider = document.getElementById("flowSlider");
+      const flowValue = document.getElementById("flowValue");
+      if (flowSlider && flowValue) {
+        flowSlider.addEventListener("input", (e) => {
+          const value = parseInt(e.target.value);
+          const speeds = ["Slow", "Normal", "Fast"];
+          flowValue.textContent = speeds[value - 1];
+          
+          // Applica velocità alle animazioni
+          const speedMultipliers = [0.5, 1, 2];
+          document.documentElement.style.setProperty('--animation-speed', speedMultipliers[value - 1]);
+        });
+      }
+
+      // Slider DEPTH (complessità iceberg)
+      const depthSlider = document.getElementById("depthSlider");
+      const depthValue = document.getElementById("depthValue");
+      if (depthSlider && depthValue) {
+        depthSlider.addEventListener("input", (e) => {
+          const value = parseInt(e.target.value);
+          depthValue.textContent = value;
+          numPoints = value;
+          generatePoints();
+        });
+      }
+
+      // Slider NEURAL (background particles)
+      const neuralSlider = document.getElementById("neuralSlider");
+      const neuralValue = document.getElementById("neuralValue");
+      if (neuralSlider && neuralValue) {
+        neuralSlider.addEventListener("input", (e) => {
+          const value = parseInt(e.target.value);
+          neuralValue.textContent = value ? "On" : "Off";
+          
+          const particlesCanvas = document.getElementById("particles-background");
+          if (particlesCanvas) {
+            particlesCanvas.style.display = value ? "block" : "none";
+          }
+        });
+      }
+
+      // Pulsanti del pannello
+      const buttons = {
+        debug: document.getElementById("debugBtn"),
+        grid: document.getElementById("gridBtn"),
+        trace: document.getElementById("traceBtn"),
+        edit: document.getElementById("editBtn"),
+        preview: document.getElementById("previewBtn"),
+        publish: document.getElementById("publishBtn"),
+        profile: document.getElementById("profileBtn"),
+        reset: document.getElementById("resetBtn")
+      };
+
+      // Gestione pulsanti toggle
+      Object.entries(buttons).forEach(([key, btn]) => {
+        if (btn) {
+          btn.addEventListener("click", () => {
+            btn.classList.toggle('active');
+            
+            // Logica specifica per ogni pulsante
+            switch(key) {
+              case 'debug':
+                // Mostra/nascondi info debug
+                console.log('Debug mode:', btn.classList.contains('active'));
+                break;
+              case 'grid':
+                // Mostra/nascondi griglia
+                document.body.classList.toggle('dev-grid', btn.classList.contains('active'));
+                break;
+              case 'trace':
+                // Abilita/disabilita trace mouse
+                console.log('Trace mode:', btn.classList.contains('active'));
+                break;
+              case 'reset':
+                // Reset tutte le impostazioni
+                if (confirm('Reset all settings to default?')) {
+                  location.reload();
+                }
+                break;
+              default:
+                console.log(`${key} button clicked`);
+            }
+          });
+        }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPage);
+  } else {
+    initPage();
+  }
+</script>
+
+<script>
+function updateSectionsColor(currentBg, currentTextColor, interpolatedColor) {
+  // Non aggiornare colori se la modalità high contrast è attiva
+  if (document.body.classList.contains('high-contrast')) {
+    return;
+  }
+  
+  // Aggiorna sfondi e colori delle sezioni
+  document.querySelectorAll('.section1, .section2, .section3').forEach(section => {
+    section.style.background = currentBg;
+    section.style.color = currentTextColor;
+  });
+  
+  // Aggiorna colori dinamici per H1, H2, H3 globali
+  document.querySelectorAll('h1, h2, h3').forEach(title => {
+    title.style.color = currentTextColor;
+  });
+  
+  // Aggiorna colori dinamici per tutte le tagline
+  document.querySelectorAll('.tagline').forEach(tagline => {
+    tagline.style.color = currentTextColor;
+  });
+  
+  // Aggiorna colori dinamici del pulsante SYNAPSE
+  const colorToggleBtn = document.getElementById("colorToggle");
+  if (colorToggleBtn && !colorToggleBtn.classList.contains('frozen')) {
+    // Usa il colore di sfondo dell'iceberg per il bordo e testo
+    const icebergBgColor = interpolatedColor || currentBg;
+    colorToggleBtn.style.borderColor = icebergBgColor;
+    colorToggleBtn.style.color = icebergBgColor;
+    
+    // Salva i colori per gli eventi hover
+    colorToggleBtn.dataset.icebergBg = icebergBgColor;
+    colorToggleBtn.dataset.icebergText = currentTextColor;
+  }
+}
+</script>
+
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script>
+// === Canvas Setup
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  generatePoints();
+});
+
+// === Mouse Tracking
+let angleOffset = 0, mouseX = 0, mouseY = 0;
+document.addEventListener("mousemove", e => {
+  const rect = canvas.getBoundingClientRect();
+  mouseX = ((e.clientX - rect.left) / canvas.width - 0.5) * 2;
+  mouseY = ((e.clientY - rect.top) / canvas.height - 0.5) * 2;
+});
+
+// === Dynamic Color Palette
+const dynamicPalette = [
+  "#00f5d4", "#3a0ca3", "#4361ee", "#4cc9f0", "#5ee4c3",
+  "#f72585", "#7209b7", "#2b2d42", "#edf2f4", "#b5179e"
+];
+let bgColor = dynamicPalette[0], contrastColor = dynamicPalette[1];
+let bgColorOld = bgColor, bgColorNew = contrastColor;
+let colorCycleActive = true; // Controllo del ciclo colori
+let colorChangeInterval; // Riferimento all'intervallo
+
+function lerpColor(a, b, t) {
+  const ah = [1, 3, 5].map(i => parseInt(a.slice(i, i + 2), 16));
+  const bh = [1, 3, 5].map(i => parseInt(b.slice(i, i + 2), 16));
+  const rh = ah.map((v, i) => Math.round(v + (bh[i] - v) * t).toString(16).padStart(2, '0'));
+  return `#${rh.join('')}`;
+}
+
+function changeColors() {
+  if (!colorCycleActive) return;
+  
+  const bgIndex = Math.floor(Math.random() * dynamicPalette.length);
+  let contrastIndex;
+  do { contrastIndex = Math.floor(Math.random() * dynamicPalette.length); }
+  while (contrastIndex === bgIndex);
+
+  bgColorOld = bgColor;
+  bgColorNew = dynamicPalette[bgIndex];
+  bgTransitionProgress = 0;
+  bgColor = bgColorNew;
+  contrastColor = dynamicPalette[contrastIndex];
+
+  const heroText = document.querySelector(".hero-text");
+  if (heroText) heroText.style.color = contrastColor;
+}
+
+// Avvia il ciclo colori
+function startColorCycle() {
+  colorChangeInterval = setInterval(changeColors, 2000);
+}
+
+// Ferma il ciclo colori
+function stopColorCycle() {
+  clearInterval(colorChangeInterval);
+}
+
+// Inizializza il ciclo
+startColorCycle();
+
+// === Iceberg Drawing
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Modalità high contrast: sfondo nero, iceberg bianco
+  if (document.body.classList.contains('high-contrast')) {
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    const offsetX = Math.sin(angleOffset) * 20 + mouseX * 30;
+    const offsetY = Math.cos(angleOffset) * 20 + mouseY * 30;
+    const rotate = Math.sin(angleOffset) * 0.01;
+    angleOffset += 0.005;
+    
+    // Iceberg bianco
+    ctx.save();
+    ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+    ctx.rotate(rotate);
+    ctx.scale(scrollScale, scrollScale);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const p1 = points[i], p2 = points[j];
+        if (Math.hypot(p1.x - p2.x, p1.y - p2.y) < lineDistance) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+    
+    // Riflesso iceberg
+    ctx.save();
+    ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+    ctx.rotate(-rotate);
+    ctx.scale(scrollScale, -scrollScale);
+    ctx.globalAlpha = 0.3;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const p1 = points[i], p2 = points[j];
+        if (Math.hypot(p1.x - p2.x, p1.y - p2.y) < lineDistance) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  } else {
+    // Modalità normale con colori dinamici
+    bgTransitionProgress = Math.min(bgTransitionProgress + 0.01, 1);
+    const interpolatedColor = lerpColor(bgColorOld, bgColorNew, bgTransitionProgress);
+    ctx.fillStyle = interpolatedColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const offsetX = Math.sin(angleOffset) * 20 + mouseX * 30;
+    const offsetY = Math.cos(angleOffset) * 20 + mouseY * 30;
+    const rotate = Math.sin(angleOffset) * 0.01;
+    angleOffset += 0.005;
+    
+    // Passa sia il background che il colore interpolato per il pulsante
+    updateSectionsColor(`linear-gradient(to bottom, ${interpolatedColor}, ${interpolatedColor})`, contrastColor, interpolatedColor);
+
+    // Iceberg top
+    ctx.save();
+    ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+    ctx.rotate(rotate);
+    ctx.scale(scrollScale, scrollScale);
+    ctx.strokeStyle = contrastColor;
+    ctx.lineWidth = 1;
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const p1 = points[i], p2 = points[j];
+        if (Math.hypot(p1.x - p2.x, p1.y - p2.y) < lineDistance) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+
+    // Iceberg reflection
+    ctx.save();
+    ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+    ctx.rotate(-rotate);
+    ctx.scale(scrollScale, -scrollScale);
+    ctx.globalAlpha = 0.15;
+    ctx.strokeStyle = contrastColor;
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const p1 = points[i], p2 = points[j];
+        if (Math.hypot(p1.x - p2.x, p1.y - p2.y) < lineDistance) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  }
+  
+  requestAnimationFrame(draw);
+}
+</script>
+
+<script>
+// === Hero background gradient (cambio ogni ora)
+const hero = document.querySelector(".hero");
+const gradients = [
+  { from: "#2b2d42", to: "#3a0ca3" },
+  { from: "#3a0ca3", to: "#4361ee" },
+  { from: "#7209b7", to: "#f72585" },
+  { from: "#00f5d4", to: "#4cc9f0" },
+  { from: "#fbc2eb", to: "#b5179e" },
+  { from: "#edf2f4", to: "#9AA9B8" }
+];
+
+function updateHeroBackground() {
+  const hour = new Date().getHours();
+  const g = gradients[Math.floor(hour / 2) % gradients.length];
+  if (hero) hero.style.background = `linear-gradient(to bottom, ${g.from}, ${g.to})`;
+}
+updateHeroBackground();
+setInterval(updateHeroBackground, 60 * 60 * 1000);
+</script>
+
+
+<script>
+// ScrollTrigger con pin + animazioni cinematiche
+ScrollTrigger.create({
+  trigger: ".hero",
+  start: "top top",
+  end: "+=100%",
+  scrub: true,
+  pin: true,
+  anticipatePin: 1,
+  onUpdate: self => {
+    // Zoom iceberg canvas
+    scrollScale = 1 + self.progress * 0.3;
+
+    // Testo hero: fade + movimento
+    const heroText = document.querySelector(".hero-text");
+    const heroTitles = document.querySelector(".hero-titles-wrapper");
+
+    if (heroText) {
+      heroText.style.opacity = 1 - self.progress;
+      heroText.style.transform = `translate(-50%, calc(-50% - ${self.progress * 80}px))`;
+    }
+    // Nuovi titoli: appaiono quando il testo hero scompare
+    if (heroTitles) {
+if (self.progress > 0.8) {
+  heroTitles.style.opacity = (self.progress - 0.8) / 0.2;
+  heroTitles.style.transform = `translate(-50%, calc(-50% + ${(1 - self.progress) * 30}px))`;
+} else {
+  heroTitles.style.opacity = 0;
+}
+    }
+  }
+});
+
+
+// === Menu animato con GSAP
+const menu = document.querySelector(".main-menu");
+gsap.set(menu, { autoAlpha: 0, y: -20 }); // stato iniziale: invisibile, leggermente sopra
+
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+// DESKTOP: Comportamento originale con ScrollTrigger
+ScrollTrigger.create({
+  trigger: ".hero",
+  start: "bottom top+=100", // ritarda apparizione
+  onEnter: () => {
+    if (!isMobile()) {
+      gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+    }
+  },
+  onLeaveBack: () => {
+    if (!isMobile()) {
+      gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
+    }
+  }
+});
+
+// MOBILE: Logica semplificata
+let mobileMenuShown = false;
+
+ScrollTrigger.create({
+  trigger: ".hero",
+  start: "bottom top+=100",
+  end: "max",
+  onUpdate: (self) => {
+    if (isMobile()) {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const heroHeight = document.querySelector('.hero').offsetHeight;
+      
+      // Se siamo oltre l'hero e il menu non è ancora mostrato
+      if (scrollTop > heroHeight + 100 && !mobileMenuShown) {
+        mobileMenuShown = true;
+        gsap.to(menu, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" });
+      }
+      // Se torniamo completamente al top della pagina
+      else if (scrollTop <= 50 && mobileMenuShown) {
+        mobileMenuShown = false;
+        gsap.to(menu, { autoAlpha: 0, y: -20, duration: 0.4, ease: "power2.in" });
+      }
+    }
+  }
+});
+
+// === MENU HAMBURGER CON CSS SEMPLICE ===
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerMenu = document.getElementById('hamburgerMenu');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+  
+  if (hamburgerMenu && mobileMenuOverlay) {
+    // Funzione per chiudere il menu
+    function closeMenu() {
+      hamburgerMenu.classList.remove('active');
+      mobileMenuOverlay.classList.remove('open');
+      // Riabilita scroll della pagina
+      document.body.style.overflow = '';
+    }
+    
+    // Funzione per aprire il menu
+    function openMenu() {
+      hamburgerMenu.classList.add('active');
+      mobileMenuOverlay.classList.add('open');
+      // Blocca scroll della pagina
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Click sul hamburger per aprire/chiudere menu
+    hamburgerMenu.addEventListener('click', function() {
+      if (mobileMenuOverlay.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Click sulla X per chiudere il menu
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', closeMenu);
+    }
+
+    // Chiudi menu con tasto ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileMenuOverlay.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+
+    // Previeni scroll della pagina quando si scrolla nel menu
+    mobileMenuOverlay.addEventListener('wheel', function(e) {
+      e.stopPropagation();
+    });
+
+    mobileMenuOverlay.addEventListener('touchmove', function(e) {
+      e.stopPropagation();
+    });
+
+    // Sincronizza i pulsanti mobile con quelli desktop
+    const mobileColorToggle = document.getElementById('mobileColorToggle');
+    const mobileClarityToggle = document.getElementById('mobileClarityToggle');
+
+    const desktopColorToggle = document.getElementById('colorToggle');
+    const desktopClarityToggle = document.getElementById('clarityToggle');
+
+    // Sincronizza CLARITY button
+    if (mobileClarityToggle && desktopClarityToggle) {
+      mobileClarityToggle.addEventListener('click', () => {
+        desktopClarityToggle.click();
+        closeMenu();
+      });
+    }
+
+    // Sincronizza SYNAPSE button
+    if (mobileColorToggle && desktopColorToggle) {
+      mobileColorToggle.addEventListener('click', () => {
+        desktopColorToggle.click();
+        closeMenu();
+      });
+    }
+
+    // Chiudi menu quando si clicca su un link di navigazione
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-items .word');
+    mobileNavItems.forEach(item => {
+      item.addEventListener('click', closeMenu);
+    });
+
+    // Gestione CTA JOIN US mobile
+    const mobileJoinUsCta = document.getElementById('mobileJoinUsCta');
+    if (mobileJoinUsCta) {
+      mobileJoinUsCta.addEventListener('click', () => {
+        // Qui puoi aggiungere l'azione per JOIN US (es. aprire form, redirect, etc.)
+        console.log('JOIN US clicked from mobile');
+        closeMenu();
+      });
+    }
+  }
+});
+</script>
+
+<script>
+    class NeuralNetwork {
+        constructor() {
+            this.canvas = document.getElementById('particles-background');
+            this.ctx = this.canvas.getContext('2d');
+            this.particles = [];
+            this.connections = [];
+            this.codes = [];
+            this.mouse = { x: 0, y: 0 };
+            this.animationId = null;
+
+            this.config = {
+                particleCount: 80,
+                maxDistance: 120,
+                particleSize: 3,
+                particleSpeed: 0.5,
+                connectionOpacity: 0.6,
+                pulseSpeed: 0.02,
+                codeCount: 15,
+                codeSpeed: 0.3,
+                colors: {
+                    particles: ['#888888', '#999999', '#777777', '#666666', '#aaaaaa','#fff'],
+                    connections: '#888888',
+                    codes: '#666666'
+                }
+            };
+
+            this.time = 0;
+            this.init();
+        }
+
+        init() {
+            this.resizeCanvas();
+            this.createParticles();
+            this.createCodes();
+            this.bindEvents();
+            this.animate();
+        }
+
+        resizeCanvas() {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+        }
+
+        generateRandomCode() {
+            const types = ['binary', 'hex', 'alpha'];
+            const type = types[Math.floor(Math.random() * types.length)];
+
+            switch(type) {
+                case 'binary':
+                    return Array.from({length: 6 + Math.floor(Math.random() * 6)}, () => Math.random() < 0.5 ? '0' : '1').join('');
+                case 'hex':
+                    const hexChars = '0123456789ABCDEF';
+                    return Array.from({length: 4 + Math.floor(Math.random() * 4)}, () => hexChars[Math.floor(Math.random() * hexChars.length)]).join('');
+                case 'alpha':
+                    const alphaChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                    return Array.from({length: 3 + Math.floor(Math.random() * 4)}, () => alphaChars[Math.floor(Math.random() * alphaChars.length)]).join('');
+                default:
+                    return '101010';
+            }
+        }
+
+        createCodes() {
+            this.codes = [];
+            for (let i = 0; i < this.config.codeCount; i++) {
+                this.codes.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * this.config.codeSpeed,
+                    vy: (Math.random() - 0.5) * this.config.codeSpeed,
+                    text: this.generateRandomCode(),
+                    opacity: 0.3 + Math.random() * 0.4,
+                    life: 300 + Math.random() * 200,
+                    maxLife: 300 + Math.random() * 200,
+                    size: 10 + Math.random() * 4
+                });
+            }
+        }
+
+        createParticles() {
+            this.particles = [];
+            for (let i = 0; i < this.config.particleCount; i++) {
+                this.particles.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * this.config.particleSpeed,
+                    vy: (Math.random() - 0.5) * this.config.particleSpeed,
+                    size: Math.random() * this.config.particleSize + 1,
+                    color: this.config.colors.particles[Math.floor(Math.random() * this.config.colors.particles.length)],
+                    pulse: Math.random() * Math.PI * 2,
+                    activity: Math.random()
+                });
+            }
+        }
+
+        bindEvents() {
+            window.addEventListener('resize', () => {
+                this.resizeCanvas();
+                this.createParticles();
+                this.createCodes();
+            });
+
+            this.canvas.addEventListener('mousemove', (e) => {
+                this.mouse.x = e.clientX;
+                this.mouse.y = e.clientY;
+            });
+
+            this.canvas.addEventListener('mouseleave', () => {
+                this.mouse.x = -1000;
+                this.mouse.y = -1000;
+            });
+        }
+
+        updateParticles() {
+            this.particles.forEach(particle => {
+                // Movimento base
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+
+                // Effetto mouse
+                const dx = this.mouse.x - particle.x;
+                const dy = this.mouse.y - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    const force = (100 - distance) / 100;
+                    particle.vx += dx * force * 0.001;
+                    particle.vy += dy * force * 0.001;
+                    particle.activity = Math.min(1, particle.activity + 0.02);
+                } else {
+                    particle.activity = Math.max(0, particle.activity - 0.005);
+                }
+
+                // Limitazione velocità
+                const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
+                if (speed > 2) {
+                    particle.vx = (particle.vx / speed) * 2;
+                    particle.vy = (particle.vy / speed) * 2;
+                }
+
+                // Bordi del canvas
+                if (particle.x < 0 || particle.x > this.canvas.width) {
+                    particle.vx *= -1;
+                    particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
+                }
+                if (particle.y < 0 || particle.y > this.canvas.height) {
+                    particle.vy *= -1;
+                    particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
+                }
+
+                // Aggiornamento pulsazione
+                particle.pulse += this.config.pulseSpeed;
+            });
+        }
+
+        updateCodes() {
+            this.codes.forEach((code, index) => {
+                // Movimento
+                code.x += code.vx;
+                code.y += code.vy;
+
+                // Vita del codice
+                code.life--;
+                code.opacity = (code.life / code.maxLife) * 0.7;
+
+                // Bordi del canvas
+                if (code.x < -50 || code.x > this.canvas.width + 50) {
+                    code.vx *= -1;
+                }
+                if (code.y < -20 || code.y > this.canvas.height + 20) {
+                    code.vy *= -1;
+                }
+
+                // Rigenera codice se morto
+                if (code.life <= 0) {
+                    code.x = Math.random() * this.canvas.width;
+                    code.y = Math.random() * this.canvas.height;
+                    code.text = this.generateRandomCode();
+                    code.life = code.maxLife;
+                    code.opacity = 0.3 + Math.random() * 0.4;
+                }
+
+                // Cambia codice occasionalmente
+                if (Math.random() < 0.001) {
+                    code.text = this.generateRandomCode();
+                }
+            });
+        }
+
+        drawConnections() {
+            this.ctx.strokeStyle = this.config.colors.connections;
+            this.ctx.lineWidth = 1;
+
+            for (let i = 0; i < this.particles.length; i++) {
+                for (let j = i + 1; j < this.particles.length; j++) {
+                    const p1 = this.particles[i];
+                    const p2 = this.particles[j];
+
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < this.config.maxDistance) {
+                        const opacity = (1 - distance / this.config.maxDistance) * this.config.connectionOpacity;
+                        const activity = (p1.activity + p2.activity) / 2;
+
+                        // Effetto pulsazione nelle connessioni
+                        const pulse = Math.sin(this.time * 0.01 + distance * 0.01) * 0.3 + 0.7;
+
+                        this.ctx.globalAlpha = opacity * pulse * (0.3 + activity * 0.7);
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(p1.x, p1.y);
+                        this.ctx.lineTo(p2.x, p2.y);
+                        this.ctx.stroke();
+
+                        // Segnali neurali che viaggiano lungo le connessioni
+                        if (Math.random() < 0.001 + activity * 0.01) {
+                          this.drawNeuralSignal(p1, p2, distance);
+                        }
+                    }
+                }
+            }
+        }
+
+        drawNeuralSignal(p1, p2, distance) {
+            const progress = (this.time * 0.02) % 1;
+            const x = p1.x + (p2.x - p1.x) * progress;
+            const y = p1.y + (p2.y - p1.y) * progress;
+
+            this.ctx.globalAlpha = Math.sin(progress * Math.PI) * 0.8;
+            this.ctx.fillStyle = '#cccccc';
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, 2, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
+
+        drawParticles() {
+            this.particles.forEach(particle => {
+                const pulseScale = 1 + Math.sin(particle.pulse) * 0.3 * particle.activity;
+                const size = particle.size * pulseScale;
+
+                // Glow effect grigio
+                this.ctx.shadowColor = particle.color;
+                this.ctx.shadowBlur = 10 + particle.activity * 15;
+
+                // Corpo principale
+                this.ctx.globalAlpha = 0.7 + particle.activity * 0.3;
+                this.ctx.fillStyle = particle.color;
+                this.ctx.beginPath();
+                this.ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+                this.ctx.fill();
+
+                // Nucleo leggermente più chiaro
+                this.ctx.globalAlpha = 0.9;
+                this.ctx.fillStyle = '#bbbbbb';
+                this.ctx.beginPath();
+                this.ctx.arc(particle.x, particle.y, size * 0.3, 0, Math.PI * 2);
+                this.ctx.fill();
+
+                this.ctx.shadowBlur = 0;
+            });
+        }
+
+        drawCodes() {
+            this.ctx.font = '12px "Courier New", monospace';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+
+            this.codes.forEach(code => {
+                this.ctx.globalAlpha = code.opacity;
+                this.ctx.fillStyle = this.config.colors.codes;
+
+                // Effetto leggero glow per i codici
+                this.ctx.shadowColor = this.config.colors.codes;
+                this.ctx.shadowBlur = 5;
+
+                this.ctx.fillText(code.text, code.x, code.y);
+
+                this.ctx.shadowBlur = 0;
+            });
+        }
+
+        animate() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            this.updateParticles();
+            this.updateCodes();
+            this.drawConnections();
+            this.drawParticles();
+            this.drawCodes();
+
+            this.time++;
+            this.animationId = requestAnimationFrame(() => this.animate());
+        }
+
+        destroy() {
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+            }
+            window.removeEventListener('resize', this.resizeCanvas);
+            this.canvas.removeEventListener('mousemove', this.mouseMoveHandler);
+            this.canvas.removeEventListener('mouseleave', this.mouseLeaveHandler);
+        }
+    }
+
+    // Inizializzazione
+    const neuralNetwork = new NeuralNetwork();
+
+    // Cleanup quando la pagina viene chiusa
+    window.addEventListener('beforeunload', () => {
+        neuralNetwork.destroy();
+    });
+</script>
+
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+
+ // Parallax animazioni per immagini con effetto zoom avanzato
+    gsap.utils.toArray(".parallax-image").forEach((image, i) => {
+      // Valori diversi per mobile e desktop
+      const isMobile = window.innerWidth <= 768;
+      const startScale = isMobile ? 0.6 : 0.5;
+      const endScale = isMobile ? 0.7 : 0.8;
+      const startY = isMobile ? 30 : 50;
+      const endY = isMobile ? -30 : -50;
+      
+      // Animazione zoom progressivo durante lo scroll
+      gsap.fromTo(image, 
+        { 
+          scale: startScale, // Parte da metà scala
+          y: startY,
+          opacity: 0.2
+        },
+        {
+          scale: endScale, // Si sviluppa all'80% (70% su mobile)
+          y: endY,
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: image.closest("section"),
+            start: "top 80%", // Inizia prima
+            end: "bottom 20%", // Finisce dopo
+            scrub: 1, // Animazione fluida legata allo scroll
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+// Immagine parallax: movimento più lento
+gsap.utils.toArray(".parallax-img").forEach(img => {
+  gsap.fromTo(img, 
+    { y: 100 }, 
+    { 
+      y: -100, 
+      ease: "none",
+      scrollTrigger: {
+        trigger: img.closest(".parallax-section"),
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    }
+  );
+});
+
+// Testo: fade in + su
+gsap.utils.toArray(".parallax-text").forEach(text => {
+  gsap.from(text, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: text.closest(".parallax-section"),
+      start: "top 70%",
+      toggleActions: "play none none reverse"
+    }
+  });
+});
+
+// Sfondo: cambio gradiente (esempio avanzato, opzionale)
+gsap.utils.toArray(".bg-layer").forEach(bg => {
+  gsap.fromTo(bg, 
+    { backgroundPosition: "0% 0%" }, 
+    {
+      backgroundPosition: "0% 100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: bg.closest(".parallax-section"),
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    }
+  );
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ✅ QUESTI SONO GLI UNICI SCRIPT CHE SERVONO -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.136.0/examples/js/controls/OrbitControls.js"></script>
+
+<!-- ✅ TUTTO RACCHIUSO IN UNA FUNZIONE PER EVITARE CONFLITTI CON L'ICEBERG -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    initPenguinCanvas();
+  });
+
+  function rgbToHex(rgb) {
+    const result = rgb.match(/\d+/g).map(Number).slice(0, 3);
+    return (
+      '#' +
+      result.map(x => x.toString(16).padStart(2, '0')).join('')
+    );
+  }
+
+  function enableCanvasDrag(canvas, controlsPenguin) {
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    canvas.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      canvas.classList.add("dragging");
+      controlsPenguin.enabled = false; // 🔴 Disabilita Orbit durante il drag
+
+      const rect = canvas.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+
+      canvas.style.position = 'fixed';
+      canvas.style.left = `${e.clientX - offsetX}px`;
+      canvas.style.top = `${e.clientY - offsetY}px`;
+      canvas.style.right = 'auto';
+      canvas.style.bottom = 'auto';
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      canvas.classList.remove("dragging");
+      controlsPenguin.enabled = true; // ✅ Riattiva Orbit alla fine del drag
+    });
+  }
+
+  function initPenguinCanvas() {
+    const canvas = document.getElementById("penguin-canvas");
+    if (!canvas) {
+      console.error("Canvas con id 'penguin-canvas' non trovato!");
+      return;
+    }
+
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = 1000 * dpr;
+    canvas.height = 1000 * dpr;
+
+    const scenePenguin = new THREE.Scene();
+    scenePenguin.background = null;
+
+    const aspect = canvas.width / canvas.height;
+    const cameraPenguin = new THREE.PerspectiveCamera(60, aspect, 1, 100000);
+    cameraPenguin.position.set(500, -300, 1500);
+    cameraPenguin.lookAt(500, -300, 0);
+
+    const rendererPenguin = new THREE.WebGLRenderer({
+      canvas: canvas,
+      antialias: true,
+      alpha: true
+    });
+    rendererPenguin.setClearColor(0x000000, 0);
+    rendererPenguin.setSize(600, 500, false);
+    rendererPenguin.setPixelRatio(dpr);
+
+    const controlsPenguin = new THREE.OrbitControls(cameraPenguin, rendererPenguin.domElement);
+    controlsPenguin.enableZoom = false;
+    controlsPenguin.enablePan = true;
+    controlsPenguin.minDistance = 800;
+    controlsPenguin.maxDistance = 6000;
+    controlsPenguin.maxPolarAngle = Math.PI;
+    controlsPenguin.minPolarAngle = 0;
+    controlsPenguin.target.set(500, -300, -250);
+    controlsPenguin.update();
+
+    enableCanvasDrag(canvas, controlsPenguin);
+
+    canvas.addEventListener("mouseenter", () => {
+      if (!controlsPenguin.enabled) controlsPenguin.enabled = true;
+    });
+    canvas.addEventListener("mouseleave", () => {
+      if (!canvas.classList.contains("dragging")) {
+        controlsPenguin.enabled = false;
+      }
+    });
+
+    let dynamicMaterial = null;
+
+    fetch('prova.json')
+      .then(res => res.json())
+      .then(data => {
+        const points = data.penguinpoints;
+        const edges = data.penguinedges;
+
+        const vertices = [];
+        edges.forEach(([start, end]) => {
+          const p1 = points[start];
+          const p2 = points[end];
+          vertices.push(new THREE.Vector3(p1.x, -p1.y, 0));
+          vertices.push(new THREE.Vector3(p2.x, -p2.y, 0));
+        });
+
+        const geometry = new THREE.BufferGeometry().setFromPoints(vertices);
+        dynamicMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff });
+        const lines = new THREE.LineSegments(geometry, dynamicMaterial);
+        scenePenguin.add(lines);
+      })
+      .catch(err => console.error('Errore caricamento JSON:', err));
+
+    function updateMaterialColorFromHero() {
+      const heroText = document.querySelector('.hero-text');
+      if (!heroText || !dynamicMaterial) return;
+
+      const color = getComputedStyle(heroText).color;
+      const hex = rgbToHex(color);
+      if (dynamicMaterial.color.getStyle() !== hex) {
+        dynamicMaterial.color.set(hex);
+      }
+    }
+
+    function animatePenguin() {
+      requestAnimationFrame(animatePenguin);
+      updateMaterialColorFromHero();
+      rendererPenguin.render(scenePenguin, cameraPenguin);
+    }
+
+    animatePenguin();
+  }
+</script>
+
+<!-- ✅ EFFETTO FADE-IN DELLE IMMAGINI PARALLAX CON SCROLL -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Seleziona tutte le immagini parallax nei layout flex/grid
+  const parallaxImages = document.querySelectorAll('.flex-2col .parallax-image, .flex-full .parallax-image, .grid-2-fixed .parallax-image, .grid-item .parallax-image');
+  
+  // Crea l'Intersection Observer
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Aggiunge la classe in-view quando l'immagine entra in vista
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, {
+    threshold: 0.3, // Trigger quando il 30% dell'immagine è visibile
+    rootMargin: '0px 0px -50px 0px' // Trigger un po' prima che sia completamente visibile
+  });
+
+  // Osserva tutte le immagini parallax
+  parallaxImages.forEach(image => {
+    imageObserver.observe(image);
+  });
+});
+</script>
+
+<!-- ✅ EFFETTO COMPOSIZIONE TESTO LETTERA PER LETTERA CON CLASSE CSS -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  
+  // Funzione per applicare l'effetto composizione testo
+  function applyTextCompositionEffect(element) {
+    // Salva il contenuto HTML originale per preservare <br> e altri tag
+    const originalHTML = element.innerHTML;
+    const originalStyle = window.getComputedStyle(element);
+    
+    // Evita overflow sui contenitori
+    const parent = element.parentElement;
+    if (parent) {
+      parent.style.overflow = 'hidden';
+    }
+    
+    // Funzione per processare nodi di testo preservando la struttura
+    function processTextNode(textNode) {
+      const text = textNode.textContent;
+      const letters = [];
+      
+      // Crea span per ogni lettera
+      text.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char; // Preserva spazi
+        span.style.display = 'inline-block';
+        span.style.position = 'relative';
+        span.style.opacity = '0';
+        span.style.transform = 'translateX(50px) scale(0.3)';
+        span.style.transition = `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+        span.dataset.letterIndex = letters.length; // Indice globale
+        letters.push(span);
+      });
+      
+      // Sostituisce il nodo di testo con gli span
+      const fragment = document.createDocumentFragment();
+      letters.forEach(letter => fragment.appendChild(letter));
+      textNode.parentNode.replaceChild(fragment, textNode);
+      
+      return letters;
+    }
+    
+    // Trova tutti i nodi di testo nell'elemento
+    function getTextNodes(node) {
+      const textNodes = [];
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        textNodes.push(node);
+      } else {
+        for (let child of node.childNodes) {
+          textNodes.push(...getTextNodes(child));
+        }
+      }
+      return textNodes;
+    }
+    
+    // Processa tutti i nodi di testo
+    const textNodes = getTextNodes(element);
+    const allLetters = [];
+    
+    textNodes.forEach(textNode => {
+      const letters = processTextNode(textNode);
+      allLetters.push(...letters);
+    });
+    
+    // Aggiorna gli indici per l'animazione sequenziale
+    allLetters.forEach((letter, globalIndex) => {
+      letter.style.transitionDelay = `${globalIndex * 0.03}s`;
+      letter.dataset.globalIndex = globalIndex;
+    });
+    
+    // Marca come processato
+    element.dataset.textComposition = 'processed';
+    
+    // Intersection Observer per attivare l'animazione
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Ritardo di attivazione per rendere l'effetto più elegante
+          setTimeout(() => {
+            // Attiva l'animazione delle lettere
+            allLetters.forEach((letter, index) => {
+              setTimeout(() => {
+                letter.style.opacity = '1';
+                letter.style.transform = 'translateX(0) scale(1)';
+              }, index * 30); // 30ms tra ogni lettera
+            });
+          }, 300); // Ritardo iniziale di 300ms
+          
+          // Smette di osservare una volta attivato
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1, // Attiva quando anche solo il 10% dell'elemento è visibile
+      rootMargin: '0px 0px 0px 0px' // Nessun margine - attiva appena è in vista
+    });
+    
+    observer.observe(element);
+    
+    // CONTROLLO IMMEDIATO: Se l'elemento è già visibile al caricamento, attiva subito
+    setTimeout(() => {
+      const rect = element.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isVisible && allLetters.length > 0 && allLetters[0].style.opacity === '0') {
+        // Ritardo di attivazione anche per elementi già visibili
+        setTimeout(() => {
+          // Attiva l'animazione immediatamente
+          allLetters.forEach((letter, index) => {
+            setTimeout(() => {
+              letter.style.opacity = '1';
+              letter.style.transform = 'translateX(0) scale(1)';
+            }, index * 30);
+          });
+        }, 500); // Ritardo maggiore per elementi già visibili (hero section)
+        observer.unobserve(element);
+      }
+    }, 200); // Piccolo delay per assicurarsi che il DOM sia pronto
+  }
+  
+  // AUTO-RILEVAMENTO: Cerca automaticamente tutti gli elementi con la classe 'text-compose'
+  // ESCLUSI: elementi che hanno 'no-text-compose' o 'mobile-no-text-compose' su mobile
+  function initTextComposition() {
+    const isMobile = window.innerWidth <= 768;
+    let selector = '.text-compose:not(.no-text-compose):not([data-text-composition="processed"])';
+    
+    // Su mobile, escludi anche gli elementi con 'mobile-no-text-compose'
+    if (isMobile) {
+      selector = '.text-compose:not(.no-text-compose):not(.mobile-no-text-compose):not([data-text-composition="processed"])';
+    }
+    
+    const textComposeElements = document.querySelectorAll(selector);
+    
+    textComposeElements.forEach(element => {
+      applyTextCompositionEffect(element);
+    });
+    
+    console.log(`Effetto composizione testo applicato a ${textComposeElements.length} elementi con classe .text-compose (mobile: ${isMobile})`);
+  }
+  
+  // Avvia il rilevamento automatico
+  setTimeout(initTextComposition, 100);
+  
+  // Espone la funzione globalmente per il riuso
+  window.initTextComposition = initTextComposition;
+  
+  // Funzione globale per applicare manualmente l'effetto (opzionale)
+  window.activateTextComposition = function(selectors) {
+    if (typeof selectors === 'string') {
+      selectors = [selectors];
+    }
+    
+    selectors.forEach(selector => {
+      const targetElements = document.querySelectorAll(`${selector}:not([data-text-composition="processed"])`);
+      targetElements.forEach(element => {
+        applyTextCompositionEffect(element);
+      });
+    });
+  };
+});
+</script>
+
+<!-- ✅ ACCORDION RIUTILIZZABILE -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Gestione click Read More riutilizzabile
+  const readMoreBtn = document.getElementById('readMoreBtn');
+  const readMoreContent = document.getElementById('readMoreContent');
+  const readMoreText = readMoreBtn?.querySelector('.read-more-text');
+  const readLessText = readMoreBtn?.querySelector('.read-less-text');
+  
+  if (readMoreBtn && readMoreContent) {
+    readMoreBtn.addEventListener('click', () => {
+      const isOpen = readMoreContent.classList.contains('open');
+      
+      if (isOpen) {
+        // Chiudi: contenuto completo -> solo preview
+        readMoreContent.classList.remove('open');
+        readMoreText.style.display = 'inline';
+        readLessText.style.display = 'none';
+      } else {
+        // Apri: mostra contenuto completo
+        readMoreContent.classList.add('open');
+        readMoreText.style.display = 'none';
+        readLessText.style.display = 'inline';
+        
+        // Attiva text-compose sul nuovo contenuto
+        setTimeout(() => {
+          if (window.initTextComposition) {
+            window.initTextComposition();
+          }
+        }, 400); // Delay per sincronizzarsi con l'animazione
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
 
