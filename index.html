@@ -2328,6 +2328,49 @@ function updateSectionsColor(currentBg, currentTextColor, interpolatedColor) {
 }
 </script>
 
+<!-- 🔥 FALLBACK CSS PER GITHUB PAGES (caso GSAP non carichi) -->
+<style id="github-fallback-styles" style="display: none;">
+.github-fallback .main-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+
+.github-fallback .hero {
+  position: relative !important;
+}
+
+.github-fallback .parallax-section {
+  position: relative !important;
+}
+
+.github-fallback .parallax-image {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.github-fallback .hero-text {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) !important;
+}
+</style>
+
+<script>
+// Attiva fallback se GSAP non si carica entro 5 secondi
+setTimeout(() => {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    console.warn('🔄 Attivando fallback CSS - GSAP non disponibile');
+    document.body.classList.add('github-fallback');
+    const fallbackStyles = document.getElementById('github-fallback-styles');
+    if (fallbackStyles) {
+      fallbackStyles.style.display = 'block';
+    }
+    // Assicura che il sito sia utilizzabile
+    document.body.style.overflow = 'auto';
+  }
+}, 5000);
+</script>
+
 <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
 <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
 
@@ -2533,6 +2576,58 @@ setInterval(updateHeroBackground, 60 * 60 * 1000);
 
 
 <script>
+// 🔥 SISTEMA DI DEBUG COMPLETO PER GITHUB PAGES
+console.log('🚀 Inizializzazione GitHub Pages Debug System');
+console.log('📍 User Agent:', navigator.userAgent);
+console.log('📍 Location:', window.location.href);
+console.log('📍 Protocol:', window.location.protocol);
+
+// Log di caricamento script
+window.addEventListener('load', () => {
+  console.log('📍 Pagina completamente caricata');
+  console.log('📍 GSAP disponibile:', typeof gsap !== 'undefined');
+  console.log('📍 ScrollTrigger disponibile:', typeof ScrollTrigger !== 'undefined');
+  console.log('📍 Three.js disponibile:', typeof THREE !== 'undefined');
+});
+
+// Cattura errori JavaScript
+window.addEventListener('error', (e) => {
+  console.error('🚨 JavaScript Error:', e.error);
+  console.error('🚨 In file:', e.filename, 'line:', e.lineno);
+});
+
+// 🔥 SISTEMA DI CARICAMENTO ROBUSTO PER HERO SCROLLTRIGGER
+function waitForGSAPHero(callback, maxAttempts = 50) {
+  let attempts = 0;
+  
+  function checkGSAPHero() {
+    attempts++;
+    
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      console.log('✅ GSAP Hero - caricato correttamente');
+      gsap.registerPlugin(ScrollTrigger);
+      callback();
+    } else if (attempts < maxAttempts) {
+      console.log(`⏳ Hero tentativo ${attempts}/${maxAttempts} - Aspettando GSAP...`);
+      setTimeout(checkGSAPHero, 100);
+    } else {
+      console.error('❌ GSAP Hero non caricato - Hero scroll disabilitato');
+    }
+  }
+  
+  checkGSAPHero();
+}
+
+// Avvia il sistema quando il DOM è pronto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    waitForGSAPHero(initHeroScrollEffects);
+  });
+} else {
+  waitForGSAPHero(initHeroScrollEffects);
+}
+
+function initHeroScrollEffects() {
 // ScrollTrigger con pin + animazioni cinematiche
 ScrollTrigger.create({
   trigger: ".hero",
@@ -2565,8 +2660,48 @@ if (self.progress > 0.8) {
   }
 });
 
+  console.log('🎯 Hero scroll effects inizializzati');
+} // Fine initHeroScrollEffects
+
 
 // === Menu animato con GSAP
+function waitForGSAPMenu(callback, maxAttempts = 50) {
+  let attempts = 0;
+  
+  function checkGSAPMenu() {
+    attempts++;
+    
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      console.log('✅ GSAP Menu - caricato correttamente');
+      gsap.registerPlugin(ScrollTrigger);
+      callback();
+    } else if (attempts < maxAttempts) {
+      console.log(`⏳ Menu tentativo ${attempts}/${maxAttempts} - Aspettando GSAP...`);
+      setTimeout(checkGSAPMenu, 100);
+    } else {
+      console.error('❌ GSAP Menu non caricato - Menu animato disabilitato');
+      // Fallback: mostra sempre il menu
+      const menu = document.querySelector(".main-menu");
+      if (menu) {
+        menu.style.opacity = '1';
+        menu.style.visibility = 'visible';
+      }
+    }
+  }
+  
+  checkGSAPMenu();
+}
+
+// Avvia il sistema quando il DOM è pronto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    waitForGSAPMenu(initMenuEffects);
+  });
+} else {
+  waitForGSAPMenu(initMenuEffects);
+}
+
+function initMenuEffects() {
 const menu = document.querySelector(".main-menu");
 gsap.set(menu, { autoAlpha: 0, y: -20 }); // stato iniziale: invisibile, leggermente sopra
 
@@ -2615,6 +2750,9 @@ ScrollTrigger.create({
     }
   }
 });
+
+  console.log('🎯 Menu effects inizializzati');
+} // Fine initMenuEffects
 
 // === MENU HAMBURGER CON CSS SEMPLICE ===
 document.addEventListener('DOMContentLoaded', function() {
@@ -3030,10 +3168,41 @@ document.addEventListener('DOMContentLoaded', function() {
  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
-gsap.registerPlugin(ScrollTrigger);
+// 🔥 SISTEMA DI CARICAMENTO ROBUSTO PER GITHUB PAGES
+function waitForGSAP(callback, maxAttempts = 50) {
+  let attempts = 0;
+  
+  function checkGSAP() {
+    attempts++;
+    
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      console.log('✅ GSAP e ScrollTrigger caricati correttamente');
+      gsap.registerPlugin(ScrollTrigger);
+      callback();
+    } else if (attempts < maxAttempts) {
+      console.log(`⏳ Tentativo ${attempts}/${maxAttempts} - Aspettando GSAP...`);
+      setTimeout(checkGSAP, 100); // Riprova ogni 100ms
+    } else {
+      console.error('❌ GSAP non caricato dopo', maxAttempts, 'tentativi - Parallax disabilitato');
+      // Fallback: abilita scroll normale
+      document.body.style.overflowY = 'auto';
+    }
+  }
+  
+  checkGSAP();
+}
 
+// Avvia il sistema quando il DOM è pronto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    waitForGSAP(initParallaxEffects);
+  });
+} else {
+  waitForGSAP(initParallaxEffects);
+}
 
- // Parallax animazioni per immagini con effetto zoom avanzato
+// Funzione che contiene tutti gli effetti parallax
+function initParallaxEffects() {
     gsap.utils.toArray(".parallax-image").forEach((image, i) => {
       // Valori diversi per mobile e desktop
       const isMobile = window.innerWidth <= 768;
@@ -3113,6 +3282,9 @@ gsap.utils.toArray(".bg-layer").forEach(bg => {
     }
   );
 });
+
+  console.log('🎯 Tutti gli effetti parallax inizializzati');
+} // Fine initParallaxEffects
 
 </script>
 
@@ -3497,4 +3669,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
