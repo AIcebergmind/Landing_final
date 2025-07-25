@@ -21,12 +21,19 @@
     body, html {
       margin: 0;
       padding: 0;
-	  font-family: "IBM Plex Sans", sans-serif;
+    font-family: "IBM Plex Sans", sans-serif;
       width: 100%;
       height: 100%;
       box-sizing: border-box;
     }
 
+    body {
+  scroll-snap-type: y mandatory;
+}
+.horizontal-scroll-wrapper {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
 
   .ibm-plex-sans {
     font-family: "IBM Plex Sans", sans-serif;
@@ -1187,23 +1194,8 @@ body.high-contrast .mobile-close-btn:hover {
   }
 }
 
-.projects-scroll {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 2rem 0;
-}
-.project-box {
-  min-width: 320px;
-  flex: 0 0 auto;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  padding: 2rem;
-  scroll-snap-align: start;
-}
+
+
 
 
    .parallax-section {
@@ -1239,6 +1231,53 @@ body.high-contrast .mobile-close-btn:hover {
       opacity: 0.2;
     }
 
+
+
+
+
+.horizontal-scroll-wrapper {
+  position: relative;
+  height: 100vh; /* base, poi JS può aumentare */
+    padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
+}
+.horizontal-scroll-content {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: max-content;
+  height: 100vh;
+  will-change: transform;
+}
+
+.card-scroll {
+  min-width: 60vw; /* o 320px, in base al design */
+  flex: 0 0 auto;
+  margin-right: 2rem;
+  display: flex;
+  align-items: stretch;
+}
+.flex-2col-scroll {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 80%;
+}
+.card-title {
+  flex: 0 0 220px;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.card-content {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+}
 
 
 
@@ -1473,7 +1512,7 @@ body.high-contrast .mobile-close-btn:hover {
   width: 100vw;
   height: 100vh;
         z-index: 15;
-		  pointer-events: none;      
+      pointer-events: none;      
   background: transparent;
     }
 
@@ -1681,6 +1720,10 @@ body.high-contrast .mobile-close-btn:hover {
 
  
 
+
+
+
+
   </style>
 
 </head>
@@ -1705,7 +1748,7 @@ body.high-contrast .mobile-close-btn:hover {
 
 
 <body>
-	<canvas id="penguin-canvas" width="1000" height="1000"></canvas>
+  <canvas id="penguin-canvas" width="1000" height="1000"></canvas>
 <div id="preloader">
 <div class="logo logotype preloader-logo">
   <img src="images/logo/logotext.svg" alt="Logo">
@@ -1869,7 +1912,7 @@ body.high-contrast .mobile-close-btn:hover {
 
   <class="hero" id="hero">
     <canvas id="iceberg" class="hero-canvas"></canvas>
-	<div class="hero-text-wrapper">
+  <div class="hero-text-wrapper">
 <div class="hero-text-wrapper">
   <div class="hero-text text-compose mobile-no-text-compose">DEPTH<br>is not a feature. is our<br>NATURE</div>
   <div class="hero-text text-compose mobile-no-text-compose"><strong>AI</strong>CEBERG<br>MIND</div>
@@ -1929,7 +1972,7 @@ Inspired by science, crafted by AI</h3>
     <!-- Manifesto con Read More -->
     <h3 class="text-compose parallax-text"><strong>- a short manifesto</strong></h3>
 
-    <div class="read-more-container">
+    <div class="read-more-container" id="readMoreSection">
       <!-- Testo preview sempre visibile (prime tre righe) -->
       <p class="read-more-preview">
         AIceberg Mind was born from a simple belief: that intelligence is not a race to the top, but a journey below the surface. In a world flooded with fast content and noisy knowledge, we wanted to create something different.<br><br>
@@ -1940,7 +1983,7 @@ Inspired by science, crafted by AI</h3>
       </p>
 
       <!-- Contenuto completo nascosto inizialmente -->
-      <div class="read-more-content" id="readMoreContent">
+      <div class="read-more-content"  id="readMoreContent">
         <p class="read-more-text">
           We are designers, makers, researchers, and parents — trying to shape tools that spark ideas, facilitate creation, or gently awaken minds.<br><br>
 
@@ -1961,69 +2004,68 @@ Inspired by science, crafted by AI</h3>
       </button>
     </div>
   </div>
-</section>
 
+  <!-- Vision and Co -->
+<div class="horizontal-scroll-wrapper" id="about-cards">
+  <div class="horizontal-scroll-content">
 
-
-
-
-
-
-<!-- PROJECTS -->
-<section class="parallax-section" id="projects">
-  <div class="flex-2col">
-    <div class="content-column">
-      <h1 class>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h1>
-      <h2 class="parallax-text">from the earliest spark to the lifelong wonder of the mind.</h2>
-    </div>
-    <div class="image-column">
-      <img src="images/image_placeholder_about.png" alt="Img 1" class="parallax-image image1" />
-    </div>
-  </div>
-
-  <div class="flex-full">
-    <h3 class="parallax-text">
-      It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath <br>
-      the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
-    </h3>
-    <div class="divider-dots"></div>
-
-    <!-- Manifesto con Read More -->
-    <h3 class="text-compose parallax-text"><strong>- a short manifesto</strong></h3>
-
-    <div class="read-more-container">
-      <!-- Testo preview sempre visibile (prime tre righe) -->
-      <p class="read-more-preview">
-        AIceberg Mind was born from a simple belief: that intelligence is not a race to the top, but a journey below the surface. In a world flooded with fast content and noisy knowledge, we wanted to create something different.<br><br>
-
-        We see content not as a product, but as a living experience — one that can play, teach, surprise, and empower. We create digital objects: some playful, some poetic, some purely practical.<br><br>
-
-        We don't claim expertise in psychology or nervous system science. What we claim is curiosity in subconscious rewiring, craftsmanship, and care.
-      </p>
-
-      <!-- Contenuto completo nascosto inizialmente -->
-      <div class="read-more-content" id="readMoreContent">
-        <p class="read-more-text">
-          We are designers, makers, researchers, and parents — trying to shape tools that spark ideas, facilitate creation, or gently awaken minds.<br><br>
-
-          Some of our content is designed for children. Some for adults. Some for both. But all of it is guided by the same principle: explore below the surface. Education is not always the goal — but it's often the side effect. And so is joy.<br><br>
-
-          Inspired by the iceberg, our craft is layered: playful on the surface, rooted in research below. We use AI to enhance form and interaction, but never to replace thought.<br><br>
-
-          Our vision begins in early childhood, where so much is silently shaped — but it doesn't end there. It reaches the child within us all, the parents who guide, the educators who nurture, and the minds that still wonder.<br><br>
-
-          AIceberg Mind is not an answer. It's a question: what kind of world do we create when we shape content from the depth of human potential?
-        </p>
+    <div class="card-scroll">
+      <div class="flex-2col-scroll">
+        <div class="card-title parallax-text">Vision</div>
+        <div class="card-content parallax-text">
+          <p>Our vision is to shape content that inspires curiosity, reflection, and wonder — creating tools that help people think deeply, not just quickly. We believe that in a world of fast answers, slow thinking is radical.</p>
+        </div>
       </div>
-
-      <!-- Pulsante Read More -->
-      <button class="read-more-btn" id="readMoreBtn">
-        <span class="read-more-text">Read more</span>
-        <span class="read-less-text" style="display: none;">Read less</span>
-      </button>
     </div>
+
+    <div class="card-scroll">
+      <div class="flex-2col-scroll">
+        <div class="card-title parallax-text">Mission</div>
+        <div class="card-content parallax-text">
+          <p>Our mission is to create tools, objects, and experiences that stimulate creative thinking and emotional engagement. We make content that opens doors, not boxes — playful in form, purposeful in intent.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-scroll">
+      <div class="flex-2col-scroll">
+        <div class="card-title parallax-text">Approach</div>
+        <div class="card-content parallax-text">
+          <p>We follow a design-driven, research-inspired process rooted in play and purpose. We mix cognitive science, storytelling, and interactivity — always experimenting, always questioning, never boring.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-scroll">
+      <div class="flex-2col-scroll">
+        <div class="card-title parallax-text">The AIceberg Method</div>
+        <div class="card-content parallax-text">
+          <p>Our method is layered: intuitive on the surface, rigorous underneath. Just like an iceberg, most of the structure is hidden — what you see is playful, what you uncover is deep. We reveal how things work, not just what they are.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
+ </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".horizontal-scroll-content", {
+  x: () => -(document.querySelector(".horizontal-scroll-content").scrollWidth - window.innerWidth),
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".horizontal-scroll-wrapper",
+    start: "top top",
+    end: () => "+=" + (document.querySelector(".horizontal-scroll-content").scrollWidth - window.innerWidth),
+    scrub: true,
+    pin: true,
+    anticipatePin: 1
+  }
+});
+</script>
 
 
 
@@ -2568,8 +2610,6 @@ function draw() {
 </script>
 
 <script>
-// 🔥 SISTEMA NATIVO SENZA GSAP
-console.log('🚀 AIceberg Mind - Sistema nativo caricato');
 
 // === Inizializzazione sistemi nativi ===
 document.addEventListener('DOMContentLoaded', () => {
@@ -2839,6 +2879,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
 
 <script>
     class NeuralNetwork {
@@ -3202,34 +3243,38 @@ function initParallaxImages() {
   parallaxImages.forEach(image => imageObserver.observe(image));
 }
 
-// 📝 Parallax TESTO
+// 📝 Parallax TESTO migliorato
 function initParallaxText() {
-  const parallaxTexts = document.querySelectorAll('.parallax-text:not(.hero .parallax-text), .parallax-section .parallax-text, section:not(.hero) .parallax-text');
+  const parallaxTexts = document.querySelectorAll(
+    '.parallax-text:not(.hero .parallax-text), .parallax-section .parallax-text, section:not(.hero) .parallax-text'
+  );
   console.log(`📝 Parallax: Trovati ${parallaxTexts.length} testi (hero escluso)`);
 
   const textObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.target.closest('.hero')) return;
 
-      if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
         entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
-        textObserver.unobserve(entry.target); // ⬅️ miglioramento performance
+        textObserver.unobserve(entry.target); // ⬅️ migliora performance
         console.log('📝 Testo parallax attivato');
       }
     });
   }, {
-    threshold: [0, 0.3, 0.7, 1.0],
-    rootMargin: '0px 0px -100px 0px'
+    threshold: 0.15,
+    rootMargin: '0px 0px -20% 0px'
   });
 
   parallaxTexts.forEach(text => {
-    text.style.opacity = '0';
-    text.style.transform = 'translateY(50px)';
-    text.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+    // Imposta solo se non già presenti
+    if (!text.style.opacity) text.style.opacity = '0';
+    if (!text.style.transform) text.style.transform = 'translateY(40px)';
+    if (!text.style.transition) text.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
     textObserver.observe(text);
   });
 }
+
 
 // 🎭 Parallax MOVIMENTO
 const activeParallaxImgs = new Set();
