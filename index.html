@@ -1439,22 +1439,6 @@ body.high-contrast .mobile-close-btn:hover {
   filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
 }
 
-.section-title::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 4px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    var(--ice-cyan) 50%, 
-    transparent 100%);
-  opacity: 0.6;
-  animation: pulse-glow 2s ease-in-out infinite alternate;
-}
-
 .section-title::after {
   content: '';
   position: absolute;
@@ -1498,145 +1482,68 @@ body.high-contrast .mobile-close-btn:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 5rem 0 4rem 0;
+  margin: 4rem 0 3rem 0;
   text-align: center;
-  position: relative;
-  z-index: 1;
-  padding: 3rem 1rem;
-}
-
-.manifesto-section-centered::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 110%;
-  background: radial-gradient(ellipse at center, rgba(0,212,255,0.15) 0%, rgba(94,228,195,0.12) 50%, transparent 80%);
-  filter: blur(20px);
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.8;
 }
 
 .manifesto-title {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   font-family: 'Orbitron', monospace;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  margin-bottom: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
   color: #00D4FF;
-  text-shadow: 0 4px 32px #00d4ff88, 0 0 8px #5EE4C3, 0 2px 4px rgba(0,0,0,0.3);
   position: relative;
   z-index: 2;
-  text-transform: uppercase;
 }
 
 .manifesto-centered-text {
-  max-width: 850px;
-  margin: 0 auto 2.5rem auto;
-  font-size: 1.4rem;
-  color: #f0fcff;
-  line-height: 1.9;
-  position: relative;
-  z-index: 2;
-  font-weight: 400;
+  max-width: 700px;
+  margin: 0 auto 1.5rem auto;
+  font-size: 1.25rem;
+  color: #eafcff;
+  line-height: 1.7;
 }
 
 .manifesto-centered-text .highlight {
   color: #5EE4C3;
-  font-weight: 800;
-  text-shadow: 0 0 20px #00d4ffdd, 0 0 4px #5EE4C3, 0 2px 8px rgba(0,0,0,0.4);
-  background: linear-gradient(135deg, rgba(0,212,255,0.18) 0%, rgba(94,228,195,0.15) 100%);
-  border-radius: 8px;
-  padding: 0.1em 0.4em;
-  position: relative;
-  display: inline-block;
-}
-
-.manifesto-centered-text .highlight::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(94,228,195,0.1));
-  border-radius: 8px;
-  border: 1px solid rgba(94,228,195,0.3);
-  z-index: -1;
+  font-weight: 600;
+  text-shadow: 0 0 8px #00d4ff55;
 }
 
 .manifesto-belongs {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   color: #00D4FF;
-  margin: 3rem 0 1rem 0;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 16px #00d4ffbb, 0 2px 8px rgba(0,0,0,0.3);
-  text-transform: uppercase;
+  margin: 2rem 0 0.5rem 0;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .manifesto-contact {
-  font-size: 1.2rem;
-  color: #f0fcff;
-  margin-bottom: 1rem;
-  font-weight: 300;
+  font-size: 1.1rem;
+  color: #eafcff;
+  margin-bottom: 0.5rem;
 }
 
 .manifesto-animated-line {
-  width: 200px;
-  height: 8px;
-  background: linear-gradient(90deg, #00D4FF 0%, #5EE4C3 50%, #00D4FF 100%);
-  border-radius: 4px;
-  margin: 2.5rem auto;
-  animation: pulse-glow 2s infinite alternate;
-  box-shadow: 0 0 40px #00d4ffdd, 0 0 12px #5ee4c3aa;
-  position: relative;
-  z-index: 2;
-}
-
-.manifesto-animated-line::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(90deg, rgba(0,212,255,0.3), rgba(94,228,195,0.3), rgba(0,212,255,0.3));
-  border-radius: 6px;
-  z-index: -1;
-  animation: pulse-glow 2s infinite alternate;
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #00D4FF 0%, #5EE4C3 100%);
+  border-radius: 2px;
+  margin: 1.5rem auto;
+  animation: pulse-glow 2.2s infinite alternate;
+  box-shadow: 0 0 16px #00d4ff88;
 }
 
 @keyframes pulse-glow {
-  0% { 
-    box-shadow: 0 0 20px #00d4ffaa, 0 0 4px #5ee4c3aa; 
-    opacity: 0.8;
-    transform: scaleX(1);
-  }
-  100% { 
-    box-shadow: 0 0 60px #5ee4c3dd, 0 0 20px #00d4ffdd; 
-    opacity: 1;
-    transform: scaleX(1.05);
-  }
-}
-
-@media (max-width: 900px) {
-  .manifesto-title { font-size: 2rem; }
-  .manifesto-centered-text { font-size: 1.2rem; max-width: 700px; }
-  .manifesto-animated-line { width: 120px; height: 6px; }
-  .manifesto-section-centered { padding: 2rem 1rem; }
+  0% { box-shadow: 0 0 8px #00d4ff88; opacity: 0.7; }
+  100% { box-shadow: 0 0 32px #5ee4c388; opacity: 1; }
 }
 
 @media (max-width: 600px) {
-  .manifesto-title { font-size: 1.4rem; }
-  .manifesto-centered-text { font-size: 1rem; line-height: 1.7; }
-  .manifesto-animated-line { width: 80px; height: 4px; }
-  .manifesto-section-centered { margin: 3rem 0 2.5rem 0; padding: 1.5rem 0.5rem; }
-  .manifesto-belongs { font-size: 1.3rem; }
-  .manifesto-contact { font-size: 1rem; }
+  .manifesto-title { font-size: 1.3rem; }
+  .manifesto-centered-text { font-size: 1rem; }
+  .manifesto-animated-line { width: 60px; }
 }
 /* === PROJECTS SECTION === */
 #projects {
@@ -1678,7 +1585,7 @@ body.high-contrast .mobile-close-btn:hover {
   min-height: 400px;
   overflow: hidden;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 /* === PROJECT NAVIGATION ARROWS === */
@@ -2031,7 +1938,12 @@ body.high-contrast .mobile-close-btn:hover {
 
 .channels-title {
   font-family: 'Orbitron', monospace;
-  );
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #00D4FF;
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
 }
 
 .channels-track {
@@ -4160,27 +4072,31 @@ h1.hero-text {
 
   </div>
  </div>
-
-  <!-- Who Is Aiceberg Mind For Section -->
+  <!-- Who Is Aiceberg Mind For Subsection -->
   <div class="manifesto-section-centered">
-    <div class="manifesto-animated-line pulse-glow"></div>
+    <div class="manifesto-animated-line"></div>
     <h2 class="manifesto-title parallax-text"><span class="highlight">Who Is Aiceberg Mind For?</span></h2>
     <div class="manifesto-centered-text parallax-text">
       <p>We build for <span class="highlight">the curious</span>, <span class="highlight">the bold</span>, <span class="highlight">the thoughtful</span>.<br>
       For those who listen beneath the noise.<br>
       For those who shape minds, and for those who still wonder.</p>
+      <br>
       <p>For parents and educators seeking depth beyond tips and trends.<br>
       For researchers, creatives, and wanderers exploring new ways to learn, teach, and connect.<br>
       For builders of meaning — whether you're designing a lesson, a tool, a ritual, or a future.<br>
       For all who believe intelligence is not just speed or code, but <span class="highlight">resonance</span>, <span class="highlight">intention</span>, and <span class="highlight">imagination</span>.</p>
+      <br>
       <p>We don't segment humans. We speak across ages, across roles, across disciplines.<br>
       We create for those who sense that something is shifting — and want to move with purpose.<br>
       For those who wish to be free in their mind, in their heart, and in their life.</p>
+      <br>
       <p class="manifesto-belongs"><strong>If you ask questions, you belong here.</strong></p>
+      <br>
       <p class="manifesto-contact">And if you'd like to share your voice, your vision, or simply say hello, you're welcome to reach out: <a href="mailto:hello@aicebergmind.com" class="email-link">hello@aicebergmind.com</a></p>
     </div>
-    <div class="manifesto-animated-line pulse-glow"></div>
+    <div class="manifesto-animated-line"></div>
   </div>
+
 
 </section>
 
@@ -4327,7 +4243,11 @@ h1.hero-text {
       <div class="indicator-dot" data-index="5"></div>
     </div>
     
-    <!-- CHANNELS Integration -->
+   
+  </div>
+</section>
+
+ <!-- CHANNELS Integration -->
     <div class="channels-section" style="margin-top: 4rem; padding-top: 2rem;">
       <h3 class="channels-title">CHANNELS</h3>
       <div class="channels-slider">
@@ -4422,8 +4342,6 @@ h1.hero-text {
         </div>
       </div>
     </div>
-  </div>
-</section>
 
 <!-- TEAM Section -->
 <section class="parallax-section" id="team">
