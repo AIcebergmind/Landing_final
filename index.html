@@ -3,10 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aiceberg Mind - Hero</title>
+  
+  <!-- SEO Meta Tags -->
+  <title>AIceberg Mind - AI Tools for Deep Thinking & Discovery</title>
+  <meta name="description" content="AIceberg Mind - Deep dive into discovery and thinking. Interactive AI tools for cognitive development, creative learning, and thoughtful exploration from early childhood to lifelong wonder.">
+  <meta name="keywords" content="AI, artificial intelligence, cognitive development, interactive learning, educational tools, deep thinking, creative exploration, child development, family education">
+  <meta name="author" content="AIceberg Mind">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="AIceberg Mind - Where Depth Meets Discovery">
+  <meta property="og:description" content="Explore AI tools that inspire curiosity and deep thinking. From early childhood wonder to lifelong learning - discover what lies beneath the surface.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AIceberg Mind">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AIceberg Mind - AI Tools for Deep Thinking">
+  <meta name="twitter:description" content="Where depth meets discovery, and thinking becomes an art. Interactive AI tools for cognitive development and creative learning.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AIceberg Mind",
+  "description": "AI tools for deep thinking and cognitive development",
+  "url": "https://aicebergmind.com",
+  "sameAs": [],
+  "foundingDate": "2024",
+  "industry": "Educational Technology",
+  "keywords": ["AI", "Education", "Cognitive Development", "Interactive Learning"],
+  "mainEntity": {
+    "@type": "WebSite",
+    "name": "AIceberg Mind",
+    "description": "Where depth meets discovery, and thinking becomes an art",
+    "url": "https://aicebergmind.com"
+  }
+}
+</script>
+
 <canvas id="particles-background"></canvas>
 
   <style>
@@ -57,7 +96,7 @@ h1 {
 h1::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: -15px;
   left: 0;
   right: 0;
   height: 3px;
@@ -71,6 +110,42 @@ h1::before {
 
 /* Linea wireframe sotto H1 */
 h1::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+/* Classe globale per linee wireframe applicabile a qualsiasi elemento */
+.wireframe-lines {
+  position: relative;
+  padding: 15px 0;
+}
+
+.wireframe-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+.wireframe-lines::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -1298,8 +1373,8 @@ body.high-contrast .mobile-close-btn:hover {
 
 .horizontal-scroll-wrapper {
   position: relative;
-  height: 60vh; /* Ridotto da 100vh a 60vh per essere coerente con content */
-    padding: 0 !important;
+  height: 60vh;
+  padding: 0 !important;
   margin: 0 !important;
   overflow: hidden;
 }
@@ -1309,7 +1384,7 @@ body.high-contrast .mobile-close-btn:hover {
   left: 0;
   display: flex;
   width: max-content;
-  height: 60vh; /* Ridotto da 100vh a 60vh */
+  height: 60vh;
   will-change: transform;
 }
 
@@ -1358,17 +1433,33 @@ body.high-contrast .mobile-close-btn:hover {
 
 .section-subtitle {
   font-size: 1.3rem;
-  color: var(--glacier-blue);
+  color: rgba(255,255,255,0.8);
   font-weight: 400;
   opacity: 0.9;
+  position: relative;
+  text-align: center;
+}
+
+/* Accent line under subtitles - centered */
+.section-subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #00D4FF 0%, rgba(94,228,195,0.8) 100%);
+  box-shadow: 0 0 10px rgba(0,212,255,0.4);
 }
 
 /* === PROJECTS SECTION === */
 #projects {
   position: relative;
-  min-height: 80vh; /* Ridotto da 100vh */
-  padding: 0; /* Rimosso padding - usa quello di parallax-section */
+  min-height: 80vh;
+  padding: 0;
   color: white;
+  z-index: 1;
 }
 
 #projects .parallax-bg {
@@ -1400,6 +1491,91 @@ body.high-contrast .mobile-close-btn:hover {
 .projects-wrapper {
   flex: 1;
   min-height: 400px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* === PROJECT NAVIGATION ARROWS === */
+.project-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  position: relative;
+  z-index: 10;
+}
+
+.project-nav-arrow {
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-nav-arrow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.project-nav-arrow:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  transform: scale(1.1);
+}
+
+.project-nav-arrow:hover::before {
+  left: 100%;
+}
+
+.project-nav-arrow:active {
+  transform: scale(0.95);
+}
+
+.project-nav-arrow svg {
+  transition: transform 0.3s ease;
+}
+
+.project-nav-arrow:hover svg {
+  transform: scale(1.2);
+}
+
+/* SYNAPSE OFF - Disabilita animazioni frecce */
+.synapse-off .project-nav-arrow {
+  transition: none !important;
+}
+
+.synapse-off .project-nav-arrow::before {
+  transition: none !important;
+}
+
+.synapse-off .project-nav-arrow svg {
+  transition: none !important;
+}
+
+.synapse-off .project-nav-arrow:hover {
+  transform: none !important;
+}
+
+.synapse-off .project-nav-arrow:hover svg {
+  transform: none !important;
 }
 
 .projects-grid {
@@ -1407,6 +1583,8 @@ body.high-contrast .mobile-close-btn:hover {
   gap: 2rem;
   padding: 0 2rem;
   align-items: center;
+  width: max-content;
+  height: 100%;
 }
 
 .project-card {
@@ -1430,7 +1608,16 @@ body.high-contrast .mobile-close-btn:hover {
 .project-card:hover {
   transform: translateY(-10px) scale(1.02);
   border-color: var(--ice-cyan);
-  box-shadow: 0 20px 60px rgba(94, 228, 195, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(94, 228, 195, 0.3);
+}
+
+/* SYNAPSE OFF - Disabilita animazioni project cards */
+.synapse-off .project-card {
+  transition: none !important;
+}
+
+.synapse-off .project-card:hover {
+  transform: none !important;
 }
 
 .project-card:before {
@@ -1534,6 +1721,46 @@ body.high-contrast .mobile-close-btn:hover {
   transform: translateX(5px);
 }
 
+/* === PROJECT CARDS INDICATOR === */
+.projects-indicator {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 2rem 0 1rem 0; /* Margine sopra e sotto per separare dalle cards e dai channels */
+  padding: 0;
+  z-index: 10;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.indicator-dot.active {
+  background: var(--ice-cyan);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(94, 228, 195, 0.6);
+}
+
+.indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.1);
+}
+
+/* SYNAPSE OFF - Disabilita animazioni indicatori */
+.synapse-off .indicator-dot {
+  transition: none !important;
+}
+
+.synapse-off .indicator-dot:hover {
+  transform: none !important;
+}
+
 /* Responsive Projects */
 @media (max-width: 768px) {
   #projects {
@@ -1583,7 +1810,408 @@ body.high-contrast .mobile-close-btn:hover {
   }
 }
 
+/* CHANNELS Section Styles */
+.channels-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 4rem auto 0;
+  padding: 0 2rem;
+}
 
+.channels-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.5rem;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #00D4FF;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.channels-slider {
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  mask: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.channels-track {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  height: 100%;
+  animation: slideChannels 30s linear infinite;
+  will-change: transform;
+}
+
+/* SYNAPSE OFF - Pausa l'animazione dei channels */
+.synapse-off .channels-track {
+  animation-play-state: paused;
+}
+
+.channel-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-width: 120px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.channel-logo:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.channel-logo svg {
+  width: 40px;
+  height: 40px;
+  stroke: #666;
+  transition: stroke 0.3s ease;
+}
+
+.channel-logo:hover svg {
+  stroke: #00D4FF;
+}
+
+.channel-logo span {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #666;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.channel-logo:hover span {
+  color: #00D4FF;
+}
+
+@keyframes slideChannels {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Media Queries per CHANNELS */
+@media (max-width: 768px) {
+  .channels-section {
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .channels-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .channels-slider {
+    height: 100px;
+  }
+  
+  .channels-track {
+    gap: 3rem;
+  }
+  
+  .channel-logo {
+    min-width: 100px;
+  }
+  
+  .channel-logo svg {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .channel-logo span {
+    font-size: 0.8rem;
+  }
+}
+
+/* === CHANNELS SECTION === */
+#channels {
+  background: linear-gradient(135deg, #1a1d24 0%, #0a0b0d 100%);
+  padding: 2rem 0; /* Ridotto da 3rem a 2rem */
+  padding-top: 60px; /* Ridotto da 80px a 60px */
+  margin-top: 6rem; /* Aumentato margin per evitare sovrapposizioni */
+  position: relative;
+  overflow: hidden;
+  z-index: 0; /* Assicurato che stia sotto il PROJECTS */
+}
+
+#channels::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(94, 228, 195, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* === TEAM SECTION === */
+#team {
+  background: linear-gradient(135deg, #0a0b0d 0%, #1a1d24 100%);
+  color: #fff;
+  padding: 4rem 2rem;
+  padding-top: 80px; /* Compensazione per breadcrumb fisso */
+  margin-top: 0; /* Rimosso il margin eccessivo */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#team::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(94, 228, 195, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.team-intro {
+  font-size: 3rem;
+  font-weight: 300;
+  color: #00D4FF;
+  text-align: center;
+  margin: 2rem 0 3rem;
+  letter-spacing: 0.05em;
+}
+
+.team-origins {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.team-origins p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.team-philosophy {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.team-distinction {
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #5EE4C3;
+  margin-bottom: 3rem;
+}
+
+.team-distinction strong {
+  color: #00D4FF;
+  font-weight: 600;
+}
+
+.team-experience p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2rem;
+}
+
+.team-question {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #00D4FF;
+  font-style: italic;
+  margin: 2rem 0;
+  padding: 2rem;
+  border-left: 4px solid #5EE4C3;
+  background: rgba(94, 228, 195, 0.05);
+  border-radius: 0 12px 12px 0;
+  position: relative;
+}
+
+.team-question::before {
+  content: '"';
+  font-size: 4rem;
+  color: #5EE4C3;
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  opacity: 0.3;
+}
+
+.team-reality {
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.team-reality p {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+}
+
+.team-reality strong {
+  color: #5EE4C3;
+  font-weight: 600;
+}
+
+.team-beliefs p {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+.team-beliefs strong {
+  color: #00D4FF;
+}
+
+.team-manifesto {
+  margin-top: 4rem;
+}
+
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.manifesto-item {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(94, 228, 195, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.manifesto-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(94, 228, 195, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.manifesto-item:hover::before {
+  left: 100%;
+}
+
+.manifesto-item:hover {
+  transform: translateY(-8px);
+  border-color: #5EE4C3;
+  box-shadow: 0 12px 40px rgba(94, 228, 195, 0.2);
+}
+
+.manifesto-item h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #00D4FF;
+  margin: 0;
+  font-family: 'Orbitron', monospace;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive TEAM */
+@media (max-width: 768px) {
+  #team {
+    padding: 2rem 1rem;
+  }
+  
+  .team-intro {
+    font-size: 2rem;
+    margin: 1rem 0 2rem;
+  }
+  
+  .team-origins p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .team-distinction {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  
+  .team-experience p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .team-question {
+    font-size: 1.3rem;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .team-question::before {
+    font-size: 3rem;
+    top: -0.3rem;
+    left: 0.5rem;
+  }
+  
+  .team-reality p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .team-beliefs p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .manifesto-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .manifesto-item {
+    padding: 1.5rem;
+  }
+  
+  .manifesto-item h4 {
+    font-size: 1.2rem;
+  }
+}
 
 
     /* Override per immagini parallax nel flex */
@@ -1617,6 +2245,192 @@ body.high-contrast .mobile-close-btn:hover {
 #about {
   padding-bottom: 0.5rem; /* Riduce padding-bottom specifico per ABOUT */
   padding-top:100px; /* Compensazione per breadcrumb fisso (60px + margine) */
+  
+  /* Team-style visual enhancements */
+  background: linear-gradient(135deg, #0a0b0d 0%, #1a1d24 100%);
+  position: relative;
+  /* Assicuriamo z-index basso per non interferire con breadcrumb (z-index: 400) */
+  z-index: auto;
+}
+
+/* About section background overlay */
+#about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(0,212,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1; /* Sfondo dietro al contenuto */
+}
+
+/* About content positioning */
+#about > * {
+  position: relative;
+  z-index: 1; /* Contenuto sopra lo sfondo ma sotto breadcrumb */
+}
+
+/* About section accent styling */
+#about .section-subtitle {
+  color: rgba(255,255,255,0.8);
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+#about .content-column h3 {
+  background: linear-gradient(135deg, #ffffff 0%, rgba(94,228,195,0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem; /* Dimensione originale dell'H1 */
+  line-height: 1.2;
+  margin-top: 0;
+  position: relative; /* Necessario per ::before e ::after */
+}
+
+/* Ripristina linee wireframe per H3 in ABOUT (era H1) */
+#about .content-column h3::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+#about .content-column h3::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    currentColor 20%, 
+    currentColor 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+#about .content-column h4 {
+  color: rgba(255,255,255,0.8);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.8rem; /* Dimensione originale dell'H2 */
+  line-height: 1.4;
+  margin: 0;
+}
+
+#about .flex-full h3 {
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+}
+
+#about .flex-full h3 strong {
+  color: #00D4FF;
+  font-weight: 500;
+}
+
+/* About manifesto styling */
+#about .read-more-container h3 strong {
+  color: rgba(94,228,195,0.9);
+  font-style: italic;
+}
+
+#about .read-more-preview,
+#about .read-more-text {
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+}
+
+#about .read-more-btn {
+  background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(94,228,195,0.1) 100%);
+  border: 1px solid rgba(0,212,255,0.3);
+  color: #00D4FF;
+  transition: all 0.3s ease;
+}
+
+#about .read-more-btn:hover {
+  background: linear-gradient(135deg, rgba(0,212,255,0.2) 0%, rgba(94,228,195,0.2) 100%);
+  border-color: rgba(0,212,255,0.5);
+  transform: translateY(-2px);
+}
+
+/* About cards styling */
+#about .card-scroll {
+  background: linear-gradient(135deg, rgba(16,17,20,0.8) 0%, rgba(26,29,36,0.8) 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+#about .card-scroll::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top, rgba(94,228,195,0.1) 0%, transparent 70%);
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+#about .card-scroll:hover::before {
+  opacity: 1;
+}
+
+#about .card-scroll:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0,212,255,0.3);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.1);
+}
+
+#about .card-title {
+  color: #00D4FF;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0; /* Remove default H4 margin */
+}
+
+#about .card-content p {
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* About divider dots styling */
+#about .divider-dots::before {
+  color: rgba(0,212,255,0.6);
+  text-shadow: 0 0 10px rgba(0,212,255,0.3);
+}
+
+/* Projects section subtitle accent */
+#projects .section-subtitle::after {
+  background: linear-gradient(90deg, rgba(94,228,195,0.8) 0%, #00D4FF 100%);
+}
+
+/* Team section subtitle accent */
+#team .section-subtitle::after {
+  background: linear-gradient(90deg, #5ee4c3 0%, rgba(0,212,255,0.6) 100%);
 }
 
 #projects {
@@ -1885,6 +2699,28 @@ body.high-contrast .mobile-close-btn:hover {
   font-weight: normal;
   color: white;
   line-height: 2;
+  transition: opacity 1s ease, transform 1s ease, color 0.8s ease;
+}
+
+/* Gradient text effect for Hero title spans */
+.gradient-text {
+  color: #5ee4c3;
+  text-shadow: 0 0 20px rgba(94,228,195,0.5);
+}
+
+/* Ensure H1 in hero looks identical to div */
+h1.hero-text {
+  margin: 0;
+  padding: 0;
+  font-size: 4rem;
+  font-weight: normal;
+  line-height: 2;
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
   transition: opacity 1s ease, transform 1s ease, color 0.8s ease;
 }
 
@@ -2812,7 +3648,7 @@ body.high-contrast .mobile-close-btn:hover {
   <div class="hero-text-wrapper">
 <div class="hero-text-wrapper">
   <div class="hero-text text-compose mobile-no-text-compose">DEPTH<br>is not a feature. is our<br>NATURE</div>
-  <div class="hero-text text-compose mobile-no-text-compose"><strong>AI</strong>CEBERG<br>MIND</div>
+  <h1 class="hero-text hero-title text-compose mobile-no-text-compose"><strong>AI</strong><span class="gradient-text">CEBERG</span><br><span class="gradient-text">MIND</span></h1>
 </div>
 
     <div class="horizon-line"></div>
@@ -2858,19 +3694,21 @@ body.high-contrast .mobile-close-btn:hover {
 <section class="parallax-section" id="about">
   <!-- Header -->
   <div class="section-header">
-    <h2 class="section-title text-compose">BEHIND THE SURFACE</h2>
+    <h2 class="section-title text-compose wireframe-lines">BEHIND THE SURFACE</h2>
     <p class="section-subtitle text-compose">Where depth meets discovery, and thinking becomes an art</p>
   </div>
 
   <div class="flex-2col">
     <div class="content-column">
-      <h1 class>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h1>
-      <h2 class="parallax-text">from the earliest spark to the lifelong wonder of the mind.</h2>
+      <h3 class>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h3>
+      <h4 class="parallax-text">from the earliest spark to the lifelong wonder of the mind.</h4>
     </div>
     <div class="image-column">
       <img src="images/image_placeholder_about.png" alt="Img 1" class="parallax-image image1" />
     </div>
   </div>
+
+  <div class="divider-dots"></div>
 
   <div class="flex-full">
     <h3 class="parallax-text">
@@ -2913,6 +3751,8 @@ body.high-contrast .mobile-close-btn:hover {
         <span class="read-less-text" style="display: none;">Read less</span>
       </button>
     </div>
+    
+    <div class="divider-dots"></div>
   </div>
 
   <!-- Vision and Co -->
@@ -2921,7 +3761,7 @@ body.high-contrast .mobile-close-btn:hover {
 
     <div class="card-scroll">
       <div class="flex-2col-scroll">
-        <div class="card-title parallax-text">Vision</div>
+        <h4 class="card-title parallax-text">Vision</h4>
         <div class="card-content parallax-text">
           <p>Our vision is to shape content that inspires curiosity, reflection, and wonder — creating tools that help people think deeply, not just quickly. We believe that in a world of fast answers, slow thinking is radical.</p>
         </div>
@@ -2930,7 +3770,7 @@ body.high-contrast .mobile-close-btn:hover {
 
     <div class="card-scroll">
       <div class="flex-2col-scroll">
-        <div class="card-title parallax-text">Mission</div>
+        <h4 class="card-title parallax-text">Mission</h4>
         <div class="card-content parallax-text">
           <p>Our mission is to create tools, objects, and experiences that stimulate creative thinking and emotional engagement. We make content that opens doors, not boxes — playful in form, purposeful in intent.</p>
         </div>
@@ -2939,7 +3779,7 @@ body.high-contrast .mobile-close-btn:hover {
 
     <div class="card-scroll">
       <div class="flex-2col-scroll">
-        <div class="card-title parallax-text">Approach</div>
+        <h4 class="card-title parallax-text">Approach</h4>
         <div class="card-content parallax-text">
           <p>We follow a design-driven, research-inspired process rooted in play and purpose. We mix cognitive science, storytelling, and interactivity — always experimenting, always questioning, never boring.</p>
         </div>
@@ -2948,7 +3788,7 @@ body.high-contrast .mobile-close-btn:hover {
 
     <div class="card-scroll">
       <div class="flex-2col-scroll">
-        <div class="card-title parallax-text">The AIceberg Method</div>
+        <h4 class="card-title parallax-text">The AIceberg Method</h4>
         <div class="card-content parallax-text">
           <p>Our method is layered: intuitive on the surface, rigorous underneath. Just like an iceberg, most of the structure is hidden — what you see is playful, what you uncover is deep. We reveal how things work, not just what they are.</p>
         </div>
@@ -2967,9 +3807,26 @@ body.high-contrast .mobile-close-btn:hover {
   
   <div class="projects-content">
     <!-- Header -->
-    <div class="section-header">
-      <h2 class="section-title text-compose">OUR LIVING PROJECTS</h2>
+    <div class="section-header" style="padding-top: 100px;">
+      <h2 class="section-title text-compose wireframe-lines">OUR LIVING PROJECTS</h2>
       <p class="section-subtitle text-compose">Each project is a seed: interactive, alive.</p>
+      <p class="navigation-hint" style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-top: 1rem;">
+        Use the arrows or dots to explore our projects
+      </p>
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <div class="project-navigation">
+      <button class="project-nav-arrow project-nav-prev" aria-label="Previous project">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="project-nav-arrow project-nav-next" aria-label="Next project">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
     
     <!-- Horizontal Scroll Container -->
@@ -3068,14 +3925,198 @@ body.high-contrast .mobile-close-btn:hover {
         
       </div>
     </div>
+    
+    <!-- Indicatore di progresso per le card -->
+    <div class="projects-indicator">
+      <div class="indicator-dot active" data-index="0"></div>
+      <div class="indicator-dot" data-index="1"></div>
+      <div class="indicator-dot" data-index="2"></div>
+      <div class="indicator-dot" data-index="3"></div>
+      <div class="indicator-dot" data-index="4"></div>
+      <div class="indicator-dot" data-index="5"></div>
+    </div>
+    
+    <!-- CHANNELS Integration -->
+    <div class="channels-section" style="margin-top: 4rem; padding-top: 2rem;">
+      <h3 class="channels-title">CHANNELS</h3>
+      <div class="channels-slider">
+        <div class="channels-track">
+          <!-- Prima serie di loghi -->
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            <span>YouTube</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+            <span>Facebook</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            <span>Instagram</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+            </svg>
+            <span>Twitter</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            <span>LinkedIn</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+            <span>GitHub</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+            <span>TikTok</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="10,8 16,12 10,16 10,8"/>
+            </svg>
+            <span>Spotify</span>
+          </div>
+          <!-- Duplica per loop infinito -->
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            <span>YouTube</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+            <span>Facebook</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            <span>Instagram</span>
+          </div>
+          <div class="channel-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+            </svg>
+            <span>Twitter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM Section -->
+<section class="parallax-section" id="team">
+  <!-- Header -->
+  <div class="section-header">
+    <h2 class="section-title text-compose wireframe-lines">WHO WE ARE</h2>
+    <p class="section-subtitle text-compose">We are not what you expect. And that's exactly why we built this.</p>
+  </div>
+
+  <div class="flex-full">
+    <h3 class="parallax-text team-intro">
+      We come from elsewhere.
+    </h3>
+    
+    <div class="team-origins">
+      <p class="parallax-text">
+        From archaeological digs, Alpine hotels, brief therapies, and unexpected turns.<br>
+        From the worlds of motherhood, tourism, fashion, subconscious rewiring, and quiet revolutions.
+      </p>
+      
+      <p class="parallax-text">
+        We are French and Italian, shaped by migrations, intuitions, and everything that doesn't fit in a LinkedIn profile.
+      </p>
+    </div>
+
+    <div class="divider-dots"></div>
+
+    <div class="team-philosophy">
+      <h3 class="parallax-text team-distinction">
+        What makes us different is not what we do, but how we think: <br>
+        <strong>we create from the bottom of the iceberg, not the tip.</strong>
+      </h3>
+      
+      <div class="team-experience">
+        <p class="parallax-text">
+          We've taught at universities, welcomed guests at high altitudes, guided travelers, founded a dating agency, practiced hypnotherapy, launched startups, accompanied births — and yet we converge on the same question:
+        </p>
+        
+        <blockquote class="team-question parallax-text">
+          <strong>How do you grow a mind in a world that changes faster than we can name it?</strong>
+        </blockquote>
+      </div>
+ </div>
+
+    <div class="divider-dots"></div>
+
+    <div class="team-reality">
+      <p class="parallax-text">
+        None of us is a developer or a psychologist.<br>
+        And yet, we build tools for the future — because <strong>tools are languages</strong>.<br>
+        <strong>And we speak many.</strong>
+      </p>
+      
+      <div class="team-beliefs">
+        <p class="parallax-text">
+          Together, we form a team that believes intelligence isn't always loud, that meaning and real power often lie beneath, and that <strong>play can be the highest form of seriousness</strong>.
+        </p>
+      </div>
+    </div>
+
+    <div class="divider-dots"></div>
+
+    <div class="team-manifesto">
+      <div class="manifesto-grid">
+        <div class="manifesto-item">
+          <h4 class="parallax-text">We build with questions.</h4>
+        </div>
+        <div class="manifesto-item">
+          <h4 class="parallax-text">We research with wonder.</h4>
+        </div>
+        <div class="manifesto-item">
+          <h4 class="parallax-text">We learn as we go.</h4>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 <script>
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // Horizontal scroll per la sezione ABOUT
 gsap.to("#about .horizontal-scroll-content", {
@@ -3091,36 +4132,120 @@ gsap.to("#about .horizontal-scroll-content", {
   }
 });
 
-// Horizontal scroll per la sezione PROJECTS
-gsap.to("#projects .horizontal-scroll-content", {
-  x: () => -(document.querySelector("#projects .horizontal-scroll-content").scrollWidth - window.innerWidth),
-  ease: "none",
-  scrollTrigger: {
-    trigger: "#projects .horizontal-scroll-wrapper",
-    start: "top top",
-    end: () => "+=" + (document.querySelector("#projects .horizontal-scroll-content").scrollWidth - window.innerWidth),
-    scrub: true,
-    pin: true,
-    anticipatePin: 1
+// === NAVIGAZIONE PROGETTI CON FRECCE ===
+// Sistema di navigazione manuale per le project cards
+let currentProjectIndex = 0;
+const totalProjects = 6;
+
+// Funzione per navigare tra i progetti
+function navigateToProject(index) {
+  if (index < 0 || index >= totalProjects) return;
+  
+  currentProjectIndex = index;
+  const scrollContent = document.querySelector("#projects .horizontal-scroll-content");
+  const cardWidth = 382; // 350px + 32px gap
+  const targetX = -(cardWidth * index);
+  
+  // Anima verso la card target - rispetta stato SYNAPSE
+  if (projectAnimationsActive) {
+    gsap.to(scrollContent, {
+      x: targetX,
+      duration: 0.8,
+      ease: "power2.inOut"
+    });
+  } else {
+    // Movimento istantaneo quando SYNAPSE è OFF
+    gsap.set(scrollContent, { x: targetX });
   }
+  
+  updateProjectIndicator(index);
+}
+
+// Funzioni di navigazione
+function nextProject() {
+  if (currentProjectIndex < totalProjects - 1) {
+    navigateToProject(currentProjectIndex + 1);
+  }
+}
+
+function prevProject() {
+  if (currentProjectIndex > 0) {
+    navigateToProject(currentProjectIndex - 1);
+  }
+}
+
+// Inizializzazione al caricamento
+document.addEventListener('DOMContentLoaded', function() {
+  // Posiziona inizialmente sulla prima card
+  navigateToProject(0);
+  
+  // Event listeners per le frecce (da aggiungere al DOM)
+  const prevArrow = document.querySelector('.project-nav-prev');
+  const nextArrow = document.querySelector('.project-nav-next');
+  
+  if (prevArrow) {
+    prevArrow.addEventListener('click', prevProject);
+  }
+  
+  if (nextArrow) {
+    nextArrow.addEventListener('click', nextProject);
+  }
+  
+  // Event listeners per i dot dell'indicatore
+  document.querySelectorAll('.indicator-dot').forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      navigateToProject(index);
+    });
+  });
+  
+  // Controllo tastiera (opzionale)
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') {
+      prevProject();
+    } else if (e.key === 'ArrowRight') {
+      nextProject();
+    }
+  });
 });
 
-// Animazioni per le project cards
-gsap.fromTo(".project-card", {
-  y: 50,
-  opacity: 0
-}, {
-  y: 0,
-  opacity: 1,
-  duration: 0.8,
-  stagger: 0.2,
-  scrollTrigger: {
-    trigger: ".projects-grid",
-    start: "top 80%",
-    end: "bottom 20%",
-    toggleActions: "play none none reverse"
+// Funzione per aggiornare l'indicatore
+function updateProjectIndicator(cardIndex) {
+  const dots = document.querySelectorAll('.indicator-dot');
+  dots.forEach((dot, index) => {
+    if (index === cardIndex) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+// Animazioni per le project cards - controllate da SYNAPSE
+function initProjectCardsAnimations() {
+  if (projectAnimationsActive) {
+    gsap.fromTo(".project-card", {
+      y: 50,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".projects-grid",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  } else {
+    // Quando SYNAPSE è OFF, mostra le cards direttamente
+    gsap.set(".project-card", { y: 0, opacity: 1 });
   }
-});
+}
+
+// Inizializza le animazioni
+initProjectCardsAnimations();
 
 // Animazione per il titolo della sezione
 gsap.fromTo(".section-title", {
@@ -3185,6 +4310,127 @@ gsap.fromTo(".subhero-cta", {
     trigger: "#subhero",
     start: "top 70%",
     end: "bottom 20%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+// Animazioni per la sezione CHANNELS
+gsap.fromTo(".channels-title", {
+  y: 30,
+  opacity: 0
+}, {
+  y: 0,
+  opacity: 1,
+  duration: 0.8,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: "#projects .channels-section",
+    start: "top 80%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+// Animazioni per i channel logos - controllate da SYNAPSE
+function initChannelsAnimations() {
+  if (channelsAnimationsActive) {
+    gsap.fromTo(".channel-logo", {
+      y: 20,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".channels-slider",
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  } else {
+    // Quando SYNAPSE è OFF, mostra i logos direttamente
+    gsap.set(".channel-logo", { y: 0, opacity: 1 });
+  }
+}
+
+// Inizializza le animazioni
+initChannelsAnimations();
+
+// Animazioni per la sezione TEAM
+gsap.fromTo(".team-intro", {
+  y: 50,
+  opacity: 0
+}, {
+  y: 0,
+  opacity: 1,
+  duration: 1,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: "#team",
+    start: "top 80%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+gsap.fromTo(".team-origins p", {
+  y: 30,
+  opacity: 0
+}, {
+  y: 0,
+  opacity: 1,
+  duration: 0.8,
+  stagger: 0.2,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".team-origins",
+    start: "top 85%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+gsap.fromTo(".team-distinction", {
+  y: 40,
+  opacity: 0
+}, {
+  y: 0,
+  opacity: 1,
+  duration: 1,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".team-distinction",
+    start: "top 85%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+gsap.fromTo(".team-question", {
+  x: -50,
+  opacity: 0
+}, {
+  x: 0,
+  opacity: 1,
+  duration: 0.8,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".team-question",
+    start: "top 85%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+gsap.fromTo(".manifesto-item", {
+  y: 50,
+  opacity: 0
+}, {
+  y: 0,
+  opacity: 1,
+  duration: 0.8,
+  stagger: 0.2,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".manifesto-grid",
+    start: "top 85%",
     toggleActions: "play none none reverse"
   }
 });
@@ -3308,10 +4554,12 @@ gsap.fromTo(".subhero-cta", {
           colorToggleBtn.innerHTML = `${texts.active}<div class="tooltip">Controls the iceberg's dynamic color palette.<br><strong>SYNAPSE</strong> → <strong>FOCUS</strong> → <strong>LET IT FLOW</strong></div>`;
           colorToggleBtn.classList.remove("frozen");
           startColorCycle();
+          startProjectAnimations(); // Attiva anche le nuove animazioni
         } else {
           colorToggleBtn.innerHTML = `${texts.frozen}<div class="tooltip">Color cycle paused.<br>Click to resume the flow.</div>`;
           colorToggleBtn.classList.add("frozen");
           stopColorCycle();
+          stopProjectAnimations(); // Disattiva anche le nuove animazioni
         }
       });
     }
@@ -3596,28 +4844,44 @@ document.addEventListener('DOMContentLoaded', () => {
     breadcrumbProgress.style.width = progressPercent + '%';
   }
 
-  // Intersection Observer per rilevare sezione attiva
-  const observerOptions = {
-    threshold: 0.3,
-    rootMargin: '-20% 0px -20% 0px'
-  };
-
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const sectionIndex = sections.findIndex(section => section.element === entry.target);
-        console.log('🎯 Sezione vista:', entry.target.id, 'Index:', sectionIndex);
-        if (sectionIndex !== -1) {
-          updateActiveBreadcrumb(sectionIndex);
-        }
+  // Scroll listener per aggiornare la barra di progresso
+  function updateProgressOnScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollProgress = Math.min(scrollTop / documentHeight, 1); // Da 0 a 1
+    
+    // Aggiorna la barra di progresso in modo continuo (da 0% a 100%)
+    const progressPercent = scrollProgress * 100;
+    breadcrumbProgress.style.width = progressPercent + '%';
+    
+    // Determina quale sezione è realmente visibile
+    let activeIndex = 0;
+    const viewportTop = scrollTop;
+    const viewportCenter = viewportTop + (window.innerHeight / 2);
+    
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = sections[i].element;
+      const sectionTop = section.offsetTop;
+      
+      if (viewportCenter >= sectionTop) {
+        activeIndex = i;
+        break;
       }
-    });
-  }, observerOptions);
+    }
+    
+    // Aggiorna i breadcrumb solo se l'indice è cambiato
+    const currentActive = document.querySelector('.breadcrumb-item.active');
+    const currentIndex = currentActive ? Array.from(breadcrumbItems).indexOf(currentActive) : -1;
+    
+    if (activeIndex !== currentIndex) {
+      breadcrumbItems.forEach((item, index) => {
+        item.classList.toggle('active', index === activeIndex);
+      });
+    }
+  }
 
-  // Osserva tutte le sezioni
-  sections.forEach(section => {
-    sectionObserver.observe(section.element);
-  });
+  // Aggiungi listener per lo scroll
+  window.addEventListener('scroll', updateProgressOnScroll);
 
   // Click handler per navigazione diretta
   breadcrumbItems.forEach((item, index) => {
@@ -3809,6 +5073,8 @@ const dynamicPalette = [
 let bgColor = dynamicPalette[0], contrastColor = dynamicPalette[1];
 let bgColorOld = bgColor, bgColorNew = contrastColor;
 let colorCycleActive = true; // Controllo del ciclo colori
+let projectAnimationsActive = true; // Controllo animazioni progetti (SYNAPSE)
+let channelsAnimationsActive = true; // Controllo animazioni channels (SYNAPSE)
 let colorChangeInterval; // Riferimento all'intervallo
 
 function lerpColor(a, b, t) {
@@ -3846,8 +5112,88 @@ function stopColorCycle() {
   clearInterval(colorChangeInterval);
 }
 
+// === FUNZIONI CONTROLLO SYNAPSE PER NUOVI CONTENUTI ===
+
+// Funzione per aggiornare tutti gli indicatori visivi
+function updateSynapseIndicators() {
+  const arrows = document.querySelectorAll('.project-nav-arrow');
+  const indicators = document.querySelectorAll('.indicator-dot');
+  const projectCards = document.querySelectorAll('.project-card');
+  
+  if (projectAnimationsActive) {
+    // SYNAPSE ON - Abilita tutte le animazioni
+    arrows.forEach(arrow => {
+      arrow.style.pointerEvents = 'auto';
+      arrow.style.opacity = '1';
+    });
+    
+    indicators.forEach(indicator => {
+      indicator.style.pointerEvents = 'auto';
+      indicator.style.opacity = '1';
+    });
+    
+    projectCards.forEach(card => {
+      card.style.pointerEvents = 'auto';
+    });
+  } else {
+    // SYNAPSE OFF - Riduce l'interattività (opzionale)
+    arrows.forEach(arrow => {
+      arrow.style.opacity = '0.7';
+    });
+    
+    indicators.forEach(indicator => {
+      indicator.style.opacity = '0.7';
+    });
+  }
+}
+
+// Attiva tutte le animazioni SYNAPSE
+function startProjectAnimations() {
+  projectAnimationsActive = true;
+  channelsAnimationsActive = true;
+  
+  // Rimuove la classe che disabilita le animazioni
+  document.body.classList.remove('synapse-off');
+  
+  // Aggiorna indicatori visivi
+  updateSynapseIndicators();
+  
+  // Reinizializza le animazioni
+  initProjectCardsAnimations();
+  initChannelsAnimations();
+}
+
+// Disattiva tutte le animazioni SYNAPSE  
+function stopProjectAnimations() {
+  projectAnimationsActive = false;
+  channelsAnimationsActive = false;
+  
+  // Aggiunge la classe che disabilita le animazioni
+  document.body.classList.add('synapse-off');
+  
+  // Aggiorna indicatori visivi
+  updateSynapseIndicators();
+  
+  // Killa tutte le animazioni ScrollTrigger dei progetti
+  ScrollTrigger.getAll().forEach(trigger => {
+    if (trigger.trigger && (
+        trigger.trigger.classList.contains('projects-grid') ||
+        trigger.trigger.classList.contains('channels-slider')
+    )) {
+      trigger.kill();
+    }
+  });
+}
+
 // Inizializza il ciclo
 startColorCycle();
+
+// Inizializza le nuove animazioni SYNAPSE
+if (colorCycleActive) {
+  startProjectAnimations();
+} else {
+  stopProjectAnimations();
+}
 
 // === Iceberg Drawing
 function draw() {
@@ -5246,6 +6592,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// Refresh ScrollTrigger dopo il caricamento per ricalcolare tutto
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+});
+
 </script>
 
 </body>
