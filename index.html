@@ -133,31 +133,33 @@ h1::after {
 .wireframe-lines::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 4px;
   background: linear-gradient(90deg, 
     transparent 0%, 
-    currentColor 20%, 
-    currentColor 80%, 
+    var(--ice-cyan) 50%, 
     transparent 100%);
-  opacity: 0.3;
+  opacity: 0.6;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
 }
 
 .wireframe-lines::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 4px;
   background: linear-gradient(90deg, 
     transparent 0%, 
-    currentColor 20%, 
-    currentColor 80%, 
+    var(--ice-cyan) 50%, 
     transparent 100%);
-  opacity: 0.3;
+  opacity: 0.6;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
 }
 
 h2 {
@@ -1423,16 +1425,54 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .section-title {
-  font-size: 3.5rem;
-  font-weight: 700;
+  font-size: 3.8rem;
+  font-weight: 800;
   color: var(--ice-cyan);
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  text-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.4),
+    0 0 60px rgba(0, 255, 255, 0.2),
+    2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--ice-cyan) 50%, 
+    transparent 100%);
+  opacity: 0.6;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--ice-cyan) 50%, 
+    transparent 100%);
+  opacity: 0.6;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
 }
 
 .section-subtitle {
-  font-size: 1.3rem;
+  font-size: 2rem;
   color: rgba(255,255,255,0.8);
   font-weight: 400;
   opacity: 0.9;
@@ -1453,6 +1493,151 @@ body.high-contrast .mobile-close-btn:hover {
   box-shadow: 0 0 10px rgba(0,212,255,0.4);
 }
 
+
+.manifesto-section-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5rem 0 4rem 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 3rem 1rem;
+}
+
+.manifesto-section-centered::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 110%;
+  background: radial-gradient(ellipse at center, rgba(0,212,255,0.15) 0%, rgba(94,228,195,0.12) 50%, transparent 80%);
+  filter: blur(20px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.manifesto-title {
+  font-size: 2.8rem;
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin-bottom: 2.5rem;
+  color: #00D4FF;
+  text-shadow: 0 4px 32px #00d4ff88, 0 0 8px #5EE4C3, 0 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+.manifesto-centered-text {
+  max-width: 850px;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1.4rem;
+  color: #f0fcff;
+  line-height: 1.9;
+  position: relative;
+  z-index: 2;
+  font-weight: 400;
+}
+
+.manifesto-centered-text .highlight {
+  color: #5EE4C3;
+  font-weight: 800;
+  text-shadow: 0 0 20px #00d4ffdd, 0 0 4px #5EE4C3, 0 2px 8px rgba(0,0,0,0.4);
+  background: linear-gradient(135deg, rgba(0,212,255,0.18) 0%, rgba(94,228,195,0.15) 100%);
+  border-radius: 8px;
+  padding: 0.1em 0.4em;
+  position: relative;
+  display: inline-block;
+}
+
+.manifesto-centered-text .highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(94,228,195,0.1));
+  border-radius: 8px;
+  border: 1px solid rgba(94,228,195,0.3);
+  z-index: -1;
+}
+
+.manifesto-belongs {
+  font-size: 1.6rem;
+  color: #00D4FF;
+  margin: 3rem 0 1rem 0;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 16px #00d4ffbb, 0 2px 8px rgba(0,0,0,0.3);
+  text-transform: uppercase;
+}
+
+.manifesto-contact {
+  font-size: 1.2rem;
+  color: #f0fcff;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.manifesto-animated-line {
+  width: 200px;
+  height: 8px;
+  background: linear-gradient(90deg, #00D4FF 0%, #5EE4C3 50%, #00D4FF 100%);
+  border-radius: 4px;
+  margin: 2.5rem auto;
+  animation: pulse-glow 2s infinite alternate;
+  box-shadow: 0 0 40px #00d4ffdd, 0 0 12px #5ee4c3aa;
+  position: relative;
+  z-index: 2;
+}
+
+.manifesto-animated-line::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(90deg, rgba(0,212,255,0.3), rgba(94,228,195,0.3), rgba(0,212,255,0.3));
+  border-radius: 6px;
+  z-index: -1;
+  animation: pulse-glow 2s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { 
+    box-shadow: 0 0 20px #00d4ffaa, 0 0 4px #5ee4c3aa; 
+    opacity: 0.8;
+    transform: scaleX(1);
+  }
+  100% { 
+    box-shadow: 0 0 60px #5ee4c3dd, 0 0 20px #00d4ffdd; 
+    opacity: 1;
+    transform: scaleX(1.05);
+  }
+}
+
+@media (max-width: 900px) {
+  .manifesto-title { font-size: 2rem; }
+  .manifesto-centered-text { font-size: 1.2rem; max-width: 700px; }
+  .manifesto-animated-line { width: 120px; height: 6px; }
+  .manifesto-section-centered { padding: 2rem 1rem; }
+}
+
+@media (max-width: 600px) {
+  .manifesto-title { font-size: 1.4rem; }
+  .manifesto-centered-text { font-size: 1rem; line-height: 1.7; }
+  .manifesto-animated-line { width: 80px; height: 4px; }
+  .manifesto-section-centered { margin: 3rem 0 2.5rem 0; padding: 1.5rem 0.5rem; }
+  .manifesto-belongs { font-size: 1.3rem; }
+  .manifesto-contact { font-size: 1rem; }
+}
 /* === PROJECTS SECTION === */
 #projects {
   position: relative;
@@ -1770,7 +1955,22 @@ body.high-contrast .mobile-close-btn:hover {
   
   /* Section Headers Responsive (generale) */
   .section-title {
-    font-size: 2.2rem; /* Ridotto da 3.5rem */
+    font-size: 2.5rem; /* Leggermente più grande ma responsive */
+    font-weight: 800; /* Mantieni il bold */
+    text-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.4),
+      0 0 40px rgba(0, 255, 255, 0.2),
+      1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .section-title::before {
+    height: 3px; /* Linea più sottile su mobile */
+    top: -10px; /* Più vicina al testo */
+  }
+  
+  .section-title::after {
+    height: 3px; /* Linea più sottile su mobile */
+    bottom: -10px; /* Più vicina al testo */
   }
   
   .section-subtitle {
@@ -1780,6 +1980,17 @@ body.high-contrast .mobile-close-btn:hover {
   .section-header {
     margin-bottom: 1rem; /* Ridotto spacing su mobile */
     padding: 0 1rem; /* Ridotto padding laterale */
+  }
+  
+  /* Wireframe lines responsive */
+  .wireframe-lines::before {
+    height: 3px; /* Linea più sottile su mobile */
+    top: -10px; /* Più vicina al testo */
+  }
+  
+  .wireframe-lines::after {
+    height: 3px; /* Linea più sottile su mobile */
+    bottom: -10px; /* Più vicina al testo */
   }
   
   .projects-wrapper {
@@ -1820,33 +2031,6 @@ body.high-contrast .mobile-close-btn:hover {
 
 .channels-title {
   font-family: 'Orbitron', monospace;
-  font-size: 2.5rem;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: #00D4FF;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.channels-slider {
-  width: 100%;
-  height: 120px;
-  overflow: hidden;
-  position: relative;
-  mask: linear-gradient(
-    90deg,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  -webkit-mask: linear-gradient(
-    90deg,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
   );
 }
 
@@ -2292,37 +2476,6 @@ body.high-contrast .mobile-close-btn:hover {
   position: relative; /* Necessario per ::before e ::after */
 }
 
-/* Ripristina linee wireframe per H3 in ABOUT (era H1) */
-#about .content-column h3::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    currentColor 20%, 
-    currentColor 80%, 
-    transparent 100%);
-  opacity: 0.3;
-}
-
-#about .content-column h3::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    currentColor 20%, 
-    currentColor 80%, 
-    transparent 100%);
-  opacity: 0.3;
-}
-
 #about .content-column h4 {
   color: rgba(255,255,255,0.8);
   font-style: italic;
@@ -2421,6 +2574,214 @@ body.high-contrast .mobile-close-btn:hover {
 #about .divider-dots::before {
   color: rgba(0,212,255,0.6);
   text-shadow: 0 0 10px rgba(0,212,255,0.3);
+}
+
+/* Who We Serve Section - Special Centered Design */
+.who-section-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 2rem;
+  margin: 3rem 0;
+}
+
+.who-section-container {
+  max-width: 900px;
+  background: linear-gradient(135deg, 
+    rgba(16,17,20,0.9) 0%, 
+    rgba(26,29,36,0.95) 50%, 
+    rgba(16,17,20,0.9) 100%);
+  border: 2px solid rgba(0,212,255,0.2);
+  border-radius: 20px;
+  padding: 3rem;
+  position: relative;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 60px rgba(0,212,255,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+.who-section-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    var(--ice-cyan), 
+    var(--glacier-blue), 
+    var(--ice-cyan));
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+.who-section-container:hover::before {
+  opacity: 0.3;
+}
+
+@keyframes borderGlow {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.25; }
+}
+
+.who-section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--ice-cyan);
+  margin-bottom: 2.5rem;
+  text-shadow: 0 0 30px rgba(0,255,255,0.4);
+  position: relative;
+}
+
+.who-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--ice-cyan) 50%, 
+    transparent 100%);
+  border-radius: 2px;
+}
+
+.who-content-grid {
+  display: grid;
+  gap: 2rem;
+  text-align: center;
+}
+
+.who-intro,
+.who-audience,
+.who-philosophy {
+  padding: 1.5rem 0;
+  position: relative;
+}
+
+.who-intro::after,
+.who-audience::after,
+.who-philosophy::after {
+  content: '• • •';
+  display: block;
+  text-align: center;
+  color: rgba(0,212,255,0.4);
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+  letter-spacing: 1rem;
+}
+
+.who-content-grid p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.who-content-grid p:hover {
+  color: rgba(255,255,255,1);
+  transform: translateY(-2px);
+  text-shadow: 0 4px 20px rgba(255,255,255,0.1);
+}
+
+.who-cta-section {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(0,212,255,0.05);
+  border-radius: 15px;
+  border: 1px solid rgba(0,212,255,0.15);
+}
+
+.who-belongs {
+  font-size: 1.4rem !important;
+  color: var(--ice-cyan) !important;
+  margin: 1rem 0 2rem 0 !important;
+  text-shadow: 0 0 25px rgba(0,255,255,0.4);
+  font-weight: 700 !important;
+}
+
+.contact-cta {
+  font-size: 1.1rem !important;
+  color: rgba(255,255,255,0.8) !important;
+  font-style: italic;
+  margin: 0 !important;
+}
+
+.email-link {
+  color: var(--glacier-blue);
+  text-decoration: none;
+  font-weight: 700;
+  font-style: normal;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  background: rgba(94,228,195,0.1);
+}
+
+.email-link:hover {
+  color: var(--ice-cyan);
+  background: rgba(0,255,255,0.15);
+  border-bottom-color: var(--ice-cyan);
+  text-shadow: 0 0 15px rgba(0,255,255,0.5);
+  transform: translateY(-1px);
+}
+
+/* Responsive Who Section */
+@media (max-width: 768px) {
+  .who-section-wrapper {
+    padding: 2rem 1rem;
+    margin: 2rem 0;
+  }
+  
+  .who-section-container {
+    padding: 2rem 1.5rem;
+    border-radius: 15px;
+  }
+  
+  .who-section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .who-section-title::after {
+    width: 80px;
+    height: 2px;
+  }
+  
+  .who-content-grid {
+    gap: 1.5rem;
+  }
+  
+  .who-content-grid p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .who-cta-section {
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .who-belongs {
+    font-size: 1.2rem !important;
+  }
+  
+  .contact-cta {
+    font-size: 1rem !important;
+  }
+  
+  .email-link {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.95rem;
+  }
 }
 
 /* Projects section subtitle accent */
@@ -2907,18 +3268,52 @@ h1.hero-text {
 
 .subhero-title {
   color: var(--ice-cyan);
-  transition: color 0.5s;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  transition: all 0.5s ease;
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.4),
+    0 0 60px rgba(0, 255, 255, 0.2),
+    2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.02em;
+  position: relative;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+}
+
+.subhero-title::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--ice-cyan) 50%, 
+    transparent 100%);
+  opacity: 0.6;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { opacity: 0.4; transform: translateX(-50%) scale(0.95); }
+  100% { opacity: 0.8; transform: translateX(-50%) scale(1.05); }
 }
 
 .subhero-subtitle {
   color: var(--glacier-blue);
-  transition: color 0.5s;
-  font-size: 1.2rem;
-  font-weight: 400;
+  transition: all 0.5s ease;
+  font-size: 1.4rem;
+  font-weight: 500;
   margin-bottom: 0;
+  text-shadow: 
+    0 0 20px rgba(100, 200, 255, 0.3),
+    1px 1px 2px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.2));
 }
 
 /* === SUBHERO CTA === */
@@ -3052,7 +3447,7 @@ h1.hero-text {
     display: inline-block;
     padding: 1.5em 3.8rem;
     border: 3px solid var(--ice-cyan, #5EE4C3);
-    border-radius: 2.5em;
+    border-radius: 0.5em;
     transition: border-color 0.6s cubic-bezier(.4,0,.2,1);
     box-sizing: border-box;
   }
@@ -3548,39 +3943,7 @@ h1.hero-text {
       
       <!-- Menu Hamburger (visibile solo su mobile) -->
       <div class="hamburger-menu" id="hamburgerMenu">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-      </div>
-    </div>
 
-      <!-- Advanced System Panel -->
-      <div id="systemPanel" class="system-panel">
-        <div class="system-panel-header">
-          <span class="system-panel-title">SYSTEM CONTROLS</span>
-          <button id="closePanelBtn" class="close-panel-btn">×</button>
-        </div>
-        
-        <div class="system-panel-content">
-          <!-- Content Management -->
-          <div class="control-section">
-            <h4>Content Management</h4>
-            <div class="control-group">
-              <button class="system-btn" id="editBtn">EDIT</button>
-              <button class="system-btn" id="previewBtn">PREVIEW</button>
-              <button class="system-btn" id="publishBtn">PUBLISH</button>
-            </div>
-          </div>
-
-          <!-- Developer Tools -->
-          <div class="control-section">
-            <h4>Developer Tools</h4>
-            <div class="control-group">
-              <button class="system-btn" id="debugBtn">DEBUG</button>
-              <button class="system-btn" id="gridBtn">GRID</button>
-              <button class="system-btn" id="traceBtn">TRACE</button>
-            </div>
-          </div>
 
           <!-- User Preferences -->
           <div class="control-section">
@@ -3671,7 +4034,7 @@ h1.hero-text {
     <h2 class="subhero-title text-compose mobile-no-text-compose">
       <strong>EMPOWERING HUMANS</strong>
     </h2>
-    <h3 class="subhero-subtitle text-compose mobile-no-text-compose">
+    <h3 class="subhero-subtitle ">
       through playful education, creative content<br>
       Inspired by science, crafted by AI
     </h3>
@@ -3694,13 +4057,13 @@ h1.hero-text {
 <section class="parallax-section" id="about">
   <!-- Header -->
   <div class="section-header">
-    <h2 class="section-title text-compose wireframe-lines">BEHIND THE SURFACE</h2>
-    <p class="section-subtitle text-compose">Where depth meets discovery, and thinking becomes an art</p>
+    <h2 class="section-title text-compose">BEHIND THE SURFACE</h2>
+    <p class="section-subtitle">Where depth meets discovery, and thinking becomes an art</p>
   </div>
 
   <div class="flex-2col">
     <div class="content-column">
-      <h3 class>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h3>
+      <h3>AIceberg Mind is a deep dive into the joy of discovery and the beauty of thinking.</h3>
       <h4 class="parallax-text">from the earliest spark to the lifelong wonder of the mind.</h4>
     </div>
     <div class="image-column">
@@ -3797,7 +4160,35 @@ h1.hero-text {
 
   </div>
  </div>
+
+  <!-- Who Is Aiceberg Mind For Section -->
+  <div class="manifesto-section-centered">
+    <div class="manifesto-animated-line pulse-glow"></div>
+    <h2 class="manifesto-title parallax-text"><span class="highlight">Who Is Aiceberg Mind For?</span></h2>
+    <div class="manifesto-centered-text parallax-text">
+      <p>We build for <span class="highlight">the curious</span>, <span class="highlight">the bold</span>, <span class="highlight">the thoughtful</span>.<br>
+      For those who listen beneath the noise.<br>
+      For those who shape minds, and for those who still wonder.</p>
+      <p>For parents and educators seeking depth beyond tips and trends.<br>
+      For researchers, creatives, and wanderers exploring new ways to learn, teach, and connect.<br>
+      For builders of meaning — whether you're designing a lesson, a tool, a ritual, or a future.<br>
+      For all who believe intelligence is not just speed or code, but <span class="highlight">resonance</span>, <span class="highlight">intention</span>, and <span class="highlight">imagination</span>.</p>
+      <p>We don't segment humans. We speak across ages, across roles, across disciplines.<br>
+      We create for those who sense that something is shifting — and want to move with purpose.<br>
+      For those who wish to be free in their mind, in their heart, and in their life.</p>
+      <p class="manifesto-belongs"><strong>If you ask questions, you belong here.</strong></p>
+      <p class="manifesto-contact">And if you'd like to share your voice, your vision, or simply say hello, you're welcome to reach out: <a href="mailto:hello@aicebergmind.com" class="email-link">hello@aicebergmind.com</a></p>
+    </div>
+    <div class="manifesto-animated-line pulse-glow"></div>
+  </div>
+
 </section>
+
+
+
+  
+
+
 
 <!-- PROJECTS -->
 <section class="parallax-section" id="projects">
@@ -3808,8 +4199,8 @@ h1.hero-text {
   <div class="projects-content">
     <!-- Header -->
     <div class="section-header" style="padding-top: 100px;">
-      <h2 class="section-title text-compose wireframe-lines">OUR LIVING PROJECTS</h2>
-      <p class="section-subtitle text-compose">Each project is a seed: interactive, alive.</p>
+      <h2 class="section-title text-compose">OUR LIVING PROJECTS</h2>
+      <p class="section-subtitle">Each project is a seed: interactive, alive.</p>
       <p class="navigation-hint" style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-top: 1rem;">
         Use the arrows or dots to explore our projects
       </p>
@@ -4038,8 +4429,8 @@ h1.hero-text {
 <section class="parallax-section" id="team">
   <!-- Header -->
   <div class="section-header">
-    <h2 class="section-title text-compose wireframe-lines">WHO WE ARE</h2>
-    <p class="section-subtitle text-compose">We are not what you expect. And that's exactly why we built this.</p>
+    <h2 class="section-title text-compose">WHO WE ARE</h2>
+    <p class="section-subtitle">We are not what you expect. And that's exactly why we built this.</p>
   </div>
 
   <div class="flex-full">
@@ -5658,14 +6049,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 maxDistance: 120,
                 particleSize: 3,
                 particleSpeed: 0.5,
-                connectionOpacity: 0.6,
+                connectionOpacity: 0.8,
                 pulseSpeed: 0.02,
                 codeCount: 15,
                 codeSpeed: 0.3,
                 colors: {
                     particles: ['#888888', '#999999', '#777777', '#666666', '#aaaaaa','#fff'],
-                    connections: '#888888',
-                    codes: '#666666'
+                    connections: '#cccccc',
+                    codes: '#888888'
                 }
             };
 
@@ -5833,7 +6224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         drawConnections() {
             this.ctx.strokeStyle = this.config.colors.connections;
-            this.ctx.lineWidth = 1;
+            this.ctx.lineWidth = 1.2;
 
             for (let i = 0; i < this.particles.length; i++) {
                 for (let j = i + 1; j < this.particles.length; j++) {
@@ -5851,7 +6242,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Effetto pulsazione nelle connessioni
                         const pulse = Math.sin(this.time * 0.01 + distance * 0.01) * 0.3 + 0.7;
 
-                        this.ctx.globalAlpha = opacity * pulse * (0.3 + activity * 0.7);
+                        // Opacità aumentata per migliore visibilità in clarity mode
+                        const finalOpacity = opacity * pulse * (0.5 + activity * 0.5);
+                        this.ctx.globalAlpha = Math.min(finalOpacity, 0.8);
+                        
                         this.ctx.beginPath();
                         this.ctx.moveTo(p1.x, p1.y);
                         this.ctx.lineTo(p2.x, p2.y);
@@ -5871,10 +6265,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const x = p1.x + (p2.x - p1.x) * progress;
             const y = p1.y + (p2.y - p1.y) * progress;
 
-            this.ctx.globalAlpha = Math.sin(progress * Math.PI) * 0.8;
-            this.ctx.fillStyle = '#cccccc';
+            // Opacità aumentata per migliore visibilità
+            this.ctx.globalAlpha = Math.sin(progress * Math.PI) * 0.9;
+            this.ctx.fillStyle = '#ffffff';
+            
+            // Aggiunta di un glow effect
+            this.ctx.shadowColor = '#ffffff';
+            this.ctx.shadowBlur = 8;
+            
             this.ctx.beginPath();
-            this.ctx.arc(x, y, 2, 0, Math.PI * 2);
+            this.ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Reset shadow
+            this.ctx.shadowBlur = 0;
             this.ctx.fill();
         }
 
