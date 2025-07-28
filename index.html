@@ -84,12 +84,48 @@
 
 /* === STILI GLOBALI TITOLI === */
 h1 {
+  font-family: 'Orbitron', monospace;
   font-size: clamp(2.8rem, 4vw, 2.8rem);
   font-weight: 700;
   line-height: 1.2;
   margin: 2rem 0;
   padding: 2rem 0;
   position: relative;
+}
+
+h2 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2.2rem, 3.5vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 1.5rem 0;
+}
+
+h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.8rem, 3vw, 1.8rem);
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 1rem 0;
+}
+
+h4, h5, h6 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0.8rem 0;
+}
+
+h4 {
+  font-size: clamp(1.4rem, 2.5vw, 1.4rem);
+}
+
+h5 {
+  font-size: clamp(1.2rem, 2vw, 1.2rem);
+}
+
+h6 {
+  font-size: clamp(1rem, 1.8vw, 1rem);
 }
 
 /* Linea wireframe sopra H1 */
@@ -189,10 +225,16 @@ h3 {
 
 /* === STILI GLOBALI PARAGRAFI === */
 p {
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 1rem;
   line-height: 1.7;
   margin: 0 0 1.5rem 0;
   color: #333;
+}
+
+/* === STILI GLOBALI BOTTONI === */
+button, .btn, [class*="btn"] {
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 /* Paragrafi su sfondi scuri */
@@ -785,6 +827,7 @@ section[style*="background: #"] p {
 }
 
 .system-panel-title {
+  font-family: 'Orbitron', monospace;
   font-weight: 600;
   font-size: 1.1rem;
   color: var(--ice-cyan);
@@ -820,6 +863,7 @@ section[style*="background: #"] p {
 }
 
 .control-section h4 {
+  font-family: 'Orbitron', monospace;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--deep-night);
@@ -1404,6 +1448,7 @@ body.high-contrast .mobile-close-btn:hover {
   width: 80%;
 }
 .card-title {
+  font-family: 'Orbitron', monospace;
   flex: 0 0 180px; /* Ridotto da 220px a 180px */
   font-size: 1.6rem; /* Ridotto da 2rem a 1.6rem */
   font-weight: bold;
@@ -1425,6 +1470,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .section-title {
+  font-family: 'Orbitron', monospace;
   font-size: 3.8rem;
   font-weight: 800;
   color: var(--ice-cyan);
@@ -1456,7 +1502,8 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .section-subtitle {
-  font-size: 2rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.8rem;
   color: rgba(255,255,255,0.8);
   font-weight: 400;
   opacity: 0.9;
@@ -1498,6 +1545,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .manifesto-centered-text {
+  font-family: "IBM Plex Sans", sans-serif;
   max-width: 700px;
   margin: 0 auto 1.5rem auto;
   font-size: 1.25rem;
@@ -1544,6 +1592,170 @@ body.high-contrast .mobile-close-btn:hover {
   .manifesto-title { font-size: 1.3rem; }
   .manifesto-centered-text { font-size: 1rem; }
   .manifesto-animated-line { width: 60px; }
+}
+
+/* === WHO WE SERVE SECTION (TEAM STYLE) === */
+.who-we-serve-section {
+  width: 100%;
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  color: #fff;
+  display: block;
+  box-sizing: border-box;
+}
+
+.who-intro-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.who-intro-title h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #00D4FF;
+  letter-spacing: 0.05em;
+  font-family: 'Orbitron', monospace;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.who-essence {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  width: 100%;
+}
+
+.who-essence p {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.who-essence strong {
+  color: #5EE4C3;
+  font-weight: 600;
+}
+
+.who-audience {
+  max-width: 850px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  width: 100%;
+}
+
+.who-audience p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+}
+
+.who-audience strong {
+  color: #5EE4C3;
+  font-weight: 600;
+}
+
+.who-philosophy {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  width: 100%;
+}
+
+.who-philosophy p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  text-align: center;
+}
+
+.who-belongs {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.belongs-statement {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #00D4FF;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 12px #00d4ff99;
+  padding: 2rem;
+  border-left: 4px solid #5EE4C3;
+  background: rgba(94, 228, 195, 0.05);
+  border-radius: 0 12px 12px 0;
+  position: relative;
+}
+
+.belongs-statement::before {
+  content: '"';
+  font-size: 3rem;
+  color: #5EE4C3;
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  opacity: 0.3;
+}
+
+.who-contact {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.who-contact p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.who-contact .email-link {
+  color: #5EE4C3;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(94, 228, 195, 0.3);
+  transition: all 0.3s ease;
+}
+
+.who-contact .email-link:hover {
+  color: #00D4FF;
+  border-bottom-color: #00D4FF;
+}
+
+/* Responsive per Who We Serve */
+@media (max-width: 768px) {
+  .who-intro-title h2 {
+    font-size: 2rem;
+  }
+  
+  .who-essence p {
+    font-size: 1.2rem;
+  }
+  
+  .who-audience p {
+    font-size: 1.1rem;
+  }
+  
+  .who-philosophy p {
+    font-size: 1.15rem;
+  }
+  
+  .belongs-statement {
+    font-size: 1.4rem;
+    padding: 1.5rem;
+  }
+  
+  .belongs-statement::before {
+    font-size: 2.5rem;
+  }
 }
 /* === PROJECTS SECTION === */
 #projects {
@@ -1732,6 +1944,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .project-title {
+  font-family: 'Orbitron', monospace;
   font-size: 1.4rem;
   font-weight: 700;
   color: white;
@@ -1740,6 +1953,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .project-subtitle {
+  font-family: 'Orbitron', monospace;
   font-size: 0.95rem;
   color: var(--glacier-blue);
   font-weight: 400;
@@ -1785,6 +1999,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .progress-text {
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 0.8rem;
   color: var(--ice-cyan);
   font-weight: 600;
@@ -1811,6 +2026,62 @@ body.high-contrast .mobile-close-btn:hover {
   background: var(--glacier-blue);
   color: #000;
   transform: translateX(5px);
+}
+
+/* === MORE TO COME MESSAGE === */
+.more-to-come {
+  min-width: 350px;
+  width: 350px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(94, 228, 195, 0.3);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.more-to-come::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(94, 228, 195, 0.2), transparent);
+  animation: slide-highlight 3s infinite;
+}
+
+.more-text {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #5EE4C3;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 20px #5EE4C3, 0 0 40px rgba(94, 228, 195, 0.4);
+  position: relative;
+  z-index: 2;
+  animation: glow-pulse 2s infinite alternate;
+}
+
+@keyframes slide-highlight {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes glow-pulse {
+  0% { 
+    text-shadow: 0 0 20px #5EE4C3, 0 0 40px rgba(94, 228, 195, 0.4);
+    opacity: 0.8;
+  }
+  100% { 
+    text-shadow: 0 0 30px #5EE4C3, 0 0 60px rgba(94, 228, 195, 0.8);
+    opacity: 1;
+  }
 }
 
 /* === PROJECT CARDS INDICATOR === */
@@ -1917,6 +2188,16 @@ body.high-contrast .mobile-close-btn:hover {
     width: 280px;
     height: 250px;
     padding: 1.5rem;
+  }
+  
+  .more-to-come {
+    min-width: 280px;
+    width: 280px;
+    height: 250px;
+  }
+  
+  .more-text {
+    font-size: 1.4rem;
   }
   
   .project-title {
@@ -2068,6 +2349,365 @@ body.high-contrast .mobile-close-btn:hover {
   pointer-events: none;
 }
 
+/* === ETHICS SECTION === */
+#ethics {
+  background: linear-gradient(135deg, #0a0b0d 0%, #1a1d24 100%);
+  color: #fff;
+  padding: 4rem 2rem;
+  padding-top: 80px;
+  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+#ethics::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(94, 228, 195, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(0, 212, 255, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.ethics-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ethical-tree {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  max-width: 600px;
+  max-height: 600px;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.ethics-card {
+  position: absolute;
+  width: 280px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(94, 228, 195, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ethics-card:hover {
+  border-color: rgba(94, 228, 195, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.15);
+}
+
+.ethics-card h4 {
+  margin: 0 0 1rem 0;
+  color: #5EE4C3;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ethics-icon {
+  font-size: 1.2rem;
+  filter: grayscale(100%) brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.ethics-content {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.ethics-card.expanded {
+  max-height: 400px;
+  transform: scale(1.02);
+  border-color: #00D4FF;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 50px rgba(0, 212, 255, 0.2);
+  z-index: 10;
+}
+
+.ethics-card.collapsed {
+  max-height: 80px;
+  overflow: hidden;
+}
+
+.ethics-card.collapsed .ethics-content {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.ethics-card.expanded .ethics-content {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.2s;
+}
+
+/* Positioning for cards */
+.ethics-card[data-id="1"] { 
+  top: 10%; 
+  left: 5%; 
+}
+
+.ethics-card[data-id="2"] { 
+  top: 10%; 
+  right: 5%; 
+}
+
+.ethics-card[data-id="3"] { 
+  top: 40%; 
+  left: 2%; 
+}
+
+.ethics-card[data-id="4"] { 
+  top: 40%; 
+  right: 2%; 
+}
+
+.ethics-card[data-id="5"] { 
+  bottom: 15%; 
+  left: 50%; 
+  transform: translateX(-50%);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  #ethics {
+    padding: 2rem 1rem;
+    min-height: auto;
+  }
+  
+  .ethics-container {
+    flex-direction: column;
+    min-height: auto;
+    gap: 1rem;
+    position: static;
+  }
+  
+  #ethical-tree {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 2rem;
+  }
+  
+  .ethics-card {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto 1rem auto;
+  }
+  
+  .ethics-card[data-id="1"],
+  .ethics-card[data-id="2"], 
+  .ethics-card[data-id="3"],
+  .ethics-card[data-id="4"],
+  .ethics-card[data-id="5"] {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
+  }
+  
+  .ethics-card.expanded {
+    transform: none;
+  }
+}
+
+/* === FOOTER SECTION === */
+.site-footer {
+  background: #000000;
+  color: #fff;
+  padding: 4rem 2rem 2rem;
+  border-top: 1px solid rgba(94, 228, 195, 0.2);
+  position: relative;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #5EE4C3 20%, 
+    #00D4FF 50%, 
+    #5EE4C3 80%, 
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.footer-logo {
+  flex: 0 0 auto;
+}
+
+.footer-logo-img {
+  height: 300px;
+  width: auto;
+  filter: brightness(1.1) contrast(1.1);
+  transition: all 0.3s ease;
+}
+
+.footer-logo-img:hover {
+  filter: brightness(1.3) contrast(1.2);
+  transform: scale(1.05);
+}
+
+.footer-links {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 25px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.footer-link:hover {
+  color: #000;
+  background: linear-gradient(135deg, #5EE4C3 0%, #00D4FF 100%);
+  border-color: #5EE4C3;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(94, 228, 195, 0.6);
+}
+
+.footer-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #5EE4C3 0%, #00D4FF 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.footer-link:hover::before {
+  opacity: 1;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 3rem 1.5rem 1.5rem;
+  }
+  
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  .footer-logo-img {
+    height: 300px;
+  }
+  
+  .footer-links {
+    justify-content: center;
+  }
+  
+  .footer-column {
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .footer-link {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+  
+  .footer-bottom p {
+    font-size: 0.8rem;
+  }
+}
+
 /* === TEAM SECTION === */
 #team {
   background: linear-gradient(135deg, #0a0b0d 0%, #1a1d24 100%);
@@ -2190,6 +2830,19 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 .team-beliefs strong {
+  color: #00D4FF;
+}
+
+/* === ABOUT SECTION QUOTE (same italic style as team-beliefs) === */
+.about-quote p,
+.about-quote h3 {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+.about-quote strong {
   color: #00D4FF;
 }
 
@@ -2376,6 +3029,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 #about .content-column h3 {
+  font-family: 'Orbitron', monospace;
   background: linear-gradient(135deg, #ffffff 0%, rgba(94,228,195,0.9) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -2389,6 +3043,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 #about .content-column h4 {
+  font-family: 'Orbitron', monospace;
   color: rgba(255,255,255,0.8);
   font-style: italic;
   font-weight: 300;
@@ -2398,6 +3053,7 @@ body.high-contrast .mobile-close-btn:hover {
 }
 
 #about .flex-full h3 {
+  font-family: 'Orbitron', monospace;
   color: rgba(255,255,255,0.9);
   line-height: 1.6;
 }
@@ -2963,6 +3619,7 @@ body.high-contrast .mobile-close-btn:hover {
 
 }
 .hero-text {
+  font-family: "IBM Plex Sans", sans-serif;
   position: absolute;
   z-index: 10;
   top: 50%;
@@ -2983,6 +3640,7 @@ body.high-contrast .mobile-close-btn:hover {
 
 /* Ensure H1 in hero looks identical to div */
 h1.hero-text {
+  font-family: 'Orbitron', monospace;
   margin: 0;
   padding: 0;
   font-size: 4rem;
@@ -3179,6 +3837,7 @@ h1.hero-text {
 }
 
 .subhero-title {
+  font-family: 'Orbitron', monospace;
   color: var(--ice-cyan);
   transition: all 0.5s ease;
   font-size: 3.2rem;
@@ -3215,6 +3874,7 @@ h1.hero-text {
 }
 
 .subhero-subtitle {
+  font-family: 'Orbitron', monospace;
   color: var(--glacier-blue);
   transition: all 0.5s ease;
   font-size: 1.4rem;
@@ -3780,6 +4440,10 @@ h1.hero-text {
       <span class="breadcrumb-dot"></span>
       <span class="breadcrumb-label">TEAM</span>
     </div>
+        <div class="breadcrumb-item" data-section="ethics">
+      <span class="breadcrumb-dot"></span>
+      <span class="breadcrumb-label">ETHICS</span>
+    </div>
     <!-- Console Menu Toggle -->
     <div class="breadcrumb-console-toggle" id="consoleToggle">
       <span class="console-label">CONSOLE</span>
@@ -3985,7 +4649,7 @@ h1.hero-text {
 
   <div class="divider-dots"></div>
 
-  <div class="flex-full">
+  <div class="flex-full about-quote">
     <h3 class="parallax-text">
       It's a space where science meets imagination, where learning becomes play, and where artificial intelligence helps reveal what lies beneath <br>
       the surface — <strong>not by teaching what to think, but by opening paths to think differently</strong>.
@@ -4072,29 +4736,38 @@ h1.hero-text {
 
   </div>
  </div>
-  <!-- Who Is Aiceberg Mind For Subsection -->
-  <div class="manifesto-section-centered">
-    <div class="manifesto-animated-line"></div>
-    <h2 class="manifesto-title parallax-text"><span class="highlight">Who Is Aiceberg Mind For?</span></h2>
-    <div class="manifesto-centered-text parallax-text">
-      <p>We build for <span class="highlight">the curious</span>, <span class="highlight">the bold</span>, <span class="highlight">the thoughtful</span>.<br>
-      For those who listen beneath the noise.<br>
-      For those who shape minds, and for those who still wonder.</p>
-      <br>
-      <p>For parents and educators seeking depth beyond tips and trends.<br>
-      For researchers, creatives, and wanderers exploring new ways to learn, teach, and connect.<br>
-      For builders of meaning — whether you're designing a lesson, a tool, a ritual, or a future.<br>
-      For all who believe intelligence is not just speed or code, but <span class="highlight">resonance</span>, <span class="highlight">intention</span>, and <span class="highlight">imagination</span>.</p>
-      <br>
-      <p>We don't segment humans. We speak across ages, across roles, across disciplines.<br>
-      We create for those who sense that something is shifting — and want to move with purpose.<br>
-      For those who wish to be free in their mind, in their heart, and in their life.</p>
-      <br>
-      <p class="manifesto-belongs"><strong>If you ask questions, you belong here.</strong></p>
-      <br>
-      <p class="manifesto-contact">And if you'd like to share your voice, your vision, or simply say hello, you're welcome to reach out: <a href="mailto:hello@aicebergmind.com" class="email-link">hello@aicebergmind.com</a></p>
+  <!-- Who Is Aiceberg Mind For Section -->
+  <div class="who-we-serve-section">
+    <div class="who-intro-title">
+      <h2 class="parallax-text">Who Is Aiceberg Mind For?</h2>
     </div>
-    <div class="manifesto-animated-line"></div>
+    
+    <div class="who-essence parallax-text">
+      <p>We build for <strong>the curious</strong>, <strong>the bold</strong>, <strong>the thoughtful</strong>.</p>
+      <p>For those who listen beneath the noise.</p>
+      <p>For those who shape minds, and for those who still wonder.</p>
+    </div>
+    
+    <div class="who-audience parallax-text">
+      <p>For parents and educators seeking depth beyond tips and trends.</p>
+      <p>For researchers, creatives, and wanderers exploring new ways to learn, teach, and connect.</p>
+      <p>For builders of meaning — whether you're designing a lesson, a tool, a ritual, or a future.</p>
+      <p>For all who believe intelligence is not just speed or code, but <strong>resonance</strong>, <strong>intention</strong>, and <strong>imagination</strong>.</p>
+    </div>
+    
+    <div class="who-philosophy parallax-text">
+      <p>We don't segment humans. We speak across ages, across roles, across disciplines.</p>
+      <p>We create for those who sense that something is shifting — and want to move with purpose.</p>
+      <p>For those who wish to be free in their mind, in their heart, and in their life.</p>
+    </div>
+    
+    <div class="who-belongs parallax-text">
+      <p class="belongs-statement">If you ask questions, you belong here.</p>
+    </div>
+    
+    <div class="who-contact parallax-text">
+      <p>And if you'd like to share your voice, your vision, or simply say hello, you're welcome to reach out: <a href="mailto:hello@aicebergmind.com" class="email-link">hello@aicebergmind.com</a></p>
+    </div>
   </div>
 
 
@@ -4228,6 +4901,11 @@ h1.hero-text {
             <span class="progress-text">30% Dev</span>
           </div>
           <button class="project-btn">View →</button>
+        </div>
+        
+        <!-- More to come message -->
+        <div class="more-to-come">
+          <span class="more-text parallax-text">More to come...</span>
         </div>
         
       </div>
@@ -4419,6 +5097,177 @@ h1.hero-text {
     </div>
   </div>
 </section>
+
+<!-- ETHICS Section -->
+<section class="parallax-section" id="ethics">
+  <!-- Header -->
+  <div class="section-header">
+    <h2 class="section-title text-compose">ETHICS</h2>
+    <p class="section-subtitle">Our responsibility tree: where innovation meets conscience</p>
+  </div>
+
+  <div class="ethics-container">
+    <!-- SVG Tree Structure -->
+    <svg id="ethical-tree" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet">
+      <!-- Tree trunk (thicker and better centered) -->
+      <line x1="300" y1="570" x2="300" y2="450" stroke="#5EE4C3" stroke-width="8" opacity="0.9"/>
+      
+      <!-- Main branches from trunk (slightly thinner) -->
+      <line x1="300" y1="450" x2="150" y2="300" stroke="#5EE4C3" stroke-width="4" opacity="0.8"/>
+      <line x1="300" y1="450" x2="450" y2="300" stroke="#5EE4C3" stroke-width="4" opacity="0.8"/>
+      
+      <!-- Secondary branches to top cards -->
+      <line x1="150" y1="300" x2="60" y2="120" stroke="#5EE4C3" stroke-width="3" opacity="0.7"/>
+      <line x1="450" y1="300" x2="540" y2="120" stroke="#5EE4C3" stroke-width="3" opacity="0.7"/>
+      
+      <!-- Side branches to middle cards -->
+      <line x1="150" y1="300" x2="30" y2="240" stroke="#5EE4C3" stroke-width="3" opacity="0.7"/>
+      <line x1="450" y1="300" x2="570" y2="240" stroke="#5EE4C3" stroke-width="3" opacity="0.7"/>
+      
+      <!-- Empty branches with natural bifurcations from main branches -->
+      <!-- Left main branch bifurcations -->
+      <line x1="200" y1="390" x2="120" y2="350" stroke="#5EE4C3" stroke-width="2.5" opacity="0.5"/>
+      <line x1="120" y1="350" x2="80" y2="320" stroke="#5EE4C3" stroke-width="1.8" opacity="0.4"/>
+      <line x1="120" y1="350" x2="100" y2="330" stroke="#00D4FF" stroke-width="1.5" opacity="0.4"/>
+      
+      <line x1="230" y1="360" x2="190" y2="320" stroke="#00D4FF" stroke-width="2.5" opacity="0.5"/>
+      <line x1="190" y1="320" x2="160" y2="290" stroke="#00D4FF" stroke-width="1.8" opacity="0.4"/>
+      <line x1="190" y1="320" x2="170" y2="300" stroke="#5EE4C3" stroke-width="1.5" opacity="0.4"/>
+      
+      <!-- Right main branch bifurcations -->
+      <line x1="400" y1="390" x2="480" y2="350" stroke="#00D4FF" stroke-width="2.5" opacity="0.5"/>
+      <line x1="480" y1="350" x2="520" y2="320" stroke="#00D4FF" stroke-width="1.8" opacity="0.4"/>
+      <line x1="480" y1="350" x2="500" y2="330" stroke="#5EE4C3" stroke-width="1.5" opacity="0.4"/>
+      
+      <line x1="370" y1="360" x2="410" y2="320" stroke="#5EE4C3" stroke-width="2.5" opacity="0.5"/>
+      <line x1="410" y1="320" x2="440" y2="290" stroke="#5EE4C3" stroke-width="1.8" opacity="0.4"/>
+      <line x1="410" y1="320" x2="430" y2="300" stroke="#00D4FF" stroke-width="1.5" opacity="0.4"/>
+      
+      <!-- Small decorative twigs from bifurcations -->
+      <line x1="80" y1="320" x2="60" y2="300" stroke="#5EE4C3" stroke-width="1" opacity="0.3"/>
+      <line x1="100" y1="330" x2="85" y2="315" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
+      <line x1="520" y1="320" x2="540" y2="300" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
+      <line x1="500" y1="330" x2="515" y2="315" stroke="#5EE4C3" stroke-width="1" opacity="0.3"/>
+      
+      <!-- Connection dots at junctions (slightly larger) -->
+      <circle cx="300" cy="450" r="5" fill="#00D4FF" opacity="0.9"/>
+      <circle cx="150" cy="300" r="4" fill="#00D4FF" opacity="0.8"/>
+      <circle cx="450" cy="300" r="4" fill="#00D4FF" opacity="0.8"/>
+      
+      <!-- Connection dots at card positions -->
+      <circle cx="60" cy="120" r="3" fill="#5EE4C3" opacity="0.8"/>
+      <circle cx="540" cy="120" r="3" fill="#5EE4C3" opacity="0.8"/>
+      <circle cx="30" cy="240" r="3" fill="#5EE4C3" opacity="0.8"/>
+      <circle cx="570" cy="240" r="3" fill="#5EE4C3" opacity="0.8"/>
+      <circle cx="300" cy="570" r="3" fill="#5EE4C3" opacity="0.8"/>
+    </svg>
+
+    <!-- Ethics Cards -->
+    <div class="ethics-card collapsed parallax-text" data-id="1" tabindex="0" role="button" aria-pressed="false">
+      <h4><span class="ethics-icon">⟐</span> Reforestation</h4>
+      <p class="ethics-content">We give back through certified tree-planting partners like Tree-Nation and Freedom, creating symbolic forests that restore balance to our digital footprint.</p>
+    </div>
+    
+    <div class="ethics-card collapsed parallax-text" data-id="2" tabindex="0" role="button" aria-pressed="false">
+      <h4><span class="ethics-icon">⟡</span> Carbon Offsetting</h4>
+      <p class="ethics-content">Through Gold Standard and MyClimate, we offset emissions from servers, API calls and other operations that power our AI tools.</p>
+    </div>
+    
+    <div class="ethics-card collapsed parallax-text" data-id="3" tabindex="0" role="button" aria-pressed="false">
+      <h4><span class="ethics-icon">⬢</span> Light Design</h4>
+      <p class="ethics-content">We use green hosting, optimized assets and minimal code to reduce digital footprint and energy use across all our platforms.</p>
+    </div>
+    
+    <div class="ethics-card collapsed parallax-text" data-id="4" tabindex="0" role="button" aria-pressed="false">
+      <h4><span class="ethics-icon">△</span> Purposeful AI</h4>
+      <p class="ethics-content">We involve educators and networks to share ethical knowledge, using "conscious AI" to empower curiosity and care, never to replace human thought.</p>
+    </div>
+    
+    <div class="ethics-card collapsed parallax-text" data-id="5" tabindex="0" role="button" aria-pressed="false">
+      <h4><span class="ethics-icon">◈</span> Did you know?</h4>
+      <p class="ethics-content">Training a single AI model can emit more than 280,000 kg of CO₂ — five lifetime car emissions. We use AI only when it adds true value to human thinking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- Logo a sinistra -->
+    <div class="footer-logo">
+      <img src="images/logo/logotext.svg" alt="AICEBERG MIND" class="footer-logo-img">
+    </div>
+    
+    <!-- Links a destra -->
+    <div class="footer-links">
+      <div class="footer-column">
+        <a href="#faq" class="footer-link">FAQ</a>
+        <a href="#ai-responsibility" class="footer-link">AI Responsibility</a>
+        <a href="#contact" class="footer-link">Contact</a>
+        <a href="#mentions" class="footer-link">Mentions</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FAQ Expandable Section -->
+  <div class="faq-section" id="faqSection">
+    <div class="faq-container">
+      <div class="faq-header">
+        <h3>FAQ - You Might Be Wondering...</h3>
+        <button class="faq-close-btn" id="faqCloseBtn">×</button>
+      </div>
+      
+      <div class="faq-content">
+        <div class="faq-item">
+          <button class="faq-question">Do we speak different languages?</button>
+          <div class="faq-answer">
+            <p>Yes. We create content in English, French and Italian, designed to be culturally flexible and pedagogically relevant across different contexts.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">What's our relationship with AI companies?</button>
+          <div class="faq-answer">
+            <p>We focus on the foundational years – from prenatal life through age 12 – when the brain and inner world are most plastic and programmable.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">What makes our approach different?</button>
+          <div class="faq-answer">
+            <p>Absolutely. Every story, app or printable has a foundation in neuroscience, developmental psychology, or cognitive education theory – blended with creativity and care.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">Do we collaborate with educators?</button>
+          <div class="faq-answer">
+            <p>Yes. We welcome educators, therapists, researchers and conscious companies to co-create meaningful content and distribution formats.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">What's our environmental approach?</button>
+          <div class="faq-answer">
+            <p>Through a mix of design choices (minimalist code, green hosting), ethical tech use (smart APIs only), and environmental partnerships (tree planting, renewable energy offsets). See our section on <strong>ai responsibility</strong> to learn more.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">Are we preparing our public release?</button>
+          <div class="faq-answer">
+            <p>We are preparing our public release. Subscribe to be the first to explore the Aiceberg world!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Riga bottom copyright -->
+  <div class="footer-bottom">
+    <p>&copy; 2025 AICEBERG MIND. Depth is our nature.</p>
+  </div>
+</footer>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -5136,7 +5985,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'hero', element: document.getElementById('hero') || document.querySelector('.hero') },
     { id: 'about', element: document.getElementById('about') },
     { id: 'projects', element: document.getElementById('projects') },
-    { id: 'team', element: document.getElementById('team') }
+    { id: 'team', element: document.getElementById('team') },
+    { id: 'ethics', element: document.getElementById('ethics') }
   ].filter(section => section.element);
 
   console.log('🔍 Breadcrumb: Sezioni trovate:', sections.map(s => s.id));
@@ -6915,9 +7765,150 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// === ETHICS SECTION FUNCTIONALITY ===
+function toggleEthicsCard(card) {
+  console.log('toggleEthicsCard called for card:', card.getAttribute('data-id'));
+  console.log('Card classes before:', card.className);
+  
+  const isCurrentlyExpanded = card.classList.contains('expanded');
+  
+  // Close ALL cards first (including the clicked one)
+  const allCards = document.querySelectorAll('.ethics-card');
+  allCards.forEach(otherCard => {
+    if (otherCard.classList.contains('expanded')) {
+      otherCard.classList.remove('expanded');
+      otherCard.classList.add('collapsed');
+      otherCard.setAttribute('aria-pressed', 'false');
+      console.log('Closed card:', otherCard.getAttribute('data-id'));
+    }
+  });
+  
+  // If the clicked card was NOT expanded, expand it
+  if (!isCurrentlyExpanded) {
+    card.classList.remove('collapsed');
+    card.classList.add('expanded');
+    card.setAttribute('aria-pressed', 'true');
+    console.log('Card expanded:', card.getAttribute('data-id'));
+  } else {
+    console.log('Card was expanded, now closed:', card.getAttribute('data-id'));
+  }
+  
+  console.log('Card classes after:', card.className);
+}
+
+// Keyboard accessibility for ethics cards
+document.addEventListener('DOMContentLoaded', function() {
+  const ethicsCards = document.querySelectorAll('.ethics-card');
+  
+  console.log('Ethics cards found:', ethicsCards.length);
+  
+  ethicsCards.forEach((card, index) => {
+    console.log(`Card ${index + 1} (data-id=${card.getAttribute('data-id')}):`, card.className);
+    
+    // Ensure all cards start collapsed
+    if (!card.classList.contains('collapsed') && !card.classList.contains('expanded')) {
+      card.classList.add('collapsed');
+    }
+    
+    // Add cursor pointer to show it's clickable
+    card.style.cursor = 'pointer';
+    
+    // Add hover effect
+    card.addEventListener('mouseenter', function() {
+      if (!this.classList.contains('expanded')) {
+        this.style.borderColor = 'rgba(94, 228, 195, 0.6)';
+        this.style.transform = 'translateY(-5px)';
+      }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      if (!this.classList.contains('expanded')) {
+        this.style.borderColor = 'rgba(94, 228, 195, 0.3)';
+        this.style.transform = 'translateY(0)';
+      }
+    });
+    
+    // Handle keyboard events
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleEthicsCard(this);
+      }
+    });
+    
+    // Handle click events - clickable anywhere on the card
+    card.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent any default behavior
+      console.log('Card clicked:', this.getAttribute('data-id'));
+      toggleEthicsCard(this);
+    });
+  });
+});
+
 // Refresh ScrollTrigger dopo il caricamento per ricalcolare tutto
 window.addEventListener('load', () => {
   ScrollTrigger.refresh();
+});
+
+// === FOOTER FUNCTIONALITY ===
+document.addEventListener('DOMContentLoaded', function() {
+  const footerLinks = document.querySelectorAll('.footer-link');
+  
+  footerLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const href = this.getAttribute('href');
+      const linkText = this.textContent;
+      
+      // Feedback visivo
+      this.style.transform = 'translateY(-3px) scale(1.1)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 200);
+      
+      // Mostra notifica per link non ancora implementati
+      showFooterNotification(linkText);
+    });
+  });
+  
+  function showFooterNotification(linkName) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      color: var(--ice-cyan);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      border: 2px solid var(--glacier-blue);
+      z-index: 1000;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+    `;
+    notification.textContent = `${linkName} - Coming Soon!`;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+      notification.style.opacity = '1';
+      notification.style.transform = 'translateY(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      notification.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
+  }
 });
 
 </script>
